@@ -1,503 +1,64 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>X TechVerse</title>
-<meta name="description" content="X TechVerse: استوديو برمجة من مصر. مواقع وتطبيقات وسيستمات لعملاء في مصر والسعودية.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X TechVerse | تصميم وبرمجة مواقع وتطبيقات</title><meta name="description" content="X TechVerse استوديو برمجة من مصر، يصمم ويبرمج مواقع وتطبيقات وأنظمة لشركات في مصر والسعودية.">
+<link rel="alternate" hreflang="en" href="en/index.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-/* Light studio identity. Brand blue→violet (from the logo) lives on buttons, key words and numbers.
-   The work is the hero: layered real screens, phones and windows that move with the cursor and the scroll. */
-:root{
-  --paper:#f3f4f7;
-  --white:#ffffff;
-  --ink:#10121a;
-  --graphite:#5b6070;
-  --rule:#dcdfe6;
-  --b1:#2f45c9;           /* logo blue */
-  --b2:#7a33e6;           /* logo violet */
-  --brand:linear-gradient(100deg,var(--b1),var(--b2));
-  --tint:#ece9ff;
-  --font:"IBM Plex Sans Arabic","IBM Plex Sans",system-ui,sans-serif;
-  --gut:clamp(20px,4.5vw,64px);
-  color-scheme:light;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--paper)}
-body{background:var(--paper);color:var(--ink);font:400 17px/1.7 var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-[lang=en] body{font-family:"IBM Plex Sans","IBM Plex Sans Arabic",system-ui,sans-serif}
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-:focus-visible{outline:2px solid var(--b1);outline-offset:3px}
-.wrap{max-width:1360px;margin-inline:auto;padding-inline:var(--gut)}
-.grad{background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent}
-
-/* buttons */
-.btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:16px;padding:14px 26px;border-radius:12px;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
-.btn.pri{background:var(--brand);color:#fff;box-shadow:0 12px 30px rgba(74,58,214,.32)}
-.btn.pri:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(74,58,214,.42)}
-.btn.alt{background:var(--white);border:1px solid var(--rule)}
-.btn.alt:hover{border-color:var(--b1);color:var(--b1)}
-.btn svg{width:19px;height:19px}
-
-/* ---------- preloader ---------- */
-#loader{position:fixed;inset:0;z-index:100;background:#0b0d14;display:grid;place-items:center}
-#loader canvas{width:min(62vmin,460px);height:min(62vmin,460px)}
-#loader .count{position:absolute;bottom:6vh;font:300 14px "IBM Plex Sans",sans-serif;color:#8a8fa0;letter-spacing:.06em;direction:ltr;font-variant-numeric:tabular-nums}
-
-/* ---------- header ---------- */
-header{position:fixed;top:0;inset-inline:0;z-index:40;transition:background .3s,box-shadow .3s}
-header.solid{background:rgba(243,244,247,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--rule)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
-.brand{display:flex;align-items:center;gap:10px;direction:ltr;font-weight:600;font-size:16px}
-.brand img{width:32px;height:32px;border-radius:8px}
-.menu{display:flex;align-items:center;gap:30px;font-size:15px;color:var(--graphite)}
-.menu a:hover,.lang:hover{color:var(--b1)}
-.lang{font-size:15px;color:var(--graphite)}
-.menu .btn{padding:10px 18px;font-size:15px;color:#fff}
-@media (max-width:860px){.menu>a:not(.btn){display:none}}
-
-/* ---------- hero ---------- */
-.hero{position:relative;min-height:100svh;padding-top:112px;overflow:hidden}
-.hero:before{content:"";position:absolute;inset:auto -10% -30% 30%;height:70%;background:radial-gradient(closest-side,rgba(122,51,230,.12),transparent);pointer-events:none}
-.hero .wrap{display:grid;grid-template-columns:5fr 6fr;gap:var(--gut);align-items:center;min-height:calc(100svh - 112px)}
-.hero h1{font-weight:600;font-size:clamp(38px,4.6vw,68px);line-height:1.2;letter-spacing:-.015em;text-wrap:balance}
-[lang=en] .hero h1{letter-spacing:-.03em;line-height:1.08}
-.hero .lead{margin-top:22px;font-size:clamp(16px,1.25vw,19px);color:var(--graphite);max-width:40ch}
-.hero .acts{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px}
-.proof{margin-top:44px;display:flex;gap:36px;flex-wrap:wrap}
-.proof b{display:block;font-size:34px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
-.proof span{font-size:14px;color:var(--graphite)}
-
-/* layered composition */
-.comp{position:relative;height:min(74vh,660px);perspective:2000px}
-.layer{position:absolute;will-change:transform}
-.win{border-radius:12px;background:#fff;overflow:hidden;box-shadow:0 30px 70px rgba(16,18,26,.16),0 0 0 1px rgba(16,18,26,.06)}
-.win .bar{display:flex;align-items:center;gap:6px;height:30px;padding-inline:12px;background:#f6f7fa;border-bottom:1px solid #eceef3;direction:ltr}
-.win .bar i{width:9px;height:9px;border-radius:50%;background:#dfe2ea}
-.win .bar u{margin-inline-start:10px;text-decoration:none;font-size:11.5px;color:#8a90a2;background:#eceef3;border-radius:5px;padding:1px 10px}
-.win .vp{position:relative;aspect-ratio:16/10;overflow:hidden}
-.win .vp img{width:100%;will-change:transform}
-.phone{width:220px;aspect-ratio:244/498;border-radius:36px;padding:8px;background:#14161f;box-shadow:0 40px 80px rgba(16,18,26,.3),inset 0 0 0 1.5px #3a3e4e}
-.phone .scr{width:100%;height:100%;border-radius:29px;overflow:hidden;background:#fff;position:relative}
-.phone .scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
-.chip{display:flex;align-items:center;gap:10px;padding:10px 16px 10px 12px;border-radius:14px;background:#fff;box-shadow:0 18px 40px rgba(16,18,26,.14);font-size:14px;font-weight:500;white-space:nowrap}
-.chip .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--brand);color:#fff}
-.chip .ic svg{width:18px;height:18px}
-.chip small{display:block;font-size:12px;color:var(--graphite);font-weight:400}
-.c-back{width:72%;top:4%;inset-inline-start:0}
-.c-mid{width:62%;top:30%;inset-inline-start:22%}
-.c-phone{top:16%;inset-inline-end:2%}
-.c-chip1{top:2%;inset-inline-end:30%}
-.c-chip2{bottom:6%;inset-inline-start:6%}
-@media (max-width:960px){.hero .wrap{grid-template-columns:1fr}.comp{height:520px}.phone{width:180px}}
-@media (max-width:560px){.comp{height:420px}.c-mid{inset-inline-start:12%;width:76%}.c-back{width:84%}.phone{width:140px;border-radius:28px}.phone .scr{border-radius:22px}.c-chip1{display:none}}
-
-/* ---------- clients marquee ---------- */
-.mq{border-block:1px solid var(--rule);overflow:hidden;padding-block:22px;direction:ltr;background:var(--white)}
-.mq .t{display:flex;gap:64px;width:max-content;font-weight:600;font-size:clamp(18px,1.8vw,24px);color:#a4a9b8;white-space:nowrap}
-
-/* ---------- section heads ---------- */
-.sec{padding-block:clamp(90px,11vw,160px)}
-.sh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:24px;margin-bottom:clamp(40px,5vw,72px)}
-.sh h2{font-weight:600;font-size:clamp(30px,3.2vw,50px);line-height:1.2;letter-spacing:-.01em;max-width:18ch;text-wrap:balance}
-.sh p{color:var(--graphite);max-width:44ch}
-
-/* ---------- featured projects ---------- */
-.feat{display:grid;gap:clamp(110px,14vw,200px)}
-.fp{display:grid;grid-template-columns:4fr 7fr;gap:var(--gut);align-items:center}
-.fp:nth-child(even){grid-template-columns:7fr 4fr}
-.fp:nth-child(even) .fp-txt{order:2}
-.fp-txt .num{font-size:15px;color:var(--b1);font-weight:600}
-.fp-txt h3{margin-top:10px;font-weight:600;font-size:clamp(28px,3vw,46px);line-height:1.2}
-.fp-txt p{margin-top:12px;color:var(--graphite);max-width:36ch}
-.fp-txt .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px}
-.fp-txt .meta span{font-size:14px;background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:4px 12px}
-.fp-txt .go{margin-top:26px}
-.fp-vis{position:relative;height:clamp(360px,42vw,580px)}
-.fp-vis .main{position:absolute;inset-inline-start:0;top:0;width:86%}
-.fp-vis .sub{position:absolute;inset-inline-end:0;bottom:0;width:44%}
-.fp-vis .sub .vp{aspect-ratio:4/5}
-.fp-vis .tag{position:absolute;top:58%;inset-inline-start:-4%}
-@media (max-width:900px){.fp,.fp:nth-child(even){grid-template-columns:1fr}.fp:nth-child(even) .fp-txt{order:0}.fp-vis{height:auto;aspect-ratio:1/0.85}}
-
-/* ---------- apps story (pinned) ---------- */
-.apps{background:var(--white);border-block:1px solid var(--rule)}
-.story{height:100svh;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:5vw}
-.story .name{font-weight:700;font-size:clamp(44px,5.4vw,88px);line-height:1}
-.story .kind{margin-top:12px;color:var(--graphite)}
-.story .bars{margin-top:28px;display:flex;gap:8px}
-.story .bars i{width:40px;height:4px;border-radius:4px;background:var(--rule);overflow:hidden;position:relative}
-.story .bars i b{position:absolute;inset:0;background:var(--brand);transform:scaleX(0);transform-origin:right}
-[dir=ltr] .story .bars i b{transform-origin:left}
-.stage{position:relative;width:min(300px,70vw)}
-.stage .phone{width:100%;border-radius:46px;padding:11px}
-.stage .phone .scr{border-radius:36px}
-.stage .float{position:absolute;opacity:0}
-.f1{top:20%;inset-inline-start:-46%}.f2{top:52%;inset-inline-end:-50%}.f3{bottom:12%;inset-inline-start:-40%}
-.steps{position:relative;min-height:230px}
-.step{position:absolute;inset:0;opacity:0}
-.step:first-child{opacity:1}
-.step small{font-size:15px;font-weight:600;color:var(--b1)}
-.step h3{margin-top:6px;font-weight:600;font-size:clamp(26px,2.6vw,40px);line-height:1.25;text-wrap:balance}
-.step p{margin-top:12px;color:var(--graphite);max-width:32ch}
-.others{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding-bottom:clamp(80px,10vw,140px)}
-.other{display:grid;grid-template-columns:1fr auto;gap:8px 24px;align-items:center;padding:30px;border-radius:18px;background:var(--paper);border:1px solid var(--rule);transition:border-color .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
-.other:hover{border-color:var(--b1);transform:translateY(-4px)}
-.other h4{font-weight:600;font-size:22px}
-.other p{grid-column:1/-1;color:var(--graphite)}
-.other .st{font-size:13px;font-weight:600;color:var(--b1);background:var(--tint);padding:4px 12px;border-radius:8px}
-@media (max-width:900px){.story{grid-template-columns:1fr;height:auto;min-height:100svh;padding-block:100px 40px;gap:30px;text-align:center}.story .bars{justify-content:center}.steps{min-height:190px}.step p{margin-inline:auto}.stage{margin-inline:auto}.stage .float{display:none}.others{grid-template-columns:1fr}}
-
-/* ---------- index ---------- */
-.tools{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:1.5px solid var(--ink);padding-bottom:14px}
-.tabs{display:flex;gap:6px;font-size:15px;background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:4px}
-.tabs button{padding:7px 16px;border-radius:9px;color:var(--graphite);transition:background .25s,color .25s}
-.tabs button[aria-pressed=true]{background:var(--brand);color:#fff}
-.tally{font-size:14px;color:var(--graphite)}
-.list{list-style:none}
-.item a{display:grid;grid-template-columns:2.2fr 2fr 1fr auto;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--rule);transition:padding .35s cubic-bezier(.2,.8,.2,1)}
-.item .n{font-size:clamp(19px,1.7vw,24px);font-weight:500;transition:color .2s}
-.item .s,.item .c{color:var(--graphite);font-size:15px}
-.item .d{font-size:14px;color:var(--graphite);direction:ltr;text-align:end}
-.item a:hover{padding-inline-start:16px}
-.item a:hover .n{color:var(--b1)}
-.item[hidden]{display:none}
-.item .thumb{display:none}
-@media (max-width:760px){.item a{grid-template-columns:96px 1fr;gap:4px 16px;padding:16px 0}.item .thumb{display:block;grid-row:1/3;width:96px;aspect-ratio:16/10;border-radius:6px;overflow:hidden;border:1px solid var(--rule)}.item .thumb img{width:100%;height:100%;object-fit:cover;object-position:top}.item .c,.item .d{display:none}}
-#peek{position:fixed;top:0;left:0;z-index:30;width:360px;aspect-ratio:16/10;border-radius:12px;overflow:hidden;pointer-events:none;opacity:0;transform:scale(.85);box-shadow:0 30px 60px rgba(16,18,26,.2);background:#e4e6ec}
-#peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
-@media (hover:none),(max-width:760px){#peek{display:none}}
-
-/* ---------- numbers ---------- */
-.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gut);border-top:1.5px solid var(--ink);padding-top:36px}
-.nums b{display:block;font-weight:600;font-size:clamp(56px,7vw,110px);line-height:1;font-variant-numeric:tabular-nums}
-.nums span{display:block;margin-top:10px;color:var(--graphite)}
-@media (max-width:700px){.nums{grid-template-columns:1fr}}
-
-/* ---------- services ---------- */
-.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.svc div{background:var(--white);border:1px solid var(--rule);border-radius:18px;padding:28px 24px 30px;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s,border-color .3s}
-.svc div:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(16,18,26,.08);border-color:transparent}
-.svc .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--tint);color:var(--b1);margin-bottom:22px;transition:background .3s,color .3s}
-.svc div:hover .ic{background:var(--brand);color:#fff}
-.svc .ic svg{width:24px;height:24px}
-.svc h3{font-weight:600;font-size:19px}
-.svc p{margin-top:8px;color:var(--graphite);font-size:15px}
-@media (max-width:960px){.svc{grid-template-columns:1fr 1fr}}@media (max-width:560px){.svc{grid-template-columns:1fr}}
-
-/* ---------- contact ---------- */
-.contact{background:var(--ink);color:#f2f3f7;overflow:hidden}
-.big{direction:ltr;overflow:hidden;padding-top:clamp(70px,9vw,130px)}
-.big .t{display:flex;gap:.5em;width:max-content;font-weight:700;font-size:clamp(70px,12vw,200px);line-height:1;white-space:nowrap}
-.big .t span:nth-child(odd){background:linear-gradient(100deg,#6f83ff,#a77bff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.big .t span:nth-child(even){color:transparent;-webkit-text-stroke:1px #3a3f52}
-.contact .wrap{padding-block:clamp(50px,6vw,90px) clamp(70px,9vw,120px);display:grid;grid-template-columns:5fr 7fr;gap:var(--gut);align-items:end}
-.contact p{color:#a1a6b8;max-width:36ch;font-size:18px}
-.contact .rows{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.contact .rows a{display:block;padding:20px;border-radius:14px;background:#191c27;border:1px solid #262a37;transition:border-color .3s,transform .3s}
-.contact .rows a:hover{border-color:#7a6bff;transform:translateY(-3px)}
-.contact .rows small{display:block;font-size:13px;color:#8a8fa2}
-.contact .rows span{display:inline-block;margin-top:4px;font-size:16px;direction:ltr}
-@media (max-width:900px){.contact .wrap{grid-template-columns:1fr}.contact .rows{grid-template-columns:1fr}}
-footer{background:var(--ink);color:#7d8296;font-size:14px}
-footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:22px;border-top:1px solid #23262f}
-
-/* ---------- lightbox ---------- */
-#lb{position:fixed;inset:0;z-index:80;background:rgba(243,244,247,.95);backdrop-filter:blur(6px);display:grid;grid-template-rows:auto 1fr;opacity:0;pointer-events:none;transition:opacity .3s}
-#lb.open{opacity:1;pointer-events:auto}
-#lb .top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px var(--gut);border-bottom:1px solid var(--rule)}
-#lb h3{font-weight:600;font-size:20px}
-#lb .acts{display:flex;align-items:center;gap:10px}
-#lb .acts .btn{padding:10px 18px;font-size:15px}
-#lb .frame{overflow:hidden;margin:clamp(16px,3vw,36px) auto 0;width:min(1100px,92vw);height:calc(100vh - 120px);border-radius:12px 12px 0 0;background:#fff;box-shadow:0 30px 80px rgba(16,18,26,.18);transform:translateY(40px);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
-#lb.open .frame{transform:none}
-#lb .frame img{width:100%}
-@media (prefers-reduced-motion:reduce){*{transition-duration:0s!important}}
-</style>
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="assets/logo.png">
 </head>
 <body>
-<div id="loader" aria-hidden="true"><canvas id="lc" width="520" height="520"></canvas><div class="count" id="lcount">0</div></div>
-
-<header id="hdr"><div class="wrap">
-  <a class="brand" href="#top"><img src="assets/logo.png" alt="">X TechVerse</a>
-  <nav class="menu" aria-label="Main">
-    <a href="#featured" data-t="nav_work">الأعمال</a><a href="#apps" data-t="nav_apps">التطبيقات</a><a href="#services" data-t="nav_svc">الخدمات</a>
-    <button class="lang" id="lang">English</button>
-    <a class="btn pri" href="#contact" data-t="nav_talk">ابدأ مشروعك</a>
-  </nav>
-</div></header>
-
+<div id="loader" data-logo="assets/logo.png" aria-hidden="true"><canvas id="lc" width="520" height="520"></canvas><div class="count" id="lcount">0</div></div>
 <main id="top">
-<section class="hero">
-  <div class="wrap">
-    <div>
-      <h1 id="h1"><span data-t="h1a">بنصمم ونبرمج</span> <span class="grad" data-t="h1b">مواقع وتطبيقات</span> <span data-t="h1c">لشركات في مصر والسعودية.</span></h1>
-      <p class="lead" data-t="lead">استوديو بيشتغل على مشروعك من الفكرة لحد ما يبقى شغال، وبيكمّل معاك بعد التسليم.</p>
-      <div class="acts">
-        <a class="btn pri" href="https://wa.me/201039253652" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span data-t="cta1">كلمنا على واتساب</span></a>
-        <a class="btn alt" href="#featured" data-t="cta2">شوف شغلنا</a>
-      </div>
-      <div class="proof">
-        <div><b class="grad" data-count="18">0</b><span data-t="pf1">موقع منشور</span></div>
-        <div><b class="grad" data-count="3">0</b><span data-t="pf2">تطبيقات وسيستمات</span></div>
-        <div><b class="grad" data-count="2">0</b><span data-t="pf3">بلد</span></div>
-      </div>
-    </div>
-    <div class="comp" id="comp" aria-hidden="true"></div>
-  </div>
-</section>
-
-<div class="mq" aria-hidden="true"><div class="t" id="mq"></div></div>
+<section class="hero"><div class="wrap"><div>
+ <h1><span>نصمم ونبرمج</span> <span class="grad">مواقع وتطبيقات</span> <span>لشركات في مصر والسعودية.</span></h1>
+ <p class="lead">استوديو برمجة يعمل على مشروعك من الفكرة حتى الإطلاق، ويستمر معك بعد التسليم.</p>
+ <div class="acts"><a class="btn pri" href="https://wa.me/201039253652" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>تواصل معنا على واتساب</span></a><a class="btn alt" href="work/index.html">شاهد أعمالنا</a></div>
+ <div class="proof"><div><b class="grad" data-count="18">0</b><span>موقع نفذناه</span></div><div><b class="grad" data-count="3">0</b><span>تطبيقات وأنظمة</span></div><div><b class="grad" data-count="2">0</b><span>دولتين</span></div></div>
+</div><div class="comp" id="comp" aria-hidden="true"><div class="layer c-back" data-d="14"><div class="win "><div class="bar"><i></i><i></i><i></i><u>crossroad-global.com</u></div><div class="vp"><img src="https://portfolio.xtechverse.com/wp-content/uploads/2025/10/Home-Cross-Road-10-18-2025_02_11_PM-scaled.webp" alt="Cross Road" loading="lazy"></div></div></div><div class="layer c-mid" data-d="26"><div class="win "><div class="bar"><i></i><i></i><i></i><u>ahramscan.com</u></div><div class="vp"><img src="https://portfolio.xtechverse.com/wp-content/uploads/2025/10/%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9-AHRAM-SCAN-%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D8%A3%D9%87%D8%B1%D8%A7%D9%85-%D9%84%D9%84%D8%A3%D8%B4%D8%B9%D8%A9-%D9%88%D8%A7%D9%84%D8%AA%D8%AD%D8%A7%D9%84%D9%8A%D9%84-10-18-2025_02_29_PM-scaled.webp" alt="مركز الأهرام للأشعة" loading="lazy"></div></div></div><div class="layer c-phone" data-d="44"><div class="phone"><div class="scr"><img src="assets/aqary_map.png" alt=""></div></div></div><div class="layer c-chip1 chip" data-d="60"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span>منشور على جوجل بلاي<small>عقاري EG</small></span></div><div class="layer c-chip2 chip" data-d="52"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span>مصر والسعودية<small>18 موقع نفذناه</small></span></div></div></div></section>
+<div class="mq" aria-hidden="true"><div class="t" id="mq"><span>Ahram Scan</span><span>Cross Road</span><span>Sistema Plastic Egypt</span><span>Ellwaa</span><span>Soft Light KSA</span><span>Excellence Event</span><span>EFAD</span><span>Building Eagles</span><span>Al Majd Al Bazigh</span><span>Three Points</span><span>Trust Move</span><span>Jeto KSA</span><span>Shumou Abha</span><span>Beauty Secret</span><span>HACE</span><span>Zahra Housewares</span><span>Al Rayan</span><span>Innovation Capital</span><span>Ahram Scan</span><span>Cross Road</span><span>Sistema Plastic Egypt</span><span>Ellwaa</span><span>Soft Light KSA</span><span>Excellence Event</span><span>EFAD</span><span>Building Eagles</span><span>Al Majd Al Bazigh</span><span>Three Points</span><span>Trust Move</span><span>Jeto KSA</span><span>Shumou Abha</span><span>Beauty Secret</span><span>HACE</span><span>Zahra Housewares</span><span>Al Rayan</span><span>Innovation Capital</span></div></div>
 
 <section class="wrap sec" id="featured">
-  <div class="sh"><h2 data-t="feat_h">مشاريع مختارة</h2><p data-t="feat_p">مواقع منشورة لعملاء حقيقيين. الصور بتتحرك مع السكرول عشان تشوف الصفحة كلها.</p></div>
-  <div class="feat" id="feat"></div>
+ <div class="sh" data-rv="kids"><h2>مشاريع مختارة</h2><p>مواقع منشورة لعملاء حقيقيين. افتح أي مشروع لتشاهد تفاصيله والصفحة كاملة.</p></div>
+ <div class="bento"><a class="card " href="work/ahram-scan/index.html" data-c="eg" data-k="site"><div class="shot"><img src="https://portfolio.xtechverse.com/wp-content/uploads/2025/10/%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9-AHRAM-SCAN-%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D8%A3%D9%87%D8%B1%D8%A7%D9%85-%D9%84%D9%84%D8%A3%D8%B4%D8%B9%D8%A9-%D9%88%D8%A7%D9%84%D8%AA%D8%AD%D8%A7%D9%84%D9%8A%D9%84-10-18-2025_02_29_PM-scaled.webp" alt="مركز الأهرام للأشعة" loading="lazy"><span class="open">عرض المشروع</span></div><div class="info"><div><h3>مركز الأهرام للأشعة</h3><div class="sector">أشعة وتحاليل طبية</div></div><span class="place">القاهرة والجيزة</span></div></a><a class="card " href="work/cross-road/index.html" data-c="sa" data-k="site"><div class="shot"><img src="https://portfolio.xtechverse.com/wp-content/uploads/2025/10/Home-Cross-Road-10-18-2025_02_11_PM-scaled.webp" alt="Cross Road" loading="lazy"><span class="open">عرض المشروع</span></div><div class="info"><div><h3>Cross Road</h3><div class="sector">وكالة تسويق</div></div><span class="place">القاهرة والرياض</span></div></a><a class="card " href="work/sistema-plastic-egypt/index.html" data-c="eg" data-k="store"><div class="shot"><img src="https://portfolio.xtechverse.com/wp-content/uploads/2025/10/Sistema-Plastic-Egypt-10-18-2025_02_20_PM-scaled.webp" alt="Sistema Plastic Egypt" loading="lazy"><span class="open">عرض المشروع</span></div><div class="info"><div><h3>Sistema Plastic Egypt</h3><div class="sector">متجر أدوات مطبخ</div></div><span class="place">مصر</span></div></a><a class="card " href="work/ellwaa/index.html" data-c="eg" data-k="site"><div class="shot"><img src="https://portfolio.xtechverse.com/wp-content/uploads/2025/10/%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9-Ellwaa-10-18-2025_02_13_PM-scaled.webp" alt="Ellwaa" loading="lazy"><span class="open">عرض المشروع</span></div><div class="info"><div><h3>Ellwaa</h3><div class="sector">استشارات قانونية وتأسيس شركات</div></div><span class="place">القاهرة والرياض</span></div></a><a class="card " href="work/soft-light/index.html" data-c="sa" data-k="site"><div class="shot"><img src="https://portfolio.xtechverse.com/wp-content/uploads/2025/10/Soft-Light-KSA-%D8%B3%D9%88%D9%81%D8%AA-%D9%84%D8%A7%D9%8A%D8%AA-%D9%84%D8%AA%D9%86%D8%B8%D9%8A%D9%85-%D8%A7%D9%84%D8%AD%D9%81%D9%84%D8%A7%D8%AA-%D9%88-%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B1%D8%B6-%D9%88-%D8%A7%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%A7%D8%AA-10-18-2025_01_31_PM-scaled.webp" alt="Soft Light" loading="lazy"><span class="open">عرض المشروع</span></div><div class="info"><div><h3>Soft Light</h3><div class="sector">تنظيم حفلات ومعارض</div></div><span class="place">الرياض</span></div></a><a class="card " href="work/excellence-event/index.html" data-c="sa" data-k="site"><div class="shot"><img src="https://portfolio.xtechverse.com/wp-content/uploads/2025/10/%D8%B4%D8%B1%D9%83%D8%A9-%D8%AA%D9%81%D9%88%D9%82-%D8%A7%D9%84%D8%AD%D8%AF%D8%AB-10-18-2025_01_36_PM-scaled.webp" alt="تفوق الحدث" loading="lazy"><span class="open">عرض المشروع</span></div><div class="info"><div><h3>تفوق الحدث</h3><div class="sector">أجنحة معارض ومسارح مؤتمرات</div></div><span class="place">الرياض</span></div></a></div>
+ <div class="more-row"><a class="btn alt" href="work/index.html">كل الأعمال (21)</a></div>
 </section>
 
 <section class="apps" id="apps">
-  <div class="wrap story" id="story">
-    <div>
-      <div class="name grad">عقاري EG</div>
-      <div class="kind" data-t="aq_kind">تطبيق عقارات للأندرويد، منشور على جوجل بلاي</div>
-      <div class="bars"><i><b></b></i><i><b></b></i><i><b></b></i></div>
-    </div>
-    <div class="stage">
-      <div class="phone"><div class="scr"><img id="s1" src="assets/aqary_map.png" alt="شاشة الخريطة في عقاري EG"><img id="s2" src="assets/aqary_detail.png" alt="صفحة وحدة في عقاري EG" style="opacity:0"></div></div>
-      <div class="float f1 chip"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span data-t="fl1">كفر الشيخ<small data-t="fl1s">2 عقارات في المنطقة</small></span></div>
-      <div class="float f2 chip"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></span><span data-t="fl2">شقة 140م² للإيجار<small data-t="fl2s">3 أوض، حمامين</small></span></div>
-      <div class="float f3 chip"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></span><span data-t="fl3">تواصل على واتساب<small data-t="fl3s">بضغطة من صفحة الوحدة</small></span></div>
-    </div>
-    <div class="steps">
-      <div class="step"><small data-t="k1">الخطوة 1</small><h3 data-t="st1h">العميل يدوّر على الخريطة</h3><p data-t="st1p">فلاتر للشقق والفلل والشاليهات، بيع أو إيجار، وكل وحدة ظاهرة مكانها.</p></div>
-      <div class="step"><small data-t="k2">الخطوة 2</small><h3 data-t="st2h">يفتح صفحة الوحدة</h3><p data-t="st2p">صور، سعر، مساحة، عدد الأوض والحمامات، والمرافق.</p></div>
-      <div class="step"><small data-t="k3">الخطوة 3</small><h3 data-t="st3h">ويكلّم المعلن بضغطة</h3><p data-t="st3p">اتصال، واتساب، أو دردشة جوه التطبيق.</p></div>
-    </div>
-  </div>
-  <div class="wrap others">
-    <div class="other"><h4 data-t="o1h">سيستم سوبر ماركت</h4><span class="st" data-t="o1s">اتسلّم</span><p data-t="o1p">تطبيق للعميل، تطبيق للمندوب، ولوحة تحكم للمحل فيها المنتجات والأوردرات والتقارير.</p></div>
-    <div class="other"><h4 data-t="o2h">كلينيكاوي</h4><span class="st" data-t="o2s">تحت التطوير</span><p data-t="o2p">نظام إدارة عيادات: مواعيد، ملفات مرضى، روشتات، وفواتير.</p></div>
-  </div>
+ <div class="wrap story" id="story">
+  <div><div class="name grad">عقاري EG</div><div class="kind">تطبيق عقارات للأندرويد، منشور على جوجل بلاي</div><div class="bars"><i><b></b></i><i><b></b></i><i><b></b></i></div>
+   <a class="arrowlink go" href="work/aqary-eg/index.html">تفاصيل التطبيق<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+  <div class="stage"><div class="phone"><div class="scr"><img id="s1" src="assets/aqary_map.png" alt=""><img id="s2" src="assets/aqary_detail.png" alt="" style="opacity:0"></div></div>
+   <div class="float f1 chip"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span>كفر الشيخ<small>عقاران في المنطقة</small></span></div>
+   <div class="float f2 chip"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></span><span>شقة 140م² للإيجار<small>3 غرف وحمامان</small></span></div>
+   <div class="float f3 chip"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg></span><span>تواصل عبر واتساب<small>بضغطة من صفحة الوحدة</small></span></div></div>
+  <div class="steps">
+   <div class="step"><small>الخطوة 1</small><h3>العميل يبحث على الخريطة</h3><p>فلاتر للشقق والفلل والشاليهات، بيع أو إيجار، وكل وحدة في مكانها على الخريطة.</p></div>
+   <div class="step"><small>الخطوة 2</small><h3>يفتح صفحة الوحدة</h3><p>الصور والسعر والمساحة وعدد الغرف والحمامات والمرافق.</p></div>
+   <div class="step"><small>الخطوة 3</small><h3>ويتواصل مع المعلن بضغطة</h3><p>اتصال أو واتساب أو محادثة داخل التطبيق.</p></div></div>
+ </div>
+ <div class="wrap others" data-rv="kids"><div class="other"><h4>سيستم سوبر ماركت</h4><span class="st">اتسلّم للعميل</span><p>تطبيق للعميل، وتطبيق للمندوب، ولوحة تحكم للمحل فيها المنتجات والأوردرات والتقارير.</p></div><div class="other"><h4>كلينيكاوي</h4><span class="st">تحت التطوير</span><p>نظام لإدارة العيادات: المواعيد، ملفات المرضى، الروشتات، والفواتير.</p></div></div>
 </section>
 
-<section class="wrap sec" id="work">
-  <div class="sh"><h2 data-t="work_h">كل المواقع</h2><p data-t="work_p">عدّي بالماوس على أي اسم عشان تشوف الموقع، واضغط عليه عشان تتصفحه كامل.</p></div>
-  <div class="tools">
-    <div class="tabs" role="group" aria-label="Filter"><button aria-pressed="true" data-f="all" data-t="f_all">الكل</button><button aria-pressed="false" data-f="eg" data-t="f_eg">مصر</button><button aria-pressed="false" data-f="sa" data-t="f_sa">السعودية</button></div>
-    <div class="tally" id="tally"></div>
-  </div>
-  <ul class="list" id="list"></ul>
-</section>
-<div id="peek" aria-hidden="true"><img id="peekA" alt=""><img id="peekB" alt=""></div>
+<section class="wrap sec" id="services"><div class="sh" data-rv="kids"><h2>ماذا نقدم</h2><p>نفس الفريق يصمم ويبرمج ويتابع معك بعد الإطلاق.</p></div><div class="svc" data-rv="kids"><div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg></span><h3>مواقع الشركات</h3><p>مواقع تعريفية بالعربية والإنجليزية، سريعة وسهلة التعديل.</p><ul><li>صفحات خدمات ومعرض أعمال</li><li>نماذج تواصل وطلب عروض أسعار</li><li>تهيئة لمحركات البحث</li></ul></div><div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg></span><h3>المتاجر الإلكترونية</h3><p>متاجر بكتالوج وسلة وحسابات للعملاء.</p><ul><li>أقسام ومنتجات بلا حدود</li><li>سلة ومقارنة ومفضلة</li><li>عربي وإنجليزي</li></ul></div><div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></span><h3>تطبيقات الموبايل</h3><p>تطبيقات أندرويد وiOS من التصميم حتى النشر على المتاجر.</p><ul><li>تصميم الواجهات</li><li>ربط بالخرائط والإشعارات</li><li>النشر على جوجل بلاي</li></ul></div><div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>أنظمة مخصصة وصيانة</h3><p>لوحات تحكم وأنظمة إدارة، وصيانة للمواقع القائمة.</p><ul><li>أنظمة إدارة عيادات ومتاجر</li><li>تحديثات وحماية ونسخ احتياطي</li><li>تحسين سرعة المواقع</li></ul></div></div></section>
 
-<section class="wrap sec" id="services" style="padding-top:0">
-  <div class="sh"><h2 data-t="svc_h">بنشتغل في إيه</h2><p data-t="svc_p">نفس الفريق بيصمم وبيبرمج وبيكمّل معاك بعد التسليم.</p></div>
-  <div class="svc">
-    <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg></span><h3 data-t="s1h">مواقع الشركات</h3><p data-t="s1p">مواقع تعريفية ومتاجر، عربي وإنجليزي، سريعة وسهلة التعديل.</p></div>
-    <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></span><h3 data-t="s2h">تطبيقات موبايل</h3><p data-t="s2p">أندرويد وiOS، من التصميم لحد النشر على المتاجر.</p></div>
-    <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3 data-t="s3h">سيستمات مخصصة</h3><p data-t="s3p">لوحات تحكم وأنظمة إدارة معمولة على مقاس شغلك.</p></div>
-    <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3 data-t="s4h">صيانة وتطوير</h3><p data-t="s4p">تحديثات، حماية، نسخ احتياطي، وتسريع للمواقع القائمة.</p></div>
-  </div>
+<section class="band"><div class="wrap sec">
+ <div class="sh" data-rv="kids"><h2>كيف نعمل</h2><p>أربع مراحل واضحة، وتعرف في كل مرحلة ما الذي يحدث.</p></div>
+ <div class="proc"><span class="line"></span><div><span class="dot">1</span><h3>نفهم مشروعك</h3><p>اجتماع نتعرف فيه على نشاطك وجمهورك وما تحتاجه من الموقع أو التطبيق.</p></div><div><span class="dot">2</span><h3>نصمم</h3><p>نرسم الصفحات والشاشات ونراجعها معك قبل أي برمجة.</p></div><div><span class="dot">3</span><h3>نبرمج ونختبر</h3><p>نبني المشروع ونختبره على الكمبيوتر والموبايل.</p></div><div><span class="dot">4</span><h3>نطلق ونتابع</h3><p>ننشر المشروع ونبقى معك للتعديلات والصيانة.</p></div></div>
+</div></section>
+
+<section class="wrap sec">
+ <div class="sh" data-rv="kids"><h2>بالأرقام</h2></div>
+ <div class="nums"><div><b class="grad" data-count="18">0</b><span>موقع نفذناه لعملاء حقيقيين</span></div><div><b class="grad" data-count="6">0</b><span>مواقع بلغتين عربي وإنجليزي</span></div>
+  <div><b class="grad" data-count="3">0</b><span>تطبيقات وأنظمة</span></div><div><b class="grad" data-count="2">0</b><span>دولتان: مصر والسعودية</span></div></div>
+ <h3 class="inds-h">قطاعات عملنا معها</h3><div class="inds" data-rv="kids"><span>أجنحة معارض ومسارح مؤتمرات</span><span>أدوات منزلية</span><span>أشعة وتحاليل طبية</span><span>أنظمة سلامة</span><span>استشارات قانونية وتأسيس شركات</span><span>استيراد وتصدير</span><span>تنظيم حفلات ومعارض</span><span>فندق</span><span>متجر أدوات مطبخ</span><span>مجموعة شركات</span><span>مستحضرات تجميل</span><span>معرض للفنادق</span><span>مقاولات عامة</span><span>مكافحة حشرات</span><span>نقل معدات ثقيلة</span><span>وكالة تسويق</span></div>
 </section>
+
+<section class="band"><div class="wrap sec"><div class="sh" data-rv="kids"><h2>أسئلة شائعة</h2></div><div class="faq"><details><summary>هل تعملون مع عملاء خارج مصر؟<i>+</i></summary><p>نعم. أكثر من نصف المواقع في معرض أعمالنا لشركات في السعودية، في الرياض وجدة والمدينة المنورة والظهران.</p></details><details><summary>هل يمكن أن يكون الموقع بالعربية والإنجليزية؟<i>+</i></summary><p>نعم، ونفذنا مواقع كثيرة باللغتين، مثل Cross Road وSistema Plastic Egypt وSoft Light.</p></details><details><summary>كم يستغرق المشروع وكم يكلف؟<i>+</i></summary><p>يختلف حسب حجم المشروع. أرسل لنا فكرتك وسنرد عليك بخطة وتكلفة ومدة واضحة.</p></details></div></div></section>
 </main>
-
-<section class="contact" id="contact">
-  <div class="big" aria-hidden="true"><div class="t" id="big"></div></div>
-  <div class="wrap">
-    <p data-t="ct_p">احكيلنا عن مشروعك في رسالة، ونرد عليك بخطة وتكلفة واضحة.</p>
-    <div class="rows">
-      <a href="https://wa.me/201039253652" target="_blank" rel="noopener"><small data-t="ct_wa">واتساب</small><span>+20 10 3925 3652</span></a>
-      <a href="mailto:info@xtechverse.com"><small data-t="ct_mail">إيميل</small><span>info@xtechverse.com</span></a>
-      <a href="https://www.facebook.com/xtechverse1" target="_blank" rel="noopener"><small data-t="ct_fb">فيسبوك</small><span>xtechverse1</span></a>
-    </div>
-  </div>
-</section>
-<footer><div class="wrap"><span>© 2026 X TechVerse</span><span data-t="foot">القاهرة، مصر</span></div></footer>
-
-<div id="lb" role="dialog" aria-modal="true" aria-labelledby="lbt">
-  <div class="top"><h3 id="lbt"></h3><div class="acts"><a class="btn pri" id="lbgo" target="_blank" rel="noopener" data-t="visit">افتح الموقع</a><button class="btn alt" id="lbx" data-t="close">إغلاق</button></div></div>
-  <div class="frame" id="lbf"><img id="lbimg" alt=""></div>
-</div>
-
-<script src="vendor/gsap.min.js"></script>
-<script src="vendor/ScrollTrigger.min.js"></script>
-<script>
-(function boot(){if(!(window.gsap&&window.ScrollTrigger))return setTimeout(boot,40);
-const U='https://portfolio.xtechverse.com/wp-content/uploads/2025/10/';
-const P=[
- {ar:'مركز الأهرام للأشعة',en:'Ahram Scan',sAr:'مركز أشعة وتحاليل',sEn:'Radiology and lab center',c:'eg',url:'https://ahramscan.com/',img:'%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9-AHRAM-SCAN-%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D8%A3%D9%87%D8%B1%D8%A7%D9%85-%D9%84%D9%84%D8%A3%D8%B4%D8%B9%D8%A9-%D9%88%D8%A7%D9%84%D8%AA%D8%AD%D8%A7%D9%84%D9%8A%D9%84-10-18-2025_02_29_PM-scaled.webp'},
- {ar:'Beauty Secret',en:'Beauty Secret',sAr:'متجر مستحضرات تجميل',sEn:'Beauty store',c:'eg',url:'https://beauty-secret.store/',img:'Home-beauty-secret-store-10-18-2025_02_25_PM-scaled.webp'},
- {ar:'HACE',en:'HACE',sAr:'معرض للفنادق',sEn:'Hotel expo',c:'eg',url:'https://hace.com.eg/',img:'HACE-%E2%80%93-HOTEL-EXPO-10-18-2025_02_23_PM-scaled.webp'},
- {ar:'Sistema Plastic Egypt',en:'Sistema Plastic Egypt',sAr:'موقع شركة',sEn:'Company website',c:'eg',url:'https://sistemaplasticegypt.com/',img:'Sistema-Plastic-Egypt-10-18-2025_02_20_PM-scaled.webp'},
- {ar:'زهرة للأدوات المنزلية',en:'Zahra Housewares',sAr:'أدوات منزلية',sEn:'Housewares',c:'eg',url:'https://zahra-housewares.com/',img:'%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9-Zahra-House-Wares-10-18-2025_02_19_PM-scaled.webp'},
- {ar:'إفاد',en:'EFAD',sAr:'تصدير واستيراد',sEn:'Import and export',c:'sa',url:'https://wp.rasmi.sa/efad/',img:'%D8%A7%D9%81%D8%A7%D8%AF-EFAD-%E2%80%93-%D9%84%D9%84%D8%AA%D8%B5%D8%AF%D9%8A%D8%B1-%D9%88-%D8%A7%D9%84%D8%A5%D8%B3%D8%AA%D9%8A%D8%B1%D8%A7%D8%AF-10-18-2025_02_16_PM-scaled.webp'},
- {ar:'الريان',en:'Al Rayan',sAr:'مكافحة حشرات',sEn:'Pest control',c:'eg',url:'https://peofreedns.com/rayan/',img:'%D8%B4%D8%B1%D9%83%D8%A9-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D9%86-%D9%84%D9%85%D9%83%D8%A7%D9%81%D8%AD%D8%A9-%D8%A7%D9%84%D8%AD%D8%B4%D8%B1%D8%A7%D8%AA-%D9%85%D9%83%D8%A7%D9%81%D8%AD%D8%A9-%D8%B0%D9%83%D9%8A%D8%A9%E2%80%A6-%D9%84%D8%A8%D9%8A%D8%A6%D8%A9-%D8%B5%D8%AD%D9%8A%D8%A9-10-18-2025_02_15_PM-scaled.webp'},
- {ar:'Ellwaa',en:'Ellwaa',sAr:'موقع شركة',sEn:'Company website',c:'eg',url:'https://ellwaa.com/',img:'%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9-Ellwaa-10-18-2025_02_13_PM-scaled.webp'},
- {ar:'Cross Road',en:'Cross Road',sAr:'موقع شركة',sEn:'Company website',c:'sa',url:'https://crossroad-global.com/',img:'Home-Cross-Road-10-18-2025_02_11_PM-scaled.webp'},
- {ar:'Trust Move',en:'Trust Move',sAr:'موقع شركة',sEn:'Company website',c:'sa',url:'https://trustmove-ksa.com/',img:'Trust-Move-10-18-2025_02_07_PM-scaled.webp'},
- {ar:'نسور المباني',en:'Building Eagles',sAr:'موقع شركة',sEn:'Company website',c:'sa',url:'https://building-eagles.com/',img:'Building-Eagles-%D9%86%D8%B3%D9%88%D8%B1-%D8%A7%D9%84%D9%85%D8%A8%D8%A7%D9%86%D9%8A-10-18-2025_02_06_PM-scaled.webp'},
- {ar:'جتو',en:'Jeto KSA',sAr:'أنظمة سلامة',sEn:'Safety systems',c:'sa',url:'https://jetoksa.com/',img:'%D8%B4%D8%B1%D9%83%D8%A9-%D8%AC%D8%AA%D9%80%D9%80%D9%80%D9%80%D9%88-Jeto-Co-10-18-2025_02_06_PM-scaled.webp'},
- {ar:'Three Points',en:'Three Points',sAr:'موقع شركة',sEn:'Company website',c:'sa',url:'https://three-points-sa.com/',img:'Three-Points-10-18-2025_02_00_PM-scaled.webp'},
- {ar:'Innovation Capital',en:'Innovation Capital',sAr:'موقع شركة',sEn:'Company website',c:'sa',url:'https://inno-capitals.com/',img:'Inno-Capital-10-18-2025_02_01_PM-scaled.webp'},
- {ar:'المجد البازغ',en:'Al Majd Al Bazigh',sAr:'موقع شركة',sEn:'Company website',c:'sa',url:'https://almajd-albazigh.com/',img:'Home-Al-Majd-Al-Bazigh-10-18-2025_02_00_PM-scaled.webp'},
- {ar:'شموع أبها',en:'Shumou Abha',sAr:'موقع شركة',sEn:'Company website',c:'sa',url:'https://shumouabha.com/',img:'Shumouabha-10-18-2025_01_59_PM-scaled.webp'},
- {ar:'تفوق الحدث',en:'Excellence Event',sAr:'تنظيم فعاليات',sEn:'Event management',c:'sa',url:'https://excellence-event.com/',img:'%D8%B4%D8%B1%D9%83%D8%A9-%D8%AA%D9%81%D9%88%D9%82-%D8%A7%D9%84%D8%AD%D8%AF%D8%AB-10-18-2025_01_36_PM-scaled.webp'},
- {ar:'Soft Light',en:'Soft Light KSA',sAr:'تنظيم حفلات ومعارض',sEn:'Events and exhibitions',c:'sa',url:'https://softlightksa.com/',img:'Soft-Light-KSA-%D8%B3%D9%88%D9%81%D8%AA-%D9%84%D8%A7%D9%8A%D8%AA-%D9%84%D8%AA%D9%86%D8%B8%D9%8A%D9%85-%D8%A7%D9%84%D8%AD%D9%81%D9%84%D8%A7%D8%AA-%D9%88-%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B1%D8%B6-%D9%88-%D8%A7%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%A7%D8%AA-10-18-2025_01_31_PM-scaled.webp'},
-];
-const FEAT=[0,8,11,1]; /* Ahram Scan, Cross Road, Jeto, Beauty Secret */
-const T={en:{nav_work:'Work',nav_apps:'Apps',nav_svc:'Services',nav_talk:'Start your project',
- h1a:'We design and build',h1b:'websites and apps',h1c:'for companies in Egypt and Saudi Arabia.',
- lead:'A studio that takes your project from idea to launch, and stays with you after.',cta1:'Message us on WhatsApp',cta2:'See our work',
- pf1:'live websites',pf2:'apps and systems',pf3:'countries',
- feat_h:'Selected projects',feat_p:'Live websites for real clients. The screens scroll as you do, so you see the whole page.',visit_site:'Visit the website',
- aq_kind:'Real-estate app for Android, on Google Play',fl1:'Kafr El Sheikh',fl1s:'2 properties in the area',fl2:'140 m² apartment for rent',fl2s:'3 rooms, 2 bathrooms',fl3:'Contact on WhatsApp',fl3s:'One tap from the unit page',
- k1:'Step 1',k2:'Step 2',k3:'Step 3',st1h:'Customers search on the map',st1p:'Filters for apartments, villas and chalets, for sale or rent, with every unit pinned in place.',
- st2h:'They open the unit page',st2p:'Photos, price, area, rooms, bathrooms and amenities.',st3h:'And reach the agent in one tap',st3p:'Call, WhatsApp or in-app chat.',
- o1h:'Supermarket system',o1s:'Delivered',o1p:'A customer app, a driver app, and a store dashboard for products, orders and reports.',
- o2h:'Clinicawy',o2s:'In development',o2p:'Clinic management: appointments, patient files, prescriptions and invoices.',
- work_h:'All websites',work_p:'Hover a name to preview the site, click to browse the whole page.',f_all:'All',f_eg:'Egypt',f_sa:'Saudi Arabia',
- svc_h:'What we do',svc_p:'The same team designs, builds, and stays with you after launch.',
- s1h:'Company websites',s1p:'Corporate sites and online stores in Arabic and English, fast and easy to update.',s2h:'Mobile apps',s2p:'Android and iOS, from design to store release.',
- s3h:'Custom systems',s3p:'Dashboards and management systems shaped around how you work.',s4h:'Care and growth',s4p:'Updates, security, backups and speed work for existing sites.',
- ct_p:'Tell us about your project in one message, and we reply with a clear plan and cost.',ct_wa:'WhatsApp',ct_mail:'Email',ct_fb:'Facebook',foot:'Cairo, Egypt',visit:'Open website',close:'Close',
- eg:'Egypt',sa:'Saudi Arabia',sites:'websites',big:"Let's build it",hc1:'Live on Google Play'},
- ar:{eg:'مصر',sa:'السعودية',sites:'موقع',visit_site:'زور الموقع',big:'يلا نبدأ'}};
-document.querySelectorAll('[data-t]').forEach(e=>T.ar[e.dataset.t]=T.ar[e.dataset.t]||e.textContent);
-let L='ar',F='all';const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-gsap.registerPlugin(ScrollTrigger);
-const host=u=>u.replace(/^https:\/\/|\/$/g,'');
-const win=(p,cls='',sub=false)=>`<div class="win ${cls}"><div class="bar"><i></i><i></i><i></i><u>${host(p.url)}</u></div><div class="vp"><img src="${U+p.img}" alt="${p[L]}"${sub?' data-sub="1"':''}></div></div>`;
-
-/* hero composition */
-const comp=document.getElementById('comp');
-comp.innerHTML=`<div class="layer c-back" data-d="14">${win(P[8])}</div>
-<div class="layer c-mid" data-d="26">${win(P[0])}</div>
-<div class="layer c-phone" data-d="44"><div class="phone"><div class="scr"><img src="assets/aqary_map.png" alt=""></div></div></div>
-<div class="layer c-chip1 chip" data-d="60"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span data-t="hc1">${L==='ar'?'اتنشر على جوجل بلاي':'Live on Google Play'}<small>عقاري EG</small></span></div>
-<div class="layer c-chip2 chip" data-d="52"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span>${L==='ar'?'مصر والسعودية':'Egypt and Saudi Arabia'}<small>${L==='ar'?'18 موقع منشور':'18 live websites'}</small></span></div>`;
-
-/* marquee + big text */
-const mqt=document.getElementById('mq');mqt.innerHTML=(P.map(p=>`<span>${p.en}</span>`).join('')).repeat(2);
-function bigText(){document.getElementById('big').innerHTML=Array(8).fill(`<span>${T[L].big}</span>`).join('')}
-
-/* featured */
-function featured(){document.getElementById('feat').innerHTML=FEAT.map((i,k)=>{const p=P[i];return `<article class="fp">
- <div class="fp-txt"><h3>${p[L]}</h3><p>${L==='ar'?p.sAr:p.sEn}</p>
- <div class="meta"><span>${T[L][p.c]}</span><span dir="ltr">${host(p.url)}</span></div>
- <a class="btn alt go" href="${p.url}" target="_blank" rel="noopener">${T[L].visit_site}</a></div>
- <div class="fp-vis">${win(p,'main')}${win(p,'sub',true)}</div></article>`}).join('');}
-
-/* index */
-const list=document.getElementById('list');
-function renderList(){list.innerHTML=P.map((p,i)=>`<li class="item" data-c="${p.c}"><a href="${p.url}" data-i="${i}"><span class="thumb"><img loading="lazy" src="${U+p.img}" alt=""></span><span class="n">${p[L]}</span><span class="s">${L==='ar'?p.sAr:p.sEn}</span><span class="c">${T[L][p.c]}</span><span class="d">${host(p.url)}</span></a></li>`).join('');filter()}
-function filter(){let n=0;list.querySelectorAll('.item').forEach(li=>{const v=F==='all'||li.dataset.c===F;li.hidden=!v;if(v)n++});document.getElementById('tally').textContent=`${n} ${T[L].sites}`;ScrollTrigger.refresh()}
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{F=b.dataset.f;document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));filter();
- gsap.fromTo([...list.querySelectorAll('.item:not([hidden])')],{opacity:0,y:12},{opacity:1,y:0,duration:.45,stagger:.025,ease:'power2.out'})});
-
-/* cursor preview */
-const peek=document.getElementById('peek'),pa=document.getElementById('peekA'),pb=document.getElementById('peekB');let front=pa,cur=-1;
-const qx=gsap.quickTo(peek,'x',{duration:.55,ease:'power3'}),qy=gsap.quickTo(peek,'y',{duration:.55,ease:'power3'});
-addEventListener('mousemove',e=>{const r=e.clientX>innerWidth/2;qx(r?e.clientX-peek.offsetWidth-32:e.clientX+32);qy(e.clientY-peek.offsetHeight/2)});
-list.addEventListener('mouseover',e=>{const a=e.target.closest('a');if(!a)return;const i=+a.dataset.i;if(i===cur)return;cur=i;
- const back=front===pa?pb:pa;back.src=U+P[i].img;gsap.set(back,{zIndex:2,clipPath:'inset(100% 0 0 0)'});gsap.set(front,{zIndex:1});
- gsap.to(back,{clipPath:'inset(0% 0 0 0)',duration:.5,ease:'power3.out'});front=back;gsap.to(peek,{opacity:1,scale:1,duration:.35,ease:'power3.out'})});
-list.addEventListener('mouseleave',()=>{cur=-1;gsap.to(peek,{opacity:0,scale:.85,duration:.3})});
-
-/* lightbox */
-const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg'),lbf=document.getElementById('lbf');let lt;
-list.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();const p=P[a.dataset.i];
- document.getElementById('lbt').textContent=p[L];document.getElementById('lbgo').href=p.url;lbimg.src=U+p.img;lbimg.alt=p[L];
- lb.classList.add('open');document.body.style.overflow='hidden';gsap.set(lbimg,{y:0});document.getElementById('lbx').focus();
- const run=()=>{const d=lbimg.getBoundingClientRect().height-lbf.getBoundingClientRect().height;lt?.kill();if(d>0&&!reduce)lt=gsap.to(lbimg,{y:-d,duration:d/220,ease:'none',delay:.7,repeat:-1,yoyo:true,repeatDelay:1.2})};
- lbimg.complete?run():lbimg.onload=run});
-lbf.addEventListener('wheel',e=>{if(!lt)return;lt.pause();const d=lbimg.getBoundingClientRect().height-lbf.getBoundingClientRect().height;gsap.to(lbimg,{y:`-=${e.deltaY}`,duration:.3,modifiers:{y:v=>Math.max(-d,Math.min(0,parseFloat(v)))+'px'}})},{passive:true});
-const closeLb=()=>{lb.classList.remove('open');document.body.style.overflow='';lt?.kill();lt=null};
-document.getElementById('lbx').onclick=closeLb;addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
-
-/* language */
-let triggers=[];
-function setLang(l){L=l;document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';
- document.querySelectorAll('[data-t]').forEach(e=>{if(T[l][e.dataset.t])e.childNodes[0].nodeType===3&&e.children.length?e.childNodes[0].textContent=T[l][e.dataset.t]:e.textContent=T[l][e.dataset.t]});
- document.getElementById('lang').textContent=l==='ar'?'English':'العربية';renderList();featured();bigText();
- try{localStorage.setItem('xtv-lang',l)}catch(e){}
- if(started){motionFeatured();ScrollTrigger.refresh()}}
-document.getElementById('lang').onclick=()=>setLang(L==='ar'?'en':'ar');
-
-/* header */
-const hdr=document.getElementById('hdr');addEventListener('scroll',()=>hdr.classList.toggle('solid',scrollY>30),{passive:true});
-document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:reduce?'auto':'smooth'})}}));
-
-/* ---------- motion ---------- */
-let started=false;
-function heroMotion(){
- const layers=[...comp.querySelectorAll('.layer')];
- /* cursor parallax */
- const qs=layers.map(l=>({x:gsap.quickTo(l,'x',{duration:1,ease:'power3'}),y:gsap.quickTo(l,'y',{duration:1,ease:'power3'}),d:+l.dataset.d}));
- if(!reduce)addEventListener('mousemove',e=>{const nx=e.clientX/innerWidth-.5,ny=e.clientY/innerHeight-.5;qs.forEach(q=>{q.x(-nx*q.d);q.y(-ny*q.d)})});
- /* windows scroll themselves */
- comp.querySelectorAll('.win').forEach((w,k)=>{const im=w.querySelector('img'),vp=w.querySelector('.vp');const go=()=>{const d=im.offsetHeight-vp.offsetHeight;if(d>0&&!reduce)gsap.to(im,{y:-d*.55,duration:20+k*6,ease:'sine.inOut',repeat:-1,yoyo:true,delay:1+k})};im.complete?go():im.onload=go});
- /* layers drift apart on scroll */
- gsap.utils.toArray('#comp .layer').forEach(l=>gsap.to(l,{yPercent:-(+l.dataset.d)*.9,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}}));
- gsap.to('.hero .wrap>div:first-child',{y:-80,opacity:.2,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
-}
-function motionFeatured(){triggers.forEach(t=>t.kill());triggers=[];
- document.querySelectorAll('.fp').forEach((fp,k)=>{
-  const main=fp.querySelector('.main'),sub=fp.querySelector('.sub');
-  const tl=gsap.timeline({scrollTrigger:{trigger:fp,start:'top 90%',end:'bottom 10%',scrub:true}});
-  tl.fromTo(main,{y:60,rotate:k%2?1.5:-1.5},{y:-40,rotate:0,ease:'none'},0).fromTo(sub,{y:140},{y:-80,ease:'none'},0);
-  triggers.push(tl.scrollTrigger);
-  [main,sub].forEach((w,j)=>{const im=w.querySelector('img'),vp=w.querySelector('.vp');
-   const t=gsap.to(im,{y:()=>-(im.offsetHeight-vp.offsetHeight)*(j?0.9:0.6),ease:'none',scrollTrigger:{trigger:fp,start:'top 85%',end:'bottom 15%',scrub:.6,invalidateOnRefresh:true}});
-   if(j)gsap.set(im,{y:()=>-(im.offsetHeight*.25)});triggers.push(t.scrollTrigger);
-   im.addEventListener('load',()=>ScrollTrigger.refresh(),{once:true})});
-  const txt=fp.querySelectorAll('.fp-txt>*');const t2=gsap.from(txt,{y:30,opacity:0,stagger:.08,duration:.8,ease:'power3.out',scrollTrigger:{trigger:fp,start:'top 75%'}});triggers.push(t2.scrollTrigger)})}
-function storyMotion(){
- const steps=[...document.querySelectorAll('.step')],bars=[...document.querySelectorAll('.story .bars b')],fl=[...document.querySelectorAll('.stage .float')];
- if(innerWidth<=900){gsap.set('#s2',{opacity:0});return}
- const tl=gsap.timeline({scrollTrigger:{trigger:'#story',start:'top top',end:'+=2400',pin:true,scrub:.6}});
- tl.from('.stage .phone',{scale:.82,rotate:-8,y:80,duration:1,ease:'power2.out'},0)
-   .to(bars[0],{scaleX:1,duration:1},0).to(fl[0],{opacity:1,x:0,duration:.6},0.3).fromTo(fl[0],{x:-30},{x:0,duration:.6},0.3)
-   .to(steps[0],{opacity:0,y:-20,duration:.4},1.2).fromTo(steps[1],{opacity:0,y:30},{opacity:1,y:0,duration:.5},1.4)
-   .to('#s2',{opacity:1,duration:.5},1.3).to('.stage .phone',{rotate:3,duration:.8},1.3).to(fl[0],{opacity:0,duration:.4},1.3)
-   .to(bars[1],{scaleX:1,duration:1},1.3).fromTo(fl[1],{opacity:0,x:30},{opacity:1,x:0,duration:.6},1.6)
-   .to(steps[1],{opacity:0,y:-20,duration:.4},2.5).fromTo(steps[2],{opacity:0,y:30},{opacity:1,y:0,duration:.5},2.7)
-   .to('.stage .phone',{rotate:-2,scale:1.04,duration:.8},2.6).to(fl[1],{opacity:0,duration:.4},2.6)
-   .to(bars[2],{scaleX:1,duration:1},2.6).fromTo(fl[2],{opacity:0,y:30},{opacity:1,y:0,duration:.6},2.9).to({},{duration:.4})}
-function counters(){document.querySelectorAll('[data-count]').forEach(b=>{const n=+b.dataset.count,o={v:0};gsap.to(o,{v:n,duration:1.8,ease:'power2.out',delay:.4,onUpdate:()=>b.textContent=Math.round(o.v)})})}
-function marquees(){if(reduce)return;gsap.to('#mq',{xPercent:-50,duration:60,ease:'none',repeat:-1});
- const bg=gsap.to('#big',{xPercent:-50,duration:30,ease:'none',repeat:-1});
- ScrollTrigger.create({trigger:'.contact',start:'top bottom',end:'bottom top',onUpdate:s=>{gsap.to(bg,{timeScale:1+Math.min(4,Math.abs(s.getVelocity()/400)),duration:.2,overwrite:true});gsap.to(bg,{timeScale:1,duration:1,delay:.2})}})}
-function reveals(){gsap.utils.toArray('.sh').forEach(s=>gsap.from(s.children,{y:40,opacity:0,stagger:.1,duration:.9,ease:'power3.out',scrollTrigger:{trigger:s,start:'top 82%'}}));
- gsap.from('.svc>div',{y:50,opacity:0,stagger:.08,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'.svc',start:'top 82%'}});
- gsap.from('.others>.other',{y:40,opacity:0,stagger:.1,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.others',start:'top 85%'}})}
-
-function intro(){const lo=document.getElementById('loader');started=true;
- gsap.timeline()
-  .to(lo,{clipPath:'inset(0 0 100% 0)',duration:reduce?.01:1,ease:'expo.inOut',onComplete:()=>lo.remove()})
-  .from('#h1>span',{y:50,opacity:0,duration:1,stagger:.12,ease:'power4.out'},'-=.4')
-  .from('.hero .lead,.hero .acts,.proof',{y:20,opacity:0,duration:.8,stagger:.1,ease:'power3.out'},'-=.7')
-  .add(counters,'-=.6')
-  .from('#comp .layer',{y:160,opacity:0,rotate:(i)=>[-6,4,8,-4,4][i],duration:1.3,stagger:.1,ease:'expo.out'},'-=1.2')
-  .add(()=>{heroMotion();marquees();motionFeatured();storyMotion();reveals();ScrollTrigger.refresh()},'-=.8')}
-
-/* preloader */
-function loader(done){const c=document.getElementById('lc'),x=c.getContext('2d'),S=520;let fin=false;const end=()=>{if(!fin){fin=true;done()}};setTimeout(end,4000);
- const im=new Image();im.crossOrigin='anonymous';im.src='assets/logo.png';
- im.onload=()=>{try{const o=document.createElement('canvas');o.width=o.height=130;const ox=o.getContext('2d');ox.drawImage(im,0,0,130,130);const d=ox.getImageData(0,0,130,130).data;const tg=[];
-  for(let y=0;y<130;y+=2)for(let xx=0;xx<130;xx+=2){const k=(y*130+xx)*4;if(d[k]+d[k+1]+d[k+2]>640)tg.push([xx*4,y*4])}
-  const parts=tg.map(t=>({tx:t[0],ty:t[1],x:Math.random()*S,y:Math.random()*S,h:Math.random()}));const st=performance.now(),dur=reduce?200:1900;
-  (function f(now){const k=Math.min(1,(now-st)/dur),e=1-Math.pow(1-k,4);x.clearRect(0,0,S,S);
-   for(const p of parts){const px=p.x+(p.tx-p.x)*e,py=p.y+(p.ty-p.y)*e;x.fillStyle=`hsla(${248+p.h*20},100%,${78-e*8}%,${.4+e*.6})`;x.fillRect(px,py,4.2,4.2)}
-   document.getElementById('lcount').textContent=Math.round(e*100);if(k<1)requestAnimationFrame(f);else setTimeout(end,350)})(st)}catch(err){end()}};im.onerror=end}
-
-let saved='ar';try{saved=localStorage.getItem('xtv-lang')||'ar'}catch(e){}
-setLang(saved);
-loader(intro);
-})();
-</script>
-</body>
-</html>
+<header class="top"><div class="wrap"><a class="brand" href="index.html"><img src="assets/logo.png" alt="">X TechVerse</a><nav class="menu" aria-label="Main"><a href="work/index.html">الأعمال</a><a href="index.html#services">الخدمات</a><a href="#contact">تواصل</a><a class="lang" href="en/index.html" hreflang="en">English</a><a class="btn pri" href="#contact">ابدأ مشروعك</a></nav></div></header>
+<section class="contact" id="contact"><div class="big" aria-hidden="true"><div class="t" id="big"><span>لنبدأ</span><span>لنبدأ</span><span>لنبدأ</span><span>لنبدأ</span><span>لنبدأ</span><span>لنبدأ</span><span>لنبدأ</span><span>لنبدأ</span></div></div><div class="wrap"><p>أخبرنا عن مشروعك في رسالة، ونرد عليك بخطة وتكلفة واضحة.</p><div class="rows"><a href="https://wa.me/201039253652" target="_blank" rel="noopener"><small>واتساب</small><span>+20 10 3925 3652</span></a><a href="mailto:info@xtechverse.com"><small>البريد الإلكتروني</small><span>info@xtechverse.com</span></a><a href="https://www.facebook.com/xtechverse1" target="_blank" rel="noopener"><small>فيسبوك</small><span>xtechverse1</span></a></div></div></section><footer class="foot"><div class="wrap"><span>© 2026 X TechVerse</span><span>القاهرة، مصر</span></div></footer>
+<script src="vendor/gsap.min.js"></script><script src="vendor/ScrollTrigger.min.js"></script><script src="assets/site.js"></script>
+</body></html>
