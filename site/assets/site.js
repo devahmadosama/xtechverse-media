@@ -90,11 +90,7 @@ function leadForm(){const f=$('#leadForm');if(!f)return;const msg=$('.msg',f);
    msg.className='msg ok';msg.textContent=f.dataset.walink;track('lead',d.type);window.open('https://wa.me/201039253652?text='+encodeURIComponent(t),'_blank','noopener')}
   btn.disabled=false})}
 
-/* font preview: add ?font=readex|alexandria|tajawal|kufi|plex to any page */
-(function(){const q=new URLSearchParams(location.search).get('font');const F={readex:'Readex Pro',alexandria:'Alexandria',tajawal:'Tajawal',kufi:'Noto Kufi Arabic',almarai:'Almarai',beiruti:'Beiruti',zain:'Zain',vazir:'Vazirmatn',rubik:'Rubik',changa:'Changa',cairo:'Cairo',reem:'Reem Kufi'};
- if(q&&F[q]){const l=document.createElement('link');l.rel='stylesheet';l.href=`https://fonts.googleapis.com/css2?family=${F[q].replace(/ /g,'+')}:wght@${q==='zain'?'300;400;700;800':q==='reem'?'400;500;600;700':q==='tajawal'?'300;400;500;700;800':'300;400;500;600;700'}&display=swap`;document.head.appendChild(l);
-  document.documentElement.style.setProperty('--font',`"${F[q]}",system-ui,sans-serif`);document.body.style.fontFamily=`"${F[q]}",system-ui,sans-serif`;
-  $$('a[href$=".html"],a[href$="/"]').forEach(a=>{if(!a.href.startsWith('http')||a.host===location.host){const u=new URL(a.href,location.href);u.searchParams.set('font',q);a.href=u.href}})}})();
+
 
 /* the animated X: on every page load and on every page change */
 const lo=$('#loader'),c=$('#lc'),x=c.getContext('2d'),S=520;let parts=null,anim=null;
