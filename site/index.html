@@ -94,7 +94,7 @@ header .wrap{display:flex;align-items:center;justify-content:space-between;heigh
  .item a .n{font-size:18px}
 }
 /* cursor preview */
-#peek{position:fixed;top:0;left:0;z-index:30;width:380px;aspect-ratio:16/10;border-radius:6px;overflow:hidden;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.85);
+#peek{position:fixed;top:0;left:0;z-index:30;width:380px;aspect-ratio:16/10;border-radius:6px;overflow:hidden;pointer-events:none;opacity:0;transform:scale(.85);
  box-shadow:0 30px 60px rgba(17,19,24,.18);border:1px solid var(--rule);background:#e4e6ea}
 #peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
 @media (hover:none),(max-width:760px){#peek{display:none}}
@@ -306,7 +306,8 @@ document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{F=b.dataset.
 /* cursor preview */
 const peek=document.getElementById('peek'),pa=document.getElementById('peekA'),pb=document.getElementById('peekB');let front=pa,cur=-1;
 const qx=gsap.quickTo(peek,'x',{duration:.55,ease:'power3'}),qy=gsap.quickTo(peek,'y',{duration:.55,ease:'power3'});
-addEventListener('mousemove',e=>{qx(e.clientX);qy(e.clientY)});
+const pw=()=>peek.offsetWidth,ph=()=>peek.offsetHeight;
+addEventListener('mousemove',e=>{const right=e.clientX>innerWidth/2;qx(right?e.clientX-pw()-32:e.clientX+32);qy(e.clientY-ph()/2)});
 list.addEventListener('mouseover',e=>{const a=e.target.closest('a');if(!a)return;const i=+a.dataset.i;if(i===cur)return;cur=i;
  const back=front===pa?pb:pa;back.src=U+P[i].img;gsap.set(back,{zIndex:2,clipPath:'inset(100% 0 0 0)'});gsap.set(front,{zIndex:1});
  gsap.to(back,{clipPath:'inset(0% 0 0 0)',duration:.5,ease:'power3.out'});front=back;
