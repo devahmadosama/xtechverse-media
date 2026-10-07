@@ -3,251 +3,246 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>X TechVerse — أعمالنا</title>
-<meta name="description" content="مواقع وتطبيقات وسيستمات من تنفيذ X TechVerse لعملاء في مصر والسعودية.">
+<title>X TechVerse</title>
+<meta name="description" content="X TechVerse: استوديو برمجة من مصر. مواقع وتطبيقات وسيستمات لعملاء في مصر والسعودية.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Layout: right-aligned editorial column in Arabic (mirrors in English); one bold device — real client sites living inside browser windows that scroll themselves. */
+/* Swiss-grid studio site: light paper, ink type, one brand blue used only for interaction. The work carries the page. */
 :root{
-  --ink:#060919;          /* page */
-  --deep:#0b1030;         /* raised surfaces */
-  --violet:#7c5cff;       /* brand */
-  --peri:#93a6ff;         /* brand light */
-  --text:#eeecff;
-  --muted:#9ba1c9;
-  --line:rgba(147,166,255,.16);
-  --display:"Alexandria",system-ui,sans-serif;
-  --body:"IBM Plex Sans Arabic","Alexandria",system-ui,sans-serif;
-  --pad:clamp(20px,5vw,72px);
-  color-scheme:dark;
+  --paper:#f3f4f6;   /* page */
+  --white:#ffffff;   /* raised panels */
+  --ink:#111318;     /* text, dark blocks */
+  --graphite:#5b606c;/* secondary text */
+  --rule:#d9dce2;    /* hairlines */
+  --blue:#3f35d6;    /* brand, from the logo; links + hover only */
+  --font:"IBM Plex Sans Arabic","IBM Plex Sans",system-ui,sans-serif;
+  --gut:clamp(20px,4.5vw,64px);
+  color-scheme:light;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--ink)}
-body{background:var(--ink);color:var(--text);font:400 17px/1.75 var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.7 var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+[lang=en] body{font-family:"IBM Plex Sans","IBM Plex Sans Arabic",system-ui,sans-serif}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-:focus-visible{outline:2px solid var(--peri);outline-offset:3px;border-radius:6px}
-.wrap{padding-inline:var(--pad);max-width:1480px;margin-inline:auto}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.wrap{max-width:1360px;margin-inline:auto;padding-inline:var(--gut)}
 
-/* ---------- preloader ---------- */
-#loader{position:fixed;inset:0;z-index:100;background:var(--ink);display:grid;place-items:center}
-#loader canvas{width:min(70vmin,520px);height:min(70vmin,520px)}
-#loader .count{position:absolute;bottom:7vh;font:300 15px var(--display);color:var(--muted);letter-spacing:.08em;direction:ltr}
+/* ---------- preloader (kept dark on purpose) ---------- */
+#loader{position:fixed;inset:0;z-index:100;background:#0b0d14;display:grid;place-items:center}
+#loader canvas{width:min(62vmin,460px);height:min(62vmin,460px)}
+#loader .count{position:absolute;bottom:6vh;font:300 14px "IBM Plex Sans",sans-serif;color:#8a8fa0;letter-spacing:.06em;direction:ltr;font-variant-numeric:tabular-nums}
 
-/* ---------- nav ---------- */
-nav{position:fixed;top:0;inset-inline:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px var(--pad);transition:background .3s,padding .3s,border-color .3s;border-bottom:1px solid transparent}
-nav.solid{background:rgba(6,9,25,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-block:12px;border-bottom-color:var(--line)}
-.brand{display:flex;align-items:center;gap:12px;direction:ltr}
-.brand img{width:40px;height:40px;border-radius:10px}
-.brand b{font:600 17px/1.05 var(--display)}
-.navlinks{display:flex;gap:28px;font:500 15px var(--display);color:var(--muted)}
-.navlinks a:hover{color:var(--text)}
-.lang{font:600 14px var(--display);border:1px solid var(--line);padding:7px 16px;border-radius:99px}
-.lang:hover{border-color:var(--peri)}
-@media (max-width:760px){.navlinks{display:none}}
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:40;background:rgba(243,244,246,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+header.ruled{border-bottom-color:var(--rule)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:10px;direction:ltr;font-weight:600;font-size:16px;letter-spacing:-.01em}
+.brand img{width:30px;height:30px;border-radius:7px}
+.menu{display:flex;align-items:center;gap:32px;font-size:15px;color:var(--graphite)}
+.menu a:hover,.lang:hover{color:var(--ink)}
+.lang{font-size:15px;color:var(--graphite)}
+.talk{color:var(--ink);font-weight:500;border-bottom:1.5px solid var(--ink);padding-bottom:1px}
+@media (max-width:760px){.menu a:not(.talk){display:none}}
 
 /* ---------- hero ---------- */
-#net{position:fixed;inset:0;z-index:-1;pointer-events:none}
-.glow{position:fixed;inset:0;z-index:-2;pointer-events:none;
- background:radial-gradient(60vw 50vh at 85% 5%,rgba(124,92,255,.28),transparent 70%),radial-gradient(50vw 50vh at 5% 60%,rgba(52,82,220,.22),transparent 70%)}
-.hero{min-height:100svh;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:4vw;padding-top:110px;padding-bottom:60px}
-.hero h1{font:800 clamp(44px,6.4vw,104px)/1.08 var(--display);letter-spacing:-.01em;text-wrap:balance}
-.hero h1 .line{display:block;overflow:hidden;padding-bottom:.08em}
-.hero h1 .line span{display:inline-block}
-.hero h1 .soft{background:linear-gradient(100deg,#e3dbff 0%,var(--violet) 55%,var(--peri) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.06em}
-.hero p{margin-top:28px;max-width:34ch;font-size:clamp(17px,1.4vw,21px);color:var(--muted)}
-.hero .acts{margin-top:40px;display:flex;flex-wrap:wrap;gap:14px}
-.btn{display:inline-flex;align-items:center;gap:10px;font:600 16px var(--display);padding:15px 28px;border-radius:99px;transition:transform .3s,box-shadow .3s,background .3s}
-.btn.main{background:var(--violet);box-shadow:0 10px 40px rgba(124,92,255,.45)}
-.btn.main:hover{transform:translateY(-2px);box-shadow:0 16px 50px rgba(124,92,255,.6)}
-.btn.ghost{border:1px solid var(--line)}
-.btn.ghost:hover{border-color:var(--peri)}
-.btn svg{width:20px;height:20px}
+.hero{padding-top:clamp(56px,9vw,120px)}
+.hero .grid{display:grid;grid-template-columns:7fr 5fr;gap:var(--gut);align-items:end}
+.hero h1{font-weight:500;font-size:clamp(36px,4.6vw,66px);line-height:1.22;letter-spacing:-.015em;max-width:15ch;text-wrap:balance}
+[lang=en] .hero h1{letter-spacing:-.03em;line-height:1.08}
+.hero .lead{font-size:clamp(16px,1.25vw,18px);color:var(--graphite);max-width:38ch}
+.hero .lead a{color:var(--ink);border-bottom:1.5px solid var(--ink)}
+.hero .lead a:hover{color:var(--blue);border-color:var(--blue)}
+@media (max-width:860px){.hero .grid{grid-template-columns:1fr;gap:28px}}
 
-/* browser stack */
-.stack{position:relative;height:min(70vh,640px);perspective:1800px}
-.stack .bw{position:absolute;width:78%;transform-style:preserve-3d}
-.stack .bw:nth-child(1){inset-inline-start:0;top:4%;transform:rotateY(-18deg) rotateX(6deg) translateZ(-120px);opacity:.55}
-.stack .bw:nth-child(2){inset-inline-start:11%;top:16%;transform:rotateY(-18deg) rotateX(6deg) translateZ(-40px);opacity:.8}
-.stack .bw:nth-child(3){inset-inline-start:22%;top:28%;transform:rotateY(-18deg) rotateX(6deg) translateZ(40px)}
-[dir=ltr] .stack .bw{transform:rotateY(18deg) rotateX(6deg)}
+/* filmstrip of real work */
+.strip{margin-top:clamp(48px,7vw,96px);overflow:hidden;display:grid;gap:14px;direction:ltr}
+.row{display:flex;gap:14px;width:max-content;will-change:transform}
+.shot{flex:none;width:clamp(240px,24vw,360px);aspect-ratio:16/10;border-radius:6px;overflow:hidden;background:#e4e6ea;border:1px solid var(--rule)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top}
 
-/* browser window (shared) */
-.bw{border-radius:16px;background:#0f1433;border:1px solid var(--line);overflow:hidden;
- box-shadow:0 40px 90px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.03),0 0 70px rgba(124,92,255,.18)}
-.bw .bar{display:flex;align-items:center;gap:7px;height:38px;padding-inline:14px;background:#151b40;direction:ltr}
-.bw .bar i{width:10px;height:10px;border-radius:50%;background:#2e3563}
-.bw .bar i:nth-child(1){background:#ff6058}.bw .bar i:nth-child(2){background:#ffbd2e}.bw .bar i:nth-child(3){background:#29c840}
-.bw .url{margin-inline-start:12px;flex:1;height:24px;border-radius:7px;background:rgba(255,255,255,.06);font:500 12.5px/24px var(--body);color:#aab0dc;padding-inline:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bw .view{position:relative;aspect-ratio:16/10;overflow:hidden;background:#fff}
-.bw .view img{width:100%;height:auto;will-change:transform;transition:transform 0s linear}
+/* ---------- section scaffolding ---------- */
+.sec{padding-block:clamp(80px,11vw,160px)}
+.sh{display:grid;grid-template-columns:5fr 7fr;gap:var(--gut);margin-bottom:clamp(36px,5vw,64px);align-items:end}
+.sh h2{font-weight:500;font-size:clamp(28px,2.8vw,42px);line-height:1.25;letter-spacing:-.01em;text-wrap:balance}
+.sh p{color:var(--graphite);max-width:46ch}
+@media (max-width:860px){.sh{grid-template-columns:1fr;gap:12px}}
 
-/* ---------- marquee ---------- */
-.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:22px;direction:ltr}
-.marquee .track{display:flex;gap:56px;width:max-content;animation:mq 50s linear infinite;font:700 clamp(20px,2.2vw,30px) var(--display);color:rgba(238,236,255,.38);white-space:nowrap}
-.marquee .track span:nth-child(3n+1){color:rgba(238,236,255,.75)}
-@keyframes mq{to{transform:translateX(-50%)}}
+/* ---------- index of websites ---------- */
+.tools{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--ink);padding-bottom:14px}
+.tabs{display:flex;gap:26px;font-size:15px}
+.tabs button{color:var(--graphite);padding-bottom:3px;border-bottom:1.5px solid transparent}
+.tabs button[aria-pressed=true]{color:var(--ink);border-color:var(--ink)}
+.tally{font-size:14px;color:var(--graphite);font-variant-numeric:tabular-nums}
+.list{list-style:none}
+.item a{display:grid;grid-template-columns:2.2fr 2fr 1fr auto;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--rule);transition:padding .35s cubic-bezier(.2,.8,.2,1),color .2s}
+.item a .n{font-size:clamp(19px,1.7vw,24px);font-weight:500;letter-spacing:-.005em}
+.item a .s,.item a .c{color:var(--graphite);font-size:15px}
+.item a .d{font-size:14px;color:var(--graphite);direction:ltr;text-align:end}
+.item a:hover{padding-inline-start:14px;color:var(--blue)}
+.item a:hover .s,.item a:hover .c,.item a:hover .d{color:var(--ink)}
+.item[hidden]{display:none}
+.item .thumb{display:none}
+@media (max-width:760px){
+ .item a{grid-template-columns:96px 1fr;grid-template-rows:auto auto;gap:4px 16px;padding:16px 0}
+ .item .thumb{display:block;grid-row:1/3;width:96px;aspect-ratio:16/10;border-radius:4px;overflow:hidden;border:1px solid var(--rule)}
+ .item .thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
+ .item a .c,.item a .d{display:none}
+ .item a .n{font-size:18px}
+}
+/* cursor preview */
+#peek{position:fixed;top:0;left:0;z-index:30;width:380px;aspect-ratio:16/10;border-radius:6px;overflow:hidden;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.85);
+ box-shadow:0 30px 60px rgba(17,19,24,.18);border:1px solid var(--rule);background:#e4e6ea}
+#peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+@media (hover:none),(max-width:760px){#peek{display:none}}
 
-/* ---------- section heads ---------- */
-.sec{padding-block:clamp(90px,12vw,170px)}
-.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:24px;margin-bottom:56px}
-.head h2{font:800 clamp(36px,4.6vw,72px)/1.12 var(--display);max-width:16ch;text-wrap:balance}
-.head p{max-width:42ch;color:var(--muted)}
+/* ---------- app case study ---------- */
+.case{background:var(--white);border-block:1px solid var(--rule)}
+.case .grid{display:grid;grid-template-columns:5fr 7fr;gap:var(--gut);align-items:start}
+.case .title{font-weight:500;font-size:clamp(28px,2.8vw,42px);line-height:1.25}
+.case .what{margin-top:8px;color:var(--graphite)}
+.facts{margin-top:36px;display:grid;grid-template-columns:auto 1fr;gap:10px 24px;font-size:15px;border-top:1px solid var(--rule);padding-top:20px}
+.facts dt{color:var(--graphite)}
+.chapters{margin-top:36px;display:grid;gap:4px}
+.chapter{text-align:start;padding:14px 0;border-top:1px solid var(--rule);color:var(--graphite);transition:color .2s}
+.chapter b{display:block;font-weight:500;font-size:18px;color:inherit}
+.chapter span{display:block;font-size:15px;max-height:0;overflow:hidden;transition:max-height .5s ease,margin .5s ease}
+.chapter[aria-current=true]{color:var(--ink)}
+.chapter[aria-current=true] span{max-height:120px;margin-top:6px;color:var(--graphite)}
+.screens{position:sticky;top:110px;display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,2vw,28px);padding:clamp(20px,3vw,44px);background:var(--paper);border-radius:8px}
+.screen{border-radius:22px;overflow:hidden;border:1px solid var(--rule);background:#fff;aspect-ratio:244/498;box-shadow:0 20px 40px rgba(17,19,24,.08);transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .5s}
+.screen img{width:100%;height:100%;object-fit:cover;object-position:top}
+.screens[data-step="0"] .screen:nth-child(2){opacity:.45;transform:translateY(24px)}
+.screens[data-step="1"] .screen:nth-child(1){opacity:.45;transform:translateY(24px)}
+.screens[data-step="2"] .screen:nth-child(1){opacity:.45}
+.screens .note{grid-column:1/-1;font-size:14px;color:var(--graphite)}
+.more{margin-top:clamp(56px,7vw,96px);display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gut)}
+.more div{border-top:1px solid var(--ink);padding-top:18px}
+.more h3{font-weight:500;font-size:22px}
+.more p{color:var(--graphite);margin-top:6px;max-width:44ch}
+.more small{display:block;margin-top:12px;font-size:14px;color:var(--blue)}
+@media (max-width:860px){.case .grid,.more{grid-template-columns:1fr}.screens{position:relative;top:0}}
 
-/* ---------- apps (pinned) ---------- */
-.apps{position:relative}
-.apps .pin{height:100svh;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:5vw}
-.phone{position:relative;width:min(300px,62vw);aspect-ratio:244/498;border-radius:44px;padding:10px;background:linear-gradient(145deg,#3a3f5c,#0c0e19 45%,#1b1e2e);
- box-shadow:0 0 0 2px rgba(170,150,255,.3),0 50px 100px rgba(0,0,0,.6),0 0 120px rgba(124,92,255,.45)}
-.phone .scr{position:relative;width:100%;height:100%;border-radius:35px;overflow:hidden;background:#fff}
-.phone .scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
-.steps{position:relative;min-height:220px}
-.step{position:absolute;inset:0;opacity:0}
-.step h3{font:800 clamp(28px,3vw,46px)/1.2 var(--display);text-wrap:balance}
-.step p{margin-top:14px;color:var(--muted);max-width:30ch}
-.appmeta{display:flex;flex-direction:column;gap:22px}
-.appmeta .name{font:900 clamp(40px,5vw,84px)/1 var(--display);background:linear-gradient(120deg,#d9ceff,var(--violet) 60%,var(--peri));-webkit-background-clip:text;background-clip:text;color:transparent}
-.appmeta .kind{color:var(--muted)}
-.dots{display:flex;gap:8px}
-.dots i{width:36px;height:4px;border-radius:4px;background:var(--line)}
-.dots i.on{background:var(--violet)}
-.others{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px;margin-top:20px}
-.other{border:1px solid var(--line);border-radius:22px;padding:30px;background:rgba(15,20,51,.6)}
-.other h4{font:700 24px var(--display)}
-.other p{margin-top:8px;color:var(--muted)}
-.other .st{display:inline-block;margin-top:18px;font:500 13px var(--display);color:var(--peri);border:1px solid var(--line);padding:4px 12px;border-radius:99px}
-@media (max-width:900px){.apps .pin{grid-template-columns:1fr;grid-template-rows:auto auto auto;gap:24px;padding-top:90px;text-align:center}.steps{min-height:170px}.step p{margin-inline:auto}.appmeta{align-items:center}}
+/* ---------- services ---------- */
+.svc{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink)}
+.svc div{padding:22px 22px 0 0;border-inline-start:1px solid var(--rule)}
+.svc div:first-child{border-inline-start:0}
+[dir=rtl] .svc div{padding:22px 0 0 22px}
+.svc h3{font-weight:500;font-size:19px}
+.svc p{margin-top:8px;color:var(--graphite);font-size:15px}
+@media (max-width:860px){.svc{grid-template-columns:1fr 1fr;row-gap:28px}.svc div{border:0!important}}
+@media (max-width:520px){.svc{grid-template-columns:1fr}}
 
-/* ---------- work ---------- */
-.filters{display:flex;flex-wrap:wrap;gap:10px}
-.filters button{font:600 15px var(--display);padding:10px 20px;border-radius:99px;border:1px solid var(--line);color:var(--muted);transition:all .25s}
-.filters button[aria-pressed=true]{background:var(--text);color:var(--ink);border-color:var(--text)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(28px,4vw,64px) clamp(20px,3vw,48px)}
-.card{display:block;text-align:start;width:100%}
-.card:nth-child(4n+2),.card:nth-child(4n+3){}
-.card .bw{transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
-.card:hover .bw{transform:translateY(-6px);box-shadow:0 50px 100px rgba(0,0,0,.6),0 0 90px rgba(124,92,255,.35)}
-.card .info{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:18px}
-.card h3{font:700 clamp(20px,1.8vw,28px)/1.3 var(--display)}
-.card .sector{color:var(--muted);font-size:15px;margin-top:2px}
-.card .flag{flex:none;font:500 13px var(--display);color:var(--peri);border:1px solid var(--line);padding:3px 12px;border-radius:99px}
-.card[hidden]{display:none}
-@media (max-width:760px){.grid{grid-template-columns:1fr}.hero{grid-template-columns:1fr;padding-top:120px}.stack{height:52vh;margin-top:10px}}
-
-/* ---------- facts ---------- */
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border-block:1px solid var(--line)}
-.fact{background:var(--ink);padding:44px var(--pad) 40px}
-.fact b{display:block;font:800 clamp(56px,6vw,96px)/1 var(--display);font-variant-numeric:tabular-nums}
-.fact span{display:block;margin-top:12px;color:var(--muted)}
-
-/* ---------- contact ---------- */
-.contact{text-align:center}
-.contact h2{font:900 clamp(48px,9vw,160px)/1.02 var(--display);letter-spacing:-.02em;text-wrap:balance}
-.contact h2 span{background:linear-gradient(120deg,#e3dbff,var(--violet) 55%,var(--peri));-webkit-background-clip:text;background-clip:text;color:transparent}
-.contact p{margin:26px auto 0;max-width:40ch;color:var(--muted)}
-.contact .acts{margin-top:40px;display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
-.contact .lines{margin-top:36px;display:flex;justify-content:center;gap:28px;flex-wrap:wrap;color:var(--muted);direction:ltr}
-footer{border-top:1px solid var(--line);padding-block:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--muted);font-size:14px}
+/* ---------- contact (the one dark block) ---------- */
+.contact{background:var(--ink);color:#f3f4f6}
+.contact .wrap{padding-block:clamp(80px,11vw,150px)}
+.contact h2{font-weight:500;font-size:clamp(34px,4.4vw,64px);line-height:1.2;max-width:18ch;letter-spacing:-.015em;text-wrap:balance}
+.contact .rows{margin-top:clamp(40px,5vw,72px);display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #2b2f3a}
+.contact .rows a{display:block;padding:22px 0;border-bottom:1px solid #2b2f3a;transition:color .2s}
+.contact .rows a small{display:block;font-size:14px;color:#8a8fa0}
+.contact .rows a span{font-size:clamp(18px,1.6vw,22px);direction:ltr;display:inline-block}
+.contact .rows a:hover{color:#a9a3ff}
+@media (max-width:860px){.contact .rows{grid-template-columns:1fr}}
+footer{background:var(--ink);color:#8a8fa0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:24px;border-top:1px solid #2b2f3a}
 
 /* ---------- lightbox ---------- */
-#lb{position:fixed;inset:0;z-index:80;background:rgba(4,6,18,.86);backdrop-filter:blur(8px);display:grid;place-items:center;padding:4vh 4vw;opacity:0;pointer-events:none;transition:opacity .35s}
+#lb{position:fixed;inset:0;z-index:80;background:rgba(243,244,246,.94);backdrop-filter:blur(6px);display:grid;grid-template-rows:auto 1fr;opacity:0;pointer-events:none;transition:opacity .3s}
 #lb.open{opacity:1;pointer-events:auto}
-#lb .box{width:min(1100px,100%);transform:translateY(30px) scale(.97);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
-#lb.open .box{transform:none}
-#lb .bw .view{aspect-ratio:16/9.2}
-#lb .row{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:18px;flex-wrap:wrap}
-#lb h3{font:800 clamp(24px,2.6vw,38px) var(--display)}
-#lb .close{position:absolute;top:20px;inset-inline-end:24px;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);font-size:22px}
+#lb .top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px var(--gut);border-bottom:1px solid var(--rule)}
+#lb h3{font-weight:500;font-size:20px}
+#lb .acts{display:flex;gap:24px;font-size:15px}
+#lb .acts a{border-bottom:1.5px solid var(--ink)}
+#lb .acts a:hover{color:var(--blue);border-color:var(--blue)}
+#lb .frame{overflow:hidden;margin:clamp(16px,3vw,40px) auto 0;width:min(1100px,92vw);border-radius:8px 8px 0 0;border:1px solid var(--rule);border-bottom:0;background:#fff;box-shadow:0 30px 80px rgba(17,19,24,.15);transform:translateY(40px);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+#lb.open .frame{transform:none}
+#lb .frame img{width:100%}
 
-@media (prefers-reduced-motion:reduce){.marquee .track{animation:none}*{transition-duration:0s!important}}
+@media (prefers-reduced-motion:reduce){*{transition-duration:0s!important;animation:none!important}}
 </style>
 </head>
 <body>
-<div class="glow"></div><canvas id="net"></canvas>
-
 <div id="loader" aria-hidden="true"><canvas id="lc" width="520" height="520"></canvas><div class="count" id="lcount">0</div></div>
 
-<nav>
-  <a class="brand" href="#top" aria-label="X TechVerse"><img src="assets/logo.png" alt=""><b>Xtech<br>Verse</b></a>
-  <div class="navlinks"><a href="#apps" data-t="nav_apps">التطبيقات</a><a href="#work" data-t="nav_work">المواقع</a><a href="#contact" data-t="nav_contact">تواصل</a></div>
-  <button class="lang" id="lang" aria-label="Switch language">EN</button>
-</nav>
+<header id="hdr"><div class="wrap">
+  <a class="brand" href="#top"><img src="assets/logo.png" alt="">X TechVerse</a>
+  <nav class="menu" aria-label="Main">
+    <a href="#work" data-t="nav_work">الأعمال</a><a href="#apps" data-t="nav_apps">التطبيقات</a><a href="#services" data-t="nav_svc">الخدمات</a>
+    <button class="lang" id="lang">English</button>
+    <a class="talk" href="#contact" data-t="nav_talk">ابدأ مشروع</a>
+  </nav>
+</div></header>
 
 <main id="top">
-<section class="wrap hero">
-  <div>
-    <h1 id="h1"><span class="line"><span data-t="h1a">بنبني مواقع</span></span><span class="line"><span data-t="h1b">وتطبيقات</span></span><span class="line"><span class="soft" data-t="h1c">بتجيبلك شغل.</span></span></h1>
-    <p data-t="lead">استوديو برمجة من مصر. سلّمنا مواقع لشركات في مصر والسعودية، وتطبيقات وسيستمات بتدير شغل حقيقي كل يوم.</p>
-    <div class="acts">
-      <a class="btn main" href="#work" data-t="cta_work">شوف شغلنا</a>
-      <a class="btn ghost" href="https://wa.me/201039253652" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span data-t="cta_wa">كلمنا واتساب</span></a>
-    </div>
+<section class="hero">
+  <div class="wrap grid">
+    <h1 id="h1" data-t="h1">بنصمم ونبرمج مواقع وتطبيقات لشركات في مصر والسعودية.</h1>
+    <p class="lead"><span data-t="lead">استوديو صغير بيشتغل على المشروع من الفكرة لحد ما يبقى شغال. تحت 18 موقع منشورين لعملاء حقيقيين، وتطبيقات بتدير شغل كل يوم.</span> <a href="#work" data-t="lead_a">شوف الأعمال</a></p>
   </div>
-  <div class="stack" id="stack" aria-hidden="true"></div>
-</section>
-
-<div class="marquee" aria-hidden="true"><div class="track" id="mq"></div></div>
-
-<section class="apps" id="apps">
-  <div class="wrap pin" id="pin">
-    <div class="appmeta">
-      <div class="name">عقاري EG</div>
-      <div class="kind" data-t="aq_kind">تطبيق عقارات · أندرويد</div>
-      <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
-    </div>
-    <div class="phone"><div class="scr"><img id="s1" src="assets/aqary_map.png" alt="شاشة الخريطة في تطبيق عقاري EG"><img id="s2" src="assets/aqary_detail.png" alt="صفحة وحدة في تطبيق عقاري EG" style="opacity:0"></div></div>
-    <div class="steps">
-      <div class="step" style="opacity:1"><h3 data-t="st1h">العميل يدوّر على الخريطة</h3><p data-t="st1p">فلاتر للشقق والفلل والشاليهات، بيع أو إيجار، والوحدات ظاهرة مكانها على الخريطة.</p></div>
-      <div class="step"><h3 data-t="st2h">صفحة كاملة لكل وحدة</h3><p data-t="st2p">صور، سعر، مساحة، عدد الأوض، ومرافق الوحدة في شاشة واحدة.</p></div>
-      <div class="step"><h3 data-t="st3h">ويكلّم المعلن بضغطة</h3><p data-t="st3p">اتصال، واتساب، أو دردشة جوه التطبيق، من غير ما يدوّر على رقم.</p></div>
-    </div>
-  </div>
-  <div class="wrap others">
-    <div class="other"><h4 data-t="o1h">سيستم سوبر ماركت</h4><p data-t="o1p">تطبيق للعميل، تطبيق للمندوب، ولوحة تحكم للمحل فيها المنتجات والأوردرات والتقارير.</p><span class="st" data-t="o1s">اتسلّم</span></div>
-    <div class="other"><h4 data-t="o2h">كلينيكاوي</h4><p data-t="o2p">نظام إدارة عيادات: مواعيد، ملفات مرضى، روشتات، وفواتير.</p><span class="st" data-t="o2s">تحت التطوير</span></div>
-  </div>
+  <div class="strip" aria-hidden="true"><div class="row" id="r1"></div><div class="row" id="r2"></div></div>
 </section>
 
 <section class="wrap sec" id="work">
-  <div class="head">
-    <h2 data-t="work_h">مواقع شغالة دلوقتي لعملاء حقيقيين</h2>
-    <div class="filters" role="group" aria-label="Filter">
-      <button aria-pressed="true" data-f="all" data-t="f_all">الكل</button>
-      <button aria-pressed="false" data-f="eg" data-t="f_eg">مصر</button>
-      <button aria-pressed="false" data-f="sa" data-t="f_sa">السعودية</button>
+  <div class="sh"><h2 data-t="work_h">مواقع شغالة لعملاء حقيقيين</h2><p data-t="work_p">عدّي بالماوس على أي اسم عشان تشوف الموقع، واضغط عليه عشان تتصفحه كامل.</p></div>
+  <div class="tools">
+    <div class="tabs" role="group" aria-label="Filter"><button aria-pressed="true" data-f="all" data-t="f_all">الكل</button><button aria-pressed="false" data-f="eg" data-t="f_eg">مصر</button><button aria-pressed="false" data-f="sa" data-t="f_sa">السعودية</button></div>
+    <div class="tally" id="tally"></div>
+  </div>
+  <ul class="list" id="list"></ul>
+</section>
+<div id="peek" aria-hidden="true"><img id="peekA" alt=""><img id="peekB" alt=""></div>
+
+<section class="case" id="apps"><div class="wrap sec">
+  <div class="grid">
+    <div>
+      <h2 class="title">عقاري EG</h2>
+      <p class="what" data-t="aq_what">تطبيق عقارات للأندرويد بيجمع الوحدات المعروضة للبيع والإيجار في مكان واحد.</p>
+      <dl class="facts"><dt data-t="aq_k1">المنصة</dt><dd data-t="aq_v1">أندرويد، منشور على جوجل بلاي</dd><dt data-t="aq_k2">الشغل</dt><dd data-t="aq_v2">تصميم الواجهة، برمجة التطبيق، والربط بالخريطة</dd></dl>
+      <div class="chapters" id="chapters">
+        <button class="chapter" aria-current="true" data-i="0"><b data-t="c1h">البحث على الخريطة</b><span data-t="c1p">فلاتر للشقق والفلل والشاليهات، بيع أو إيجار، وكل وحدة ظاهرة مكانها.</span></button>
+        <button class="chapter" aria-current="false" data-i="1"><b data-t="c2h">صفحة الوحدة</b><span data-t="c2p">صور، سعر، مساحة، عدد الأوض والحمامات، والمرافق.</span></button>
+        <button class="chapter" aria-current="false" data-i="2"><b data-t="c3h">التواصل</b><span data-t="c3p">اتصال وواتساب ودردشة جوه التطبيق من نفس الشاشة.</span></button>
+      </div>
+    </div>
+    <div class="screens" id="screens" data-step="0">
+      <div class="screen"><img src="assets/aqary_map.png" alt="شاشة الخريطة في عقاري EG"></div>
+      <div class="screen"><img src="assets/aqary_detail.png" alt="صفحة وحدة في عقاري EG"></div>
+      <p class="note" data-t="aq_note">لقطات من النسخة المنشورة على جوجل بلاي.</p>
     </div>
   </div>
-  <div class="grid" id="grid"></div>
-</section>
-
-<section class="facts" aria-label="أرقام">
-  <div class="fact"><b data-count="18">0</b><span data-t="fa1">موقع منشور في البورتفوليو</span></div>
-  <div class="fact"><b data-count="2">0</b><span data-t="fa2">بلد: مصر والسعودية</span></div>
-  <div class="fact"><b data-count="3">0</b><span data-t="fa3">تطبيقات وسيستمات</span></div>
-</section>
-
-<section class="wrap sec contact" id="contact">
-  <h2><span data-t="ct_h">يلا نبني مشروعك</span></h2>
-  <p data-t="ct_p">احكيلنا عن فكرتك أو مشكلتك في رسالة، ونرد عليك بخطة وتكلفة واضحة.</p>
-  <div class="acts">
-    <a class="btn main" href="https://wa.me/201039253652" target="_blank" rel="noopener" data-t="ct_wa">ابعت على واتساب</a>
-    <a class="btn ghost" href="mailto:info@xtechverse.com" data-t="ct_mail">ابعت إيميل</a>
+  <div class="more">
+    <div><h3 data-t="o1h">سيستم سوبر ماركت</h3><p data-t="o1p">تطبيق للعميل، تطبيق للمندوب، ولوحة تحكم للمحل فيها المنتجات والأوردرات والتقارير.</p><small data-t="o1s">اتسلّم للعميل</small></div>
+    <div><h3 data-t="o2h">كلينيكاوي</h3><p data-t="o2p">نظام إدارة عيادات: مواعيد، ملفات مرضى، روشتات، وفواتير.</p><small data-t="o2s">تحت التطوير</small></div>
   </div>
-  <div class="lines"><span>+20 10 3925 3652</span><span>info@xtechverse.com</span></div>
+</div></section>
+
+<section class="wrap sec" id="services">
+  <div class="sh"><h2 data-t="svc_h">بنشتغل في إيه</h2><p data-t="svc_p">نفس الفريق بيصمم وبيبرمج وبيكمّل معاك بعد التسليم.</p></div>
+  <div class="svc">
+    <div><h3 data-t="s1h">مواقع الشركات</h3><p data-t="s1p">مواقع تعريفية ومتاجر، عربي وإنجليزي، سريعة وسهلة التعديل.</p></div>
+    <div><h3 data-t="s2h">تطبيقات موبايل</h3><p data-t="s2p">أندرويد وiOS بكود واحد، من التصميم لحد النشر على المتاجر.</p></div>
+    <div><h3 data-t="s3h">سيستمات مخصصة</h3><p data-t="s3p">لوحات تحكم وأنظمة إدارة معمولة على مقاس شغلك.</p></div>
+    <div><h3 data-t="s4h">صيانة وتطوير</h3><p data-t="s4p">تحديثات، حماية، نسخ احتياطي، وتسريع للمواقع القائمة.</p></div>
+  </div>
 </section>
 </main>
 
-<footer class="wrap"><span>© 2026 X TechVerse</span><span data-t="foot">مواقع، تطبيقات، وسيستمات مخصصة</span></footer>
-
-<div id="lb" role="dialog" aria-modal="true" aria-label="معاينة المشروع">
-  <button class="close" id="lbx" aria-label="إغلاق">✕</button>
-  <div class="box">
-    <div class="bw"><div class="bar"><i></i><i></i><i></i><div class="url" id="lburl"></div></div><div class="view"><img id="lbimg" alt=""></div></div>
-    <div class="row"><h3 id="lbt"></h3><a class="btn main" id="lbgo" target="_blank" rel="noopener" data-t="visit">زور الموقع</a></div>
+<section class="contact" id="contact"><div class="wrap">
+  <h2 data-t="ct_h">احكيلنا عن مشروعك، ونرد عليك بخطة وتكلفة واضحة.</h2>
+  <div class="rows">
+    <a href="https://wa.me/201039253652" target="_blank" rel="noopener"><small data-t="ct_wa">واتساب</small><span>+20 10 3925 3652</span></a>
+    <a href="mailto:info@xtechverse.com"><small data-t="ct_mail">إيميل</small><span>info@xtechverse.com</span></a>
+    <a href="https://www.facebook.com/xtechverse1" target="_blank" rel="noopener"><small data-t="ct_fb">فيسبوك</small><span>xtechverse1</span></a>
   </div>
+</div></section>
+<footer><div class="wrap"><span>© 2026 X TechVerse</span><span data-t="foot">القاهرة، مصر</span></div></footer>
+
+<div id="lb" role="dialog" aria-modal="true" aria-labelledby="lbt">
+  <div class="top"><h3 id="lbt"></h3><div class="acts"><a id="lbgo" target="_blank" rel="noopener" data-t="visit">افتح الموقع</a><button id="lbx" data-t="close">إغلاق</button></div></div>
+  <div class="frame" id="lbf"><img id="lbimg" alt=""></div>
 </div>
 
 <script src="vendor/gsap.min.js"></script>
@@ -256,12 +251,12 @@ footer{border-top:1px solid var(--line);padding-block:28px;display:flex;justify-
 (function boot(){if(!(window.gsap&&window.ScrollTrigger))return setTimeout(boot,40);
 const U='https://portfolio.xtechverse.com/wp-content/uploads/2025/10/';
 const P=[
- {ar:'مركز الأهرام للأشعة',en:'Ahram Scan',sAr:'مركز أشعة وتحاليل',sEn:'Radiology & lab center',c:'eg',url:'https://ahramscan.com/',img:'%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9-AHRAM-SCAN-%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D8%A3%D9%87%D8%B1%D8%A7%D9%85-%D9%84%D9%84%D8%A3%D8%B4%D8%B9%D8%A9-%D9%88%D8%A7%D9%84%D8%AA%D8%AD%D8%A7%D9%84%D9%8A%D9%84-10-18-2025_02_29_PM-scaled.webp'},
- {ar:'Beauty Secret',en:'Beauty Secret',sAr:'متجر مستحضرات تجميل',sEn:'Beauty e-commerce store',c:'eg',url:'https://beauty-secret.store/',img:'Home-beauty-secret-store-10-18-2025_02_25_PM-scaled.webp'},
+ {ar:'مركز الأهرام للأشعة',en:'Ahram Scan',sAr:'مركز أشعة وتحاليل',sEn:'Radiology and lab center',c:'eg',url:'https://ahramscan.com/',img:'%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9-AHRAM-SCAN-%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D8%A3%D9%87%D8%B1%D8%A7%D9%85-%D9%84%D9%84%D8%A3%D8%B4%D8%B9%D8%A9-%D9%88%D8%A7%D9%84%D8%AA%D8%AD%D8%A7%D9%84%D9%8A%D9%84-10-18-2025_02_29_PM-scaled.webp'},
+ {ar:'Beauty Secret',en:'Beauty Secret',sAr:'متجر مستحضرات تجميل',sEn:'Beauty store',c:'eg',url:'https://beauty-secret.store/',img:'Home-beauty-secret-store-10-18-2025_02_25_PM-scaled.webp'},
  {ar:'HACE',en:'HACE',sAr:'معرض للفنادق',sEn:'Hotel expo',c:'eg',url:'https://hace.com.eg/',img:'HACE-%E2%80%93-HOTEL-EXPO-10-18-2025_02_23_PM-scaled.webp'},
  {ar:'Sistema Plastic Egypt',en:'Sistema Plastic Egypt',sAr:'موقع شركة',sEn:'Company website',c:'eg',url:'https://sistemaplasticegypt.com/',img:'Sistema-Plastic-Egypt-10-18-2025_02_20_PM-scaled.webp'},
  {ar:'زهرة للأدوات المنزلية',en:'Zahra Housewares',sAr:'أدوات منزلية',sEn:'Housewares',c:'eg',url:'https://zahra-housewares.com/',img:'%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9-Zahra-House-Wares-10-18-2025_02_19_PM-scaled.webp'},
- {ar:'إفاد',en:'EFAD',sAr:'تصدير واستيراد',sEn:'Import & export',c:'sa',url:'https://wp.rasmi.sa/efad/',img:'%D8%A7%D9%81%D8%A7%D8%AF-EFAD-%E2%80%93-%D9%84%D9%84%D8%AA%D8%B5%D8%AF%D9%8A%D8%B1-%D9%88-%D8%A7%D9%84%D8%A5%D8%B3%D8%AA%D9%8A%D8%B1%D8%A7%D8%AF-10-18-2025_02_16_PM-scaled.webp'},
+ {ar:'إفاد',en:'EFAD',sAr:'تصدير واستيراد',sEn:'Import and export',c:'sa',url:'https://wp.rasmi.sa/efad/',img:'%D8%A7%D9%81%D8%A7%D8%AF-EFAD-%E2%80%93-%D9%84%D9%84%D8%AA%D8%B5%D8%AF%D9%8A%D8%B1-%D9%88-%D8%A7%D9%84%D8%A5%D8%B3%D8%AA%D9%8A%D8%B1%D8%A7%D8%AF-10-18-2025_02_16_PM-scaled.webp'},
  {ar:'الريان',en:'Al Rayan',sAr:'مكافحة حشرات',sEn:'Pest control',c:'eg',url:'https://peofreedns.com/rayan/',img:'%D8%B4%D8%B1%D9%83%D8%A9-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D9%86-%D9%84%D9%85%D9%83%D8%A7%D9%81%D8%AD%D8%A9-%D8%A7%D9%84%D8%AD%D8%B4%D8%B1%D8%A7%D8%AA-%D9%85%D9%83%D8%A7%D9%81%D8%AD%D8%A9-%D8%B0%D9%83%D9%8A%D8%A9%E2%80%A6-%D9%84%D8%A8%D9%8A%D8%A6%D8%A9-%D8%B5%D8%AD%D9%8A%D8%A9-10-18-2025_02_15_PM-scaled.webp'},
  {ar:'Ellwaa',en:'Ellwaa',sAr:'موقع شركة',sEn:'Company website',c:'eg',url:'https://ellwaa.com/',img:'%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9-Ellwaa-10-18-2025_02_13_PM-scaled.webp'},
  {ar:'Cross Road',en:'Cross Road',sAr:'موقع شركة',sEn:'Company website',c:'sa',url:'https://crossroad-global.com/',img:'Home-Cross-Road-10-18-2025_02_11_PM-scaled.webp'},
@@ -273,126 +268,107 @@ const P=[
  {ar:'المجد البازغ',en:'Al Majd Al Bazigh',sAr:'موقع شركة',sEn:'Company website',c:'sa',url:'https://almajd-albazigh.com/',img:'Home-Al-Majd-Al-Bazigh-10-18-2025_02_00_PM-scaled.webp'},
  {ar:'شموع أبها',en:'Shumou Abha',sAr:'موقع شركة',sEn:'Company website',c:'sa',url:'https://shumouabha.com/',img:'Shumouabha-10-18-2025_01_59_PM-scaled.webp'},
  {ar:'تفوق الحدث',en:'Excellence Event',sAr:'تنظيم فعاليات',sEn:'Event management',c:'sa',url:'https://excellence-event.com/',img:'%D8%B4%D8%B1%D9%83%D8%A9-%D8%AA%D9%81%D9%88%D9%82-%D8%A7%D9%84%D8%AD%D8%AF%D8%AB-10-18-2025_01_36_PM-scaled.webp'},
- {ar:'Soft Light',en:'Soft Light KSA',sAr:'تنظيم حفلات ومعارض',sEn:'Events & exhibitions',c:'sa',url:'https://softlightksa.com/',img:'Soft-Light-KSA-%D8%B3%D9%88%D9%81%D8%AA-%D9%84%D8%A7%D9%8A%D8%AA-%D9%84%D8%AA%D9%86%D8%B8%D9%8A%D9%85-%D8%A7%D9%84%D8%AD%D9%81%D9%84%D8%A7%D8%AA-%D9%88-%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B1%D8%B6-%D9%88-%D8%A7%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%A7%D8%AA-10-18-2025_01_31_PM-scaled.webp'},
+ {ar:'Soft Light',en:'Soft Light KSA',sAr:'تنظيم حفلات ومعارض',sEn:'Events and exhibitions',c:'sa',url:'https://softlightksa.com/',img:'Soft-Light-KSA-%D8%B3%D9%88%D9%81%D8%AA-%D9%84%D8%A7%D9%8A%D8%AA-%D9%84%D8%AA%D9%86%D8%B8%D9%8A%D9%85-%D8%A7%D9%84%D8%AD%D9%81%D9%84%D8%A7%D8%AA-%D9%88-%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B1%D8%B6-%D9%88-%D8%A7%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%A7%D8%AA-10-18-2025_01_31_PM-scaled.webp'},
 ];
-const T={
- en:{nav_apps:'Apps',nav_work:'Websites',nav_contact:'Contact',h1a:'We build websites',h1b:'and apps',h1c:'that bring you work.',
-  lead:'A software studio from Egypt. We have shipped websites for companies in Egypt and Saudi Arabia, plus apps and systems that run real businesses every day.',
-  cta_work:'See our work',cta_wa:'Message us on WhatsApp',aq_kind:'Real-estate app · Android',
-  st1h:'Customers search on the map',st1p:'Filters for apartments, villas and chalets, for sale or rent, with every unit pinned on the map.',
-  st2h:'A full page for every unit',st2p:'Photos, price, area, rooms and amenities on one screen.',
-  st3h:'One tap to reach the agent',st3p:'Call, WhatsApp or in-app chat, without hunting for a number.',
-  o1h:'Supermarket system',o1p:'A customer app, a driver app, and a store dashboard for products, orders and reports.',o1s:'Delivered',
-  o2h:'Clinicawy',o2p:'Clinic management: appointments, patient files, prescriptions and invoices.',o2s:'In development',
-  work_h:'Websites live today for real clients',f_all:'All',f_eg:'Egypt',f_sa:'Saudi Arabia',
-  fa1:'websites in the portfolio',fa2:'countries: Egypt and Saudi Arabia',fa3:'apps and systems',
-  ct_h:"Let's build your project",ct_p:'Tell us about your idea or the problem in one message, and we reply with a clear plan and cost.',
-  ct_wa:'Send on WhatsApp',ct_mail:'Send an email',foot:'Websites, apps and custom systems',visit:'Visit website',eg:'Egypt',sa:'KSA'},
- ar:{eg:'مصر',sa:'السعودية',visit:'زور الموقع'}
-};
+const T={en:{nav_work:'Work',nav_apps:'Apps',nav_svc:'Services',nav_talk:'Start a project',
+ h1:'We design and build websites and apps for companies in Egypt and Saudi Arabia.',
+ lead:'A small studio that takes a project from idea to launch. Below are 18 live websites for real clients, and apps that run businesses every day.',lead_a:'See the work',
+ work_h:'Live websites for real clients',work_p:'Hover a name to preview the site, click to browse the whole page.',f_all:'All',f_eg:'Egypt',f_sa:'Saudi Arabia',
+ aq_what:'An Android real-estate app that gathers units for sale and rent in one place.',aq_k1:'Platform',aq_v1:'Android, published on Google Play',aq_k2:'Our part',aq_v2:'Interface design, app development and map integration',
+ c1h:'Search on the map',c1p:'Filters for apartments, villas and chalets, for sale or rent, with every unit pinned in place.',
+ c2h:'Unit page',c2p:'Photos, price, area, rooms, bathrooms and amenities.',c3h:'Contact',c3p:'Call, WhatsApp and in-app chat from the same screen.',
+ aq_note:'Screens from the version published on Google Play.',
+ o1h:'Supermarket system',o1p:'A customer app, a driver app, and a store dashboard for products, orders and reports.',o1s:'Delivered to the client',
+ o2h:'Clinicawy',o2p:'Clinic management: appointments, patient files, prescriptions and invoices.',o2s:'In development',
+ svc_h:'What we do',svc_p:'The same team designs, builds, and stays with you after launch.',
+ s1h:'Company websites',s1p:'Corporate sites and online stores in Arabic and English, fast and easy to update.',
+ s2h:'Mobile apps',s2p:'Android and iOS from one codebase, from design to store release.',
+ s3h:'Custom systems',s3p:'Dashboards and management systems shaped around how you work.',
+ s4h:'Care and growth',s4p:'Updates, security, backups and speed work for existing sites.',
+ ct_h:'Tell us about your project, and we reply with a clear plan and cost.',ct_wa:'WhatsApp',ct_mail:'Email',ct_fb:'Facebook',foot:'Cairo, Egypt',visit:'Open website',close:'Close',
+ eg:'Egypt',sa:'Saudi Arabia',sites:'websites'},
+ ar:{eg:'مصر',sa:'السعودية',sites:'موقع'}};
 document.querySelectorAll('[data-t]').forEach(e=>T.ar[e.dataset.t]=T.ar[e.dataset.t]||e.textContent);
-let L='ar';
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let L='ar',F='all';const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- build DOM ---------- */
-const bw=(p,lazy=true)=>`<div class="bw"><div class="bar"><i></i><i></i><i></i><div class="url">${p.url.replace('https://','').replace(/\/$/,'')}</div></div><div class="view"><img ${lazy?'loading="lazy"':''} src="${U+p.img}" alt="${p[L]}"></div></div>`;
-const grid=document.getElementById('grid');
-function cards(){grid.innerHTML=P.map((p,i)=>`<a class="card" href="${p.url}" data-c="${p.c}" data-i="${i}">${bw(p)}<div class="info"><div><h3>${p[L]}</h3><div class="sector">${L==='ar'?p.sAr:p.sEn}</div></div><span class="flag">${T[L][p.c]}</span></div></a>`).join('');wireScroll(grid);applyFilter()}
-document.getElementById('stack').innerHTML=[8,11,0].map(i=>bw(P[i],false)).join('');
-const names=P.map(p=>`<span>${p.en}</span>`).join('');document.getElementById('mq').innerHTML=names+names;
+/* filmstrip */
+const half=P.slice(0,9),rest=P.slice(9);
+const shots=a=>a.map(p=>`<div class="shot"><img src="${U+p.img}" alt="" loading="eager"></div>`).join('');
+const r1=document.getElementById('r1'),r2=document.getElementById('r2');r1.innerHTML=shots(half)+shots(half);r2.innerHTML=shots(rest)+shots(rest);
 
-/* hover / auto scroll of full-page screenshots */
-function wireScroll(root){root.querySelectorAll('.bw').forEach(w=>{const v=w.querySelector('.view'),im=v.querySelector('img');
-  const dist=()=>Math.max(0,im.getBoundingClientRect().height-v.getBoundingClientRect().height);
-  w.closest('.card')?.addEventListener('mouseenter',()=>{const d=dist();im.style.transition=`transform ${Math.max(2,d/320)}s cubic-bezier(.45,0,.55,1)`;im.style.transform=`translateY(${-d}px)`});
-  w.closest('.card')?.addEventListener('mouseleave',()=>{im.style.transition='transform 1.1s cubic-bezier(.2,.8,.2,1)';im.style.transform='translateY(0)'});
-})}
-/* hero stack: continuous slow scroll */
-function heroScroll(){if(reduce)return;document.querySelectorAll('#stack .bw').forEach((w,k)=>{const v=w.querySelector('.view'),im=v.querySelector('img');
- const go=()=>{const d=im.getBoundingClientRect().height-v.getBoundingClientRect().height;if(d<=0)return setTimeout(go,500);
-  gsap.to(im,{y:-d*0.6,duration:18+k*4,ease:'sine.inOut',repeat:-1,yoyo:true,delay:k*1.2})};im.complete?go():im.onload=go})}
+/* index list */
+const list=document.getElementById('list');
+function renderList(){list.innerHTML=P.map((p,i)=>`<li class="item" data-c="${p.c}"><a href="${p.url}" data-i="${i}"><span class="thumb"><img loading="lazy" src="${U+p.img}" alt=""></span><span class="n">${p[L]}</span><span class="s">${L==='ar'?p.sAr:p.sEn}</span><span class="c">${T[L][p.c]}</span><span class="d">${p.url.replace(/^https:\/\/|\/$/g,'')}</span></a></li>`).join('');filter()}
+function filter(){let n=0;list.querySelectorAll('.item').forEach(li=>{const v=F==='all'||li.dataset.c===F;li.hidden=!v;if(v)n++});document.getElementById('tally').textContent=`${n} ${T[L].sites}`;ScrollTrigger.refresh()}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{F=b.dataset.f;document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));filter();
+ gsap.fromTo([...list.querySelectorAll('.item:not([hidden])')],{opacity:0,y:12},{opacity:1,y:0,duration:.45,stagger:.025,ease:'power2.out'})});
 
-/* filters */
-let F='all';
-function applyFilter(){grid.querySelectorAll('.card').forEach(c=>c.hidden=!(F==='all'||c.dataset.c===F));ScrollTrigger.refresh()}
-document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{F=b.dataset.f;document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));
- const vis=[...grid.querySelectorAll('.card')];applyFilter();gsap.fromTo(vis.filter(c=>!c.hidden),{opacity:0,y:30},{opacity:1,y:0,stagger:.05,duration:.6,ease:'power3.out'})});
+/* cursor preview */
+const peek=document.getElementById('peek'),pa=document.getElementById('peekA'),pb=document.getElementById('peekB');let front=pa,cur=-1;
+const qx=gsap.quickTo(peek,'x',{duration:.55,ease:'power3'}),qy=gsap.quickTo(peek,'y',{duration:.55,ease:'power3'});
+addEventListener('mousemove',e=>{qx(e.clientX);qy(e.clientY)});
+list.addEventListener('mouseover',e=>{const a=e.target.closest('a');if(!a)return;const i=+a.dataset.i;if(i===cur)return;cur=i;
+ const back=front===pa?pb:pa;back.src=U+P[i].img;gsap.set(back,{zIndex:2,clipPath:'inset(100% 0 0 0)'});gsap.set(front,{zIndex:1});
+ gsap.to(back,{clipPath:'inset(0% 0 0 0)',duration:.5,ease:'power3.out'});front=back;
+ gsap.to(peek,{opacity:1,scale:1,duration:.35,ease:'power3.out'})});
+list.addEventListener('mouseleave',()=>{cur=-1;gsap.to(peek,{opacity:0,scale:.85,duration:.3})});
 
 /* lightbox */
-const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg');let lbTween;
-grid.addEventListener('click',e=>{const c=e.target.closest('.card');if(!c)return;e.preventDefault();const p=P[c.dataset.i];
- document.getElementById('lburl').textContent=p.url.replace('https://','');document.getElementById('lbt').textContent=p[L];document.getElementById('lbgo').href=p.url;
- lbimg.src=U+p.img;lbimg.alt=p[L];gsap.set(lbimg,{y:0});lb.classList.add('open');document.getElementById('lbx').focus();
- const run=()=>{const v=lbimg.parentElement,d=lbimg.getBoundingClientRect().height-v.getBoundingClientRect().height;lbTween?.kill();if(d>0&&!reduce)lbTween=gsap.to(lbimg,{y:-d,duration:d/180,ease:'none',delay:.8,repeat:-1,yoyo:true,repeatDelay:1})};
+const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg'),lbf=document.getElementById('lbf');let lt;
+list.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();const p=P[a.dataset.i];
+ document.getElementById('lbt').textContent=p[L];document.getElementById('lbgo').href=p.url;lbimg.src=U+p.img;lbimg.alt=p[L];
+ lb.classList.add('open');document.body.style.overflow='hidden';gsap.set(lbimg,{y:0});document.getElementById('lbx').focus();
+ const run=()=>{const d=lbimg.getBoundingClientRect().height-lbf.getBoundingClientRect().height;lt?.kill();if(d>0&&!reduce)lt=gsap.to(lbimg,{y:-d,duration:d/220,ease:'none',delay:.7,repeat:-1,yoyo:true,repeatDelay:1.2})};
  lbimg.complete?run():lbimg.onload=run});
-const closeLb=()=>{lb.classList.remove('open');lbTween?.kill()};
-document.getElementById('lbx').onclick=closeLb;lb.onclick=e=>{if(e.target===lb)closeLb()};addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
+lbf.addEventListener('wheel',e=>{if(!lt)return;lt.pause();const d=lbimg.getBoundingClientRect().height-lbf.getBoundingClientRect().height;gsap.to(lbimg,{y:`-=${e.deltaY}`,duration:.3,modifiers:{y:v=>Math.max(-d,Math.min(0,parseFloat(v)))+'px'}})},{passive:true});
+lbf.style.height='calc(100vh - 110px)';
+const closeLb=()=>{lb.classList.remove('open');document.body.style.overflow='';lt?.kill();lt=null};
+document.getElementById('lbx').onclick=closeLb;addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
+
+/* app chapters */
+const chs=[...document.querySelectorAll('.chapter')],scr=document.getElementById('screens');
+const setStep=i=>{chs.forEach((c,k)=>c.setAttribute('aria-current',k===i));scr.dataset.step=i};
+chs.forEach(c=>c.onclick=()=>setStep(+c.dataset.i));
 
 /* language */
 function setLang(l){L=l;document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';
  document.querySelectorAll('[data-t]').forEach(e=>{if(T[l][e.dataset.t])e.textContent=T[l][e.dataset.t]});
- document.getElementById('lang').textContent=l==='ar'?'EN':'عربي';cards();try{localStorage.setItem('xtv-lang',l)}catch(e){}}
+ document.getElementById('lang').textContent=l==='ar'?'English':'العربية';renderList();try{localStorage.setItem('xtv-lang',l)}catch(e){}}
 document.getElementById('lang').onclick=()=>setLang(L==='ar'?'en':'ar');
 
-/* ---------- plexus background ---------- */
-const net=document.getElementById('net'),nx=net.getContext('2d');let pts=[],mx=-999,my=-999;
-function sizeNet(){net.width=innerWidth*devicePixelRatio;net.height=innerHeight*devicePixelRatio;net.style.width=innerWidth+'px';net.style.height=innerHeight+'px';
- const n=Math.round(innerWidth*innerHeight/16000);pts=Array.from({length:n},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25}))}
-function drawNet(){const d=devicePixelRatio;nx.setTransform(d,0,0,d,0,0);nx.clearRect(0,0,innerWidth,innerHeight);
- for(const p of pts){if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>innerWidth)p.vx*=-1;if(p.y<0||p.y>innerHeight)p.vy*=-1}
-  const dm=Math.hypot(p.x-mx,p.y-my);if(dm<160){p.x+=(p.x-mx)/dm*.8;p.y+=(p.y-my)/dm*.8}}
- for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const a=pts[i],b=pts[j],dd=Math.hypot(a.x-b.x,a.y-b.y);if(dd<140){nx.strokeStyle=`rgba(147,166,255,${(1-dd/140)*.16})`;nx.beginPath();nx.moveTo(a.x,a.y);nx.lineTo(b.x,b.y);nx.stroke()}}
- nx.fillStyle='rgba(190,198,255,.45)';for(const p of pts){nx.beginPath();nx.arc(p.x,p.y,1.3,0,7);nx.fill()}
- requestAnimationFrame(drawNet)}
-addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});addEventListener('resize',sizeNet);sizeNet();drawNet();
+/* header rule */
+const hdr=document.getElementById('hdr');addEventListener('scroll',()=>hdr.classList.toggle('ruled',scrollY>20),{passive:true});
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:reduce?'auto':'smooth'})}}));
 
-/* ---------- preloader: particles assemble the X ---------- */
-function loader(done){const c=document.getElementById('lc'),x=c.getContext('2d'),S=520;let fin=false;const end=()=>{if(!fin){fin=true;done()}};setTimeout(end,4000);const im=new Image();im.crossOrigin='anonymous';im.src='assets/logo.png';
+/* preloader: particles assemble the X */
+function loader(done){const c=document.getElementById('lc'),x=c.getContext('2d'),S=520;let fin=false;const end=()=>{if(!fin){fin=true;done()}};setTimeout(end,4000);
+ const im=new Image();im.crossOrigin='anonymous';im.src='assets/logo.png';
  im.onload=()=>{try{const o=document.createElement('canvas');o.width=o.height=130;const ox=o.getContext('2d');ox.drawImage(im,0,0,130,130);const d=ox.getImageData(0,0,130,130).data;const tg=[];
   for(let y=0;y<130;y+=2)for(let xx=0;xx<130;xx+=2){const k=(y*130+xx)*4;if(d[k]+d[k+1]+d[k+2]>640)tg.push([xx*4,y*4])}
-  const parts=tg.map(t=>({tx:t[0],ty:t[1],x:Math.random()*S,y:Math.random()*S,h:Math.random()}));
-  const st=performance.now(),dur=reduce?200:1900;
+  const parts=tg.map(t=>({tx:t[0],ty:t[1],x:Math.random()*S,y:Math.random()*S,h:Math.random()}));const st=performance.now(),dur=reduce?200:1900;
   (function f(now){const k=Math.min(1,(now-st)/dur),e=1-Math.pow(1-k,4);x.clearRect(0,0,S,S);
    for(const p of parts){const px=p.x+(p.tx-p.x)*e,py=p.y+(p.ty-p.y)*e;x.fillStyle=`hsla(${248+p.h*20},100%,${78-e*8}%,${.4+e*.6})`;x.fillRect(px,py,4.2,4.2)}
-   document.getElementById('lcount').textContent=Math.round(e*100);
-   if(k<1)requestAnimationFrame(f);else setTimeout(end,350)})(st)}catch(err){end()}};
- im.onerror=end}
+   document.getElementById('lcount').textContent=Math.round(e*100);if(k<1)requestAnimationFrame(f);else setTimeout(end,350)})(st)}catch(err){end()}};im.onerror=end}
 
-/* ---------- motion ---------- */
+/* motion */
 gsap.registerPlugin(ScrollTrigger);
-let lenis=null;document.documentElement.style.scrollBehavior=reduce?'auto':'smooth';
-document.querySelectorAll('a[href^="#"]').forEach(a=>a.onclick=e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();lenis?lenis.scrollTo(t,{offset:-60}):t.scrollIntoView()}});
-
 function intro(){const lo=document.getElementById('loader');
+ const h=document.getElementById('h1');h.innerHTML=h.textContent.split(' ').map(w=>`<span style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em"><span style="display:inline-block">${w}</span></span>`).join(' ');
  gsap.timeline()
-  .to(lo,{clipPath:'inset(0 0 100% 0)',duration:reduce?.01:.9,ease:'expo.inOut',onComplete:()=>lo.remove()})
-  .from('#h1 .line span',{yPercent:110,duration:1.1,stagger:.12,ease:'expo.out'},'-=.35')
-  .from('.hero p,.hero .acts',{opacity:0,y:24,duration:.8,stagger:.1,ease:'power3.out'},'-=.7')
-  .from('#stack .bw',{opacity:0,y:120,duration:1.2,stagger:.12,ease:'expo.out'},'-=1')
-  .add(heroScroll,'-=.4')}
+  .to(lo,{clipPath:'inset(0 0 100% 0)',duration:reduce?.01:1,ease:'expo.inOut',onComplete:()=>lo.remove()})
+  .from('#h1 span span',{yPercent:105,duration:.9,stagger:.035,ease:'power4.out'},'-=.4')
+  .from('.hero .lead',{opacity:0,duration:.8},'-=.5')
+  .from('.strip .row',{opacity:0,y:40,duration:1,stagger:.1,ease:'power3.out'},'-=.7')
+  .add(strip,'-=.6')}
+function strip(){if(reduce)return;
+ const a=gsap.to(r1,{xPercent:-50,duration:70,ease:'none',repeat:-1});
+ const b=gsap.fromTo(r2,{xPercent:-50},{xPercent:0,duration:80,ease:'none',repeat:-1});
+ ScrollTrigger.create({trigger:'.strip',start:'top bottom',end:'bottom top',onUpdate:s=>{const v=gsap.utils.clamp(-4,4,s.getVelocity()/300);gsap.to([a,b],{timeScale:1+Math.abs(v),duration:.3,overwrite:true});gsap.to([a,b],{timeScale:1,duration:1.2,delay:.3})}})}
+if(innerWidth>860)ScrollTrigger.create({trigger:'#apps .grid',start:'top 30%',end:'bottom 70%',onUpdate:s=>setStep(Math.min(2,Math.floor(s.progress*3)))});
 
-/* pinned app story */
-function appStory(){const steps=[...document.querySelectorAll('.step')],dots=[...document.querySelectorAll('#dots i')];let cur=0;
- const show=i=>{if(i===cur)return;gsap.to(steps[cur],{opacity:0,y:-20,duration:.4});gsap.fromTo(steps[i],{opacity:0,y:30},{opacity:1,y:0,duration:.6,ease:'power3.out'});
-  dots.forEach((d,k)=>d.classList.toggle('on',k===i));gsap.to('#s2',{opacity:i>0?1:0,duration:.6});
-  gsap.to('.phone',{rotate:[0,-4,3][i],duration:.9,ease:'power3.out'});cur=i};
- ScrollTrigger.create({trigger:'#pin',start:'top top',end:'+=1800',pin:true,scrub:true,onUpdate:s=>show(Math.min(2,Math.floor(s.progress*3)))});
- gsap.from('.phone',{scale:.7,rotate:-12,opacity:0,scrollTrigger:{trigger:'#apps',start:'top 80%',end:'top 20%',scrub:1}})}
-
-/* counters */
-function counters(){document.querySelectorAll('[data-count]').forEach(b=>{const n=+b.dataset.count,o={v:0};
- ScrollTrigger.create({trigger:b,start:'top 85%',once:true,onEnter:()=>gsap.to(o,{v:n,duration:1.6,ease:'power2.out',onUpdate:()=>b.textContent=Math.round(o.v)})})})}
-
-/* contact headline */
-function contactReveal(){gsap.from('.contact h2',{scale:.86,opacity:0,scrollTrigger:{trigger:'.contact',start:'top 85%',end:'top 35%',scrub:1}})}
-
-const navEl=document.querySelector('nav');addEventListener('scroll',()=>navEl.classList.toggle('solid',scrollY>40),{passive:true});
 let saved='ar';try{saved=localStorage.getItem('xtv-lang')||'ar'}catch(e){}
 setLang(saved);
-counters();contactReveal();
-if(innerWidth>900||true)appStory();
 loader(intro);
-
 })();
 </script>
 </body>
