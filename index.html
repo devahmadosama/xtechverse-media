@@ -38,8 +38,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #loader .count{position:absolute;bottom:7vh;font:300 15px var(--display);color:var(--muted);letter-spacing:.08em;direction:ltr}
 
 /* ---------- nav ---------- */
-nav{position:fixed;top:0;inset-inline:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px var(--pad);
- background:linear-gradient(var(--ink),rgba(6,9,25,0));}
+nav{position:fixed;top:0;inset-inline:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px var(--pad);transition:background .3s,padding .3s,border-color .3s;border-bottom:1px solid transparent}
+nav.solid{background:rgba(6,9,25,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-block:12px;border-bottom-color:var(--line)}
 .brand{display:flex;align-items:center;gap:12px;direction:ltr}
 .brand img{width:40px;height:40px;border-radius:10px}
 .brand b{font:600 17px/1.05 var(--display)}
@@ -57,7 +57,7 @@ nav{position:fixed;top:0;inset-inline:0;z-index:50;display:flex;align-items:cent
 .hero h1{font:800 clamp(44px,6.4vw,104px)/1.08 var(--display);letter-spacing:-.01em;text-wrap:balance}
 .hero h1 .line{display:block;overflow:hidden;padding-bottom:.08em}
 .hero h1 .line span{display:inline-block}
-.hero h1 .soft{color:transparent;-webkit-text-stroke:1.5px rgba(238,236,255,.55)}
+.hero h1 .soft{background:linear-gradient(100deg,#e3dbff 0%,var(--violet) 55%,var(--peri) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.06em}
 .hero p{margin-top:28px;max-width:34ch;font-size:clamp(17px,1.4vw,21px);color:var(--muted)}
 .hero .acts{margin-top:40px;display:flex;flex-wrap:wrap;gap:14px}
 .btn{display:inline-flex;align-items:center;gap:10px;font:600 16px var(--display);padding:15px 28px;border-radius:99px;transition:transform .3s,box-shadow .3s,background .3s}
@@ -386,6 +386,7 @@ function counters(){document.querySelectorAll('[data-count]').forEach(b=>{const 
 /* contact headline */
 function contactReveal(){gsap.from('.contact h2',{scale:.86,opacity:0,scrollTrigger:{trigger:'.contact',start:'top 85%',end:'top 35%',scrub:1}})}
 
+const navEl=document.querySelector('nav');addEventListener('scroll',()=>navEl.classList.toggle('solid',scrollY>40),{passive:true});
 let saved='ar';try{saved=localStorage.getItem('xtv-lang')||'ar'}catch(e){}
 setLang(saved);
 counters();contactReveal();
