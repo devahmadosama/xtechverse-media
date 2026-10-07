@@ -1,5 +1,7 @@
 (function boot(){if(!(window.gsap&&window.ScrollTrigger))return setTimeout(boot,40);
 gsap.registerPlugin(ScrollTrigger);
+/* some embedded browsers pause requestAnimationFrame; fall back to timers so the page never freezes */
+(function(){let ok=false;requestAnimationFrame(()=>ok=true);setTimeout(()=>{if(ok)return;const raf=cb=>setTimeout(()=>cb(performance.now()),16);window.requestAnimationFrame=raf;gsap.ticker.sleep();gsap.ticker.wake()},400)})();
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const desk=matchMedia('(min-width: 901px)').matches;
@@ -86,7 +88,7 @@ function start(){hero();marquees();story();process();filters();project();counter
 const lo=$('#loader');
 if(!lo){start();return}
 const c=$('#lc'),x=c.getContext('2d'),S=520;let fin=false;
-const end=()=>{if(fin)return;fin=true;gsap.to(lo,{clipPath:'inset(0 0 100% 0)',duration:reduce?.01:1,ease:'expo.inOut',onComplete:()=>lo.remove()});setTimeout(start,350)};
+const end=()=>{if(fin)return;fin=true;gsap.to(lo,{clipPath:'inset(0 0 100% 0)',duration:reduce?.01:1,ease:'expo.inOut',onComplete:()=>lo.remove()});setTimeout(()=>{if(document.body.contains(lo))lo.remove()},2500);setTimeout(start,350)};
 setTimeout(end,4000);
 const im=new Image();im.crossOrigin='anonymous';im.src=lo.dataset.logo;
 im.onload=()=>{try{const o=document.createElement('canvas');o.width=o.height=130;const ox=o.getContext('2d');ox.drawImage(im,0,0,130,130);const d=ox.getImageData(0,0,130,130).data;const tg=[];
