@@ -45,7 +45,13 @@ T = {
    m_sector="المجال", m_city="المكان", m_type="نوع المشروع", m_langs="اللغات", m_partner="بالتعاون مع",
    tour_h="جولة في الصفحة الرئيسية", tour_p="مرّر الصفحة لتشاهد الصفحة الرئيسية للموقع كاملة كما يراها الزائر.",
    about_h="عن العميل", pages_h="صفحات الموقع", feats_h="أبرز ما في الموقع", shots_h="لقطات من الموقع", next="المشروع التالي",
-   aq_title="عقاري EG | X TechVerse", how="كيف يعمل التطبيق"),
+   aq_title="عقاري EG | X TechVerse", how="كيف يعمل التطبيق",
+   f_h="ابدأ مشروعك معنا", f_name="الاسم", f_phone="رقم الموبايل أو واتساب", f_email="البريد الإلكتروني (اختياري)", f_type="نوع المشروع",
+   f_types=["موقع شركة","متجر إلكتروني","تطبيق موبايل","نظام مخصص","صيانة أو تطوير"], f_budget="الميزانية التقريبية (اختياري)", f_choose="اختر",
+   f_budgets=["أقل من 15,000 جنيه","15,000 - 40,000 جنيه","40,000 - 100,000 جنيه","أكثر من 100,000 جنيه","لم أحدد بعد"],
+   f_details="تفاصيل المشروع", f_details_ph="اكتب فكرتك أو المشكلة التي تريد حلها", f_send="أرسل الطلب",
+   f_need="من فضلك اكتب الاسم ورقم الموبايل.", f_sending="جارٍ الإرسال...", f_ok="وصلنا طلبك، وسنتواصل معك قريباً.",
+   f_wa="طلب مشروع جديد من الموقع:", f_walink="فتحنا لك واتساب برسالة جاهزة، اضغط إرسال."),
  "en": dict(dir="ltr", other="ar", other_label="العربية", work="Work", services="Services", contact="Contact", start="Start your project",
    home_title="X TechVerse | Websites and apps", home_desc="X TechVerse is a software studio from Egypt designing and building websites, apps and systems for companies in Egypt and Saudi Arabia.",
    h1a="We design and build", h1b="websites and apps", h1c="for companies in Egypt and Saudi Arabia.",
@@ -83,7 +89,13 @@ T = {
    m_sector="Industry", m_city="Location", m_type="Project type", m_langs="Languages", m_partner="In partnership with",
    tour_h="A tour of the home page", tour_p="Scroll to see the site's whole home page as a visitor sees it.",
    about_h="About the client", pages_h="Site pages", feats_h="Highlights", shots_h="Screens from the site", next="Next project",
-   aq_title="Aqary EG | X TechVerse", how="How the app works"),
+   aq_title="Aqary EG | X TechVerse", how="How the app works",
+   f_h="Start your project", f_name="Name", f_phone="Mobile or WhatsApp", f_email="Email (optional)", f_type="Project type",
+   f_types=["Company website","Online store","Mobile app","Custom system","Maintenance"], f_budget="Approximate budget (optional)", f_choose="Choose",
+   f_budgets=["Under 15,000 EGP","15,000 - 40,000 EGP","40,000 - 100,000 EGP","Over 100,000 EGP","Not decided yet"],
+   f_details="Project details", f_details_ph="Describe your idea or the problem you want solved", f_send="Send request",
+   f_need="Please enter your name and mobile number.", f_sending="Sending...", f_ok="We received your request and will contact you soon.",
+   f_wa="New project request from the website:", f_walink="We opened WhatsApp with a ready message, press send."),
 }
 
 ICON = dict(
@@ -113,17 +125,32 @@ def page(L, depth, title, desc, body, path, current=""):
     assets = ("../" * (depth + (1 if L == "en" else 0))) + "assets/"
     vendor = ("../" * (depth + (1 if L == "en" else 0))) + "vendor/"
     ar = lambda s: s
+    api = ("../" * (depth + (1 if L == "en" else 0))) + "api/lead.php"
+    globe = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>'
+    sw = (f'<span class="on">AR</span><a href="{alt}" hreflang="en" lang="en">EN</a>' if L == "ar"
+          else f'<a href="{alt}" hreflang="ar" lang="ar">AR</a><span class="on">EN</span>')
     nav = (f'<header class="top"><div class="wrap"><a class="brand" href="{root}index.html"><img src="{assets}logo.png" alt="">X TechVerse</a>'
            f'<nav class="menu" aria-label="Main"><a href="{root}work/index.html"{" aria-current=page" if current=="work" else ""}>{t["work"]}</a>'
            f'<a href="{root}index.html#services">{t["services"]}</a><a href="#contact">{t["contact"]}</a>'
-           f'<a class="lang" href="{alt}" hreflang="{t["other"]}">{t["other_label"]}</a>'
-           f'<a class="btn pri" href="#contact">{t["start"]}</a></nav></div></header>')
+           f'<a class="btn pri" href="#contact">{t["start"]}</a>'
+           f'<div class="langsw" role="group" aria-label="Language">{globe}{sw}</div></nav></div></header>')
+    types = "".join(f'<label><input type="radio" name="type" value="{v}"><span>{v}</span></label>' for v in t["f_types"])
+    form = (f'<form class="lead-form" id="leadForm" action="{api}" method="post" novalidate data-need="{t["f_need"]}" data-sending="{t["f_sending"]}" data-ok="{t["f_ok"]}" data-wa="{t["f_wa"]}" data-walink="{t["f_walink"]}">'
+            f'<label>{t["f_name"]}<input name="name" autocomplete="name" required></label>'
+            f'<label>{t["f_phone"]}<input name="phone" type="tel" autocomplete="tel" dir="ltr" required></label>'
+            f'<label class="full">{t["f_email"]}<input name="email" type="email" autocomplete="email" dir="ltr"></label>'
+            f'<div class="full"><label style="margin-bottom:8px">{t["f_type"]}</label><div class="types">{types}</div></div>'
+            f'<label class="full">{t["f_budget"]}<select name="budget"><option value="">{t["f_choose"]}</option>{"".join(f"<option>{b}</option>" for b in t["f_budgets"])}</select></label>'
+            f'<label class="full">{t["f_details"]}<textarea name="details" placeholder="{t["f_details_ph"]}"></textarea></label>'
+            f'<input class="hp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
+            f'<button class="btn pri" type="submit">{t["f_send"]}</button><p class="msg" role="status"></p></form>')
     contact = (f'<section class="contact" id="contact"><div class="big" aria-hidden="true"><div class="t" id="big">{("<span>"+e(t["big"])+"</span>")*8}</div></div>'
-               f'<div class="wrap"><p>{t["ct_p"]}</p><div class="rows">'
+               f'<div class="wrap"><div class="intro"><h2>{t["f_h"]}</h2><p>{t["ct_p"]}</p><div class="rows">'
                f'<a href="{WA}" target="_blank" rel="noopener"><small>{t["ct_wa"]}</small><span>+20 10 3925 3652</span></a>'
                f'<a href="mailto:info@xtechverse.com"><small>{t["ct_mail"]}</small><span>info@xtechverse.com</span></a>'
                f'<a href="https://www.facebook.com/xtechverse1" target="_blank" rel="noopener"><small>{t["ct_fb"]}</small><span>xtechverse1</span></a>'
-               f'</div></div></section><footer class="foot"><div class="wrap"><span>© 2026 X TechVerse</span><span>{t["foot_city"]}</span></div></footer>')
+               f'</div></div>{form}</div></section><footer class="foot"><div class="wrap"><span>© 2026 X TechVerse</span><span>{t["foot_city"]}</span></div></footer>')
+    loader = f'<div id="loader" data-logo="{assets}logo.png" aria-hidden="true"><canvas id="lc" width="520" height="520"></canvas><div class="count" id="lcount">0</div></div>'
     return f"""<!doctype html>
 <html lang="{L}" dir="{t['dir']}">
 <head>
@@ -136,6 +163,7 @@ def page(L, depth, title, desc, body, path, current=""):
 <link rel="icon" href="{assets}logo.png">
 </head>
 <body>
+{loader}
 {body.replace('{ASSETS}', assets)}
 {nav}
 {contact}
@@ -167,8 +195,7 @@ def home(L):
     faqs = "".join(f'<details><summary>{q}<i>+</i></summary><p>{a}</p></details>' for q, a in t["faqs"])
     others = "".join(f'<div class="other"><h4>{a["name"][L]}</h4><span class="st">{a["status"][L]}</span><p>{a["summary"][L]}</p></div>' for a in APPS[1:])
     names = "".join(f"<span>{e(p['name']['en'])}</span>" for p in PROJECTS) * 2
-    body = f"""<div id="loader" data-logo="{{ASSETS}}logo.png" aria-hidden="true"><canvas id="lc" width="520" height="520"></canvas><div class="count" id="lcount">0</div></div>
-<main id="top">
+    body = f"""<main id="top">
 <section class="hero"><div class="wrap"><div>
  <h1><span>{t['h1a']}</span> <span class="grad">{t['h1b']}</span> <span>{t['h1c']}</span></h1>
  <p class="lead">{t['lead']}</p>

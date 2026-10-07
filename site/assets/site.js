@@ -9,13 +9,6 @@ const desk=matchMedia('(min-width: 901px)').matches;
 /* header */
 const hdr=$('header.top');const onS=()=>hdr&&hdr.classList.toggle('solid',scrollY>30);addEventListener('scroll',onS,{passive:true});onS();
 
-/* page transition: brand curtain */
-const cur=document.createElement('div');cur.id='curtain';document.body.appendChild(cur);
-document.addEventListener('click',e=>{const a=e.target.closest('a');if(!a||reduce)return;const h=a.getAttribute('href');
- if(!h||h.startsWith('#')||a.target==='_blank'||h.startsWith('http')||h.startsWith('mailto')||e.metaKey||e.ctrlKey)return;
- e.preventDefault();gsap.set(cur,{transformOrigin:'bottom'});gsap.to(cur,{scaleY:1,duration:.55,ease:'expo.inOut',onComplete:()=>location.href=a.href})});
-addEventListener('pageshow',()=>{if(!$('#loader')){gsap.set(cur,{scaleY:1,transformOrigin:'top'});gsap.to(cur,{scaleY:0,duration:.7,ease:'expo.inOut',delay:.05})}});
-
 /* in-page anchors */
 $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=$(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:reduce?'auto':'smooth'})}}));
 
@@ -31,8 +24,7 @@ function counters(){$$('[data-count]').forEach(b=>{const n=+b.dataset.count,o={v
 
 /* generic reveals */
 function reveals(){const io=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;io.unobserve(en.target);gsap.to(en.target,{y:0,opacity:1,duration:.9,ease:'power3.out',delay:(+en.target.dataset.i||0)*.08})}),{rootMargin:'0px 0px -8% 0px'});
- $$('[data-rv]').forEach(el=>{const ts=el.dataset.rv==='kids'?[...el.children]:[el];ts.forEach((t,i)=>{if(t.getBoundingClientRect().top<innerHeight*.92)return;t.dataset.i=i;gsap.set(t,{y:40,opacity:0});io.observe(t)})});
- $$('.bento .card').forEach((c,i)=>gsap.fromTo($('.shot',c),{y:60},{y:-20*(i%2?1:-.4),ease:'none',scrollTrigger:{trigger:c,start:'top bottom',end:'bottom top',scrub:true}}))}
+ $$('[data-rv]').forEach(el=>{const ts=el.dataset.rv==='kids'?[...el.children]:[el];ts.forEach((t,i)=>{if(t.getBoundingClientRect().top<innerHeight*.92)return;t.dataset.i=i;gsap.set(t,{y:40,opacity:0});io.observe(t)})});}
 /* hero composition */
 function hero(){const comp=$('#comp');if(!comp)return;const layers=$$('.layer',comp);
  gsap.from(layers,{y:160,opacity:0,rotate:i=>[-6,4,8,-4,4][i]||0,duration:1.3,stagger:.1,ease:'expo.out'});
@@ -84,18 +76,47 @@ function start(){hero();marquees();story();process();filters();project();counter
  if($('.hero h1'))gsap.from('.hero h1>span,.hero .lead,.hero .acts,.proof',{y:40,opacity:0,duration:1,stagger:.09,ease:'power4.out'});
  setTimeout(()=>ScrollTrigger.refresh(),600)}
 
-/* preloader (home only) */
-const lo=$('#loader');
-if(!lo){start();return}
-const c=$('#lc'),x=c.getContext('2d'),S=520;let fin=false;
-const end=()=>{if(fin)return;fin=true;gsap.to(lo,{clipPath:'inset(0 0 100% 0)',duration:reduce?.01:1,ease:'expo.inOut',onComplete:()=>lo.remove()});setTimeout(()=>{if(document.body.contains(lo))lo.remove()},2500);setTimeout(start,350)};
-setTimeout(end,4000);
-const im=new Image();im.crossOrigin='anonymous';im.src=lo.dataset.logo;
-im.onload=()=>{try{const o=document.createElement('canvas');o.width=o.height=130;const ox=o.getContext('2d');ox.drawImage(im,0,0,130,130);const d=ox.getImageData(0,0,130,130).data;const tg=[];
- for(let y=0;y<130;y+=2)for(let xx=0;xx<130;xx+=2){const k=(y*130+xx)*4;if(d[k]+d[k+1]+d[k+2]>640)tg.push([xx*4,y*4])}
- const parts=tg.map(t=>({tx:t[0],ty:t[1],x:Math.random()*S,y:Math.random()*S,h:Math.random()}));const st=performance.now(),dur=reduce?200:1900;
- (function f(now){const k=Math.min(1,(now-st)/dur),e=1-Math.pow(1-k,4);x.clearRect(0,0,S,S);
-  for(const p of parts){const px=p.x+(p.tx-p.x)*e,py=p.y+(p.ty-p.y)*e;x.fillStyle=`hsla(${248+p.h*20},100%,${78-e*8}%,${.4+e*.6})`;x.fillRect(px,py,4.2,4.2)}
-  $('#lcount').textContent=Math.round(e*100);if(k<1)requestAnimationFrame(f);else setTimeout(end,350)})(st)}catch(err){end()}};
-im.onerror=end;
+/* lead form: posts to api/lead.php on the real server; falls back to WhatsApp where PHP is not available */
+function leadForm(){const f=$('#leadForm');if(!f)return;const msg=$('.msg',f);
+ f.addEventListener('submit',async e=>{e.preventDefault();if(f.hp.value)return;
+  const d=Object.fromEntries(new FormData(f));if(!d.name||!d.phone){msg.className='msg err';msg.textContent=f.dataset.need;return}
+  const btn=$('button',f);btn.disabled=true;msg.className='msg';msg.textContent=f.dataset.sending;
+  d.page=location.pathname;d.lang=document.documentElement.lang;
+  try{const r=await fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const j=await r.json();if(!j.ok)throw 0;
+   msg.className='msg ok';msg.textContent=f.dataset.ok;f.reset()}
+  catch(err){const t=`${f.dataset.wa}\n${d.name}\n${d.phone}${d.email?'\n'+d.email:''}\n${d.type||''}\n${d.details||''}`;
+   msg.className='msg ok';msg.textContent=f.dataset.walink;window.open('https://wa.me/201039253652?text='+encodeURIComponent(t),'_blank','noopener')}
+  btn.disabled=false})}
+
+/* font preview: add ?font=readex|alexandria|tajawal|kufi|plex to any page */
+(function(){const q=new URLSearchParams(location.search).get('font');const F={readex:'Readex Pro',alexandria:'Alexandria',tajawal:'Tajawal',kufi:'Noto Kufi Arabic',almarai:'Almarai'};
+ if(q&&F[q]){const l=document.createElement('link');l.rel='stylesheet';l.href=`https://fonts.googleapis.com/css2?family=${F[q].replace(/ /g,'+')}:wght@300;400;500;600;700&display=swap`;document.head.appendChild(l);
+  document.documentElement.style.setProperty('--font',`"${F[q]}",system-ui,sans-serif`);document.body.style.fontFamily=`"${F[q]}",system-ui,sans-serif`;
+  $$('a[href$=".html"],a[href$="/"]').forEach(a=>{if(!a.href.startsWith('http')||a.host===location.host){const u=new URL(a.href,location.href);u.searchParams.set('font',q);a.href=u.href}})}})();
+
+/* the animated X: on every page load and on every page change */
+const lo=$('#loader'),c=$('#lc'),x=c.getContext('2d'),S=520;let parts=null,anim=null;
+const draw=(e,mode)=>{x.clearRect(0,0,S,S);for(const p of parts){let px,py,a;
+ if(mode==='in'){px=p.x+(p.tx-p.x)*e;py=p.y+(p.ty-p.y)*e;a=.25+e*.75}else{px=p.tx+(p.ox-p.tx)*e;py=p.ty+(p.oy-p.ty)*e;a=1-e}
+ x.fillStyle=`hsla(${232+p.h*36},78%,${56-(mode==='in'?e:1)*6}%,${a})`;x.fillRect(px,py,4.2,4.2)}};
+const run=(dur,mode,count)=>new Promise(res=>{if(!parts){res();return}const st=performance.now();cancelAnimationFrame(anim);
+ (function f(now){const k=Math.min(1,((now||performance.now())-st)/dur),e=mode==='in'?1-Math.pow(1-k,4):k*k;draw(e,mode);if(count)$('#lcount').textContent=Math.round(e*100);
+  if(k<1)anim=requestAnimationFrame(f);else res()})(st)});
+const ready=new Promise(res=>{const im=new Image();im.crossOrigin='anonymous';im.src=lo.dataset.logo;
+ im.onload=()=>{try{const o=document.createElement('canvas');o.width=o.height=130;const ox=o.getContext('2d');ox.drawImage(im,0,0,130,130);const d=ox.getImageData(0,0,130,130).data;const tg=[];
+  for(let y=0;y<130;y+=2)for(let xx=0;xx<130;xx+=2){const k=(y*130+xx)*4;if(d[k]+d[k+1]+d[k+2]>640)tg.push([xx*4,y*4])}
+  parts=tg.map(t=>({tx:t[0],ty:t[1],x:Math.random()*S,y:Math.random()*S,ox:t[0]+(Math.random()-.5)*700,oy:t[1]+(Math.random()-.5)*700,h:Math.random()}))}catch(e){}res()};im.onerror=()=>res();setTimeout(res,1500)});
+let seen=false;try{seen=sessionStorage.getItem('xtv-seen')==='1';sessionStorage.setItem('xtv-seen','1')}catch(e){}
+$('#lcount').style.visibility=seen?'hidden':'visible';
+let started=false;const go=()=>{if(started)return;started=true;start();leadForm()};
+const reveal=async()=>{await ready;if(reduce){lo.remove();go();return}
+ await run(seen?650:1900,'in',!seen);await new Promise(r=>setTimeout(r,seen?80:250));
+ lo.classList.add('out');run(600,'out');gsap.to(lo,{opacity:0,duration:.55,delay:.15,ease:'power2.out',onComplete:()=>{lo.style.display='none'}});setTimeout(go,200)};
+setTimeout(()=>{if(!started){lo.style.display='none';go()}},5000);
+reveal();
+addEventListener('pageshow',e=>{if(e.persisted){lo.style.display='none';lo.style.opacity=0;document.documentElement.classList.remove('leaving')}});
+document.addEventListener('click',async e=>{const a=e.target.closest('a');if(!a||reduce)return;const h=a.getAttribute('href');
+ if(!h||h.startsWith('#')||a.target==='_blank'||/^(https?:|mailto:|tel:)/.test(h)&&new URL(a.href).host!==location.host||e.metaKey||e.ctrlKey||e.shiftKey)return;
+ e.preventDefault();document.documentElement.classList.add('leaving');lo.style.display='grid';lo.classList.remove('out');$('#lcount').style.visibility='hidden';
+ gsap.fromTo(lo,{opacity:0},{opacity:1,duration:.25});await run(600,'in');location.href=a.href});
 })();
