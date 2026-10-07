@@ -37,7 +37,7 @@ function hero(){const comp=$('#comp');if(!comp)return;const layers=$$('.layer',c
 /* marquees */
 function marquees(){if(reduce)return;if($('#mq'))gsap.to('#mq',{xPercent:-50,duration:60,ease:'none',repeat:-1});
  if($('#big')){const bg=gsap.to('#big',{xPercent:-50,duration:30,ease:'none',repeat:-1});
-  ScrollTrigger.create({trigger:'.contact',start:'top bottom',end:'bottom top',onUpdate:s=>{gsap.to(bg,{timeScale:1+Math.min(4,Math.abs(s.getVelocity()/400)),duration:.2,overwrite:true});gsap.to(bg,{timeScale:1,duration:1,delay:.2})}})}}
+  ScrollTrigger.create({trigger:'.foot',start:'top bottom',end:'bottom top',onUpdate:s=>{gsap.to(bg,{timeScale:1+Math.min(4,Math.abs(s.getVelocity()/400)),duration:.2,overwrite:true});gsap.to(bg,{timeScale:1,duration:1,delay:.2})}})}}
 
 /* app story */
 function story(){if(!$('#story'))return;const steps=$$('.step'),bars=$$('.story .bars b'),fl=$$('.stage .float');
