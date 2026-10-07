@@ -32,10 +32,11 @@ ul{list-style:none}
 [dir=rtl] .arrowlink:hover svg{transform:scaleX(-1) translateX(4px)}
 
 /* preloader */
-#loader{position:fixed;inset:0;z-index:100;background:#0b0d14;display:grid;place-items:center}
-#loader canvas{width:min(62vmin,460px);height:min(62vmin,460px)}
-#loader .count{position:absolute;bottom:6vh;font:300 14px "IBM Plex Sans",sans-serif;color:#8a8fa0;letter-spacing:.06em;direction:ltr;font-variant-numeric:tabular-nums}
-#curtain{position:fixed;inset:0;z-index:99;background:var(--brand);transform:scaleY(0);transform-origin:bottom;pointer-events:none}
+#loader{position:fixed;inset:0;z-index:100;background:var(--paper);display:grid;place-items:center;transition:opacity .35s}
+#loader canvas{width:min(46vmin,340px);height:min(46vmin,340px)}
+#loader .count{position:absolute;bottom:6vh;font:400 14px "IBM Plex Sans",sans-serif;color:var(--graphite);letter-spacing:.06em;direction:ltr;font-variant-numeric:tabular-nums}
+#loader.out{pointer-events:none}
+html.leaving body>*:not(#loader){transition:opacity .3s;opacity:.4}
 
 /* header */
 header.top{position:fixed;top:0;inset-inline:0;z-index:40;transition:background .3s,box-shadow .3s}
@@ -47,7 +48,12 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;h
 .menu a:hover{color:var(--b1)}
 .menu a[aria-current=page]{color:var(--ink);font-weight:500}
 .menu .btn{padding:10px 18px;font-size:15px;color:#fff}
-@media (max-width:860px){.menu>a:not(.btn):not(.lang){display:none}}
+.langsw{display:inline-flex;align-items:center;gap:2px;padding:3px;border-radius:10px;background:var(--white);border:1px solid var(--rule);font-size:13.5px;font-weight:600;direction:ltr}
+.langsw svg{width:16px;height:16px;margin-inline:6px 2px;color:var(--graphite)}
+.langsw a,.langsw span{padding:5px 10px;border-radius:7px;line-height:1.2;color:var(--graphite)}
+.langsw .on{background:var(--ink);color:#fff}
+.langsw a:hover{color:var(--b1)}
+@media (max-width:860px){.menu>a:not(.btn){display:none}.menu{gap:12px}}@media (max-width:420px){.menu .btn{display:none}}
 
 /* page heads */
 .phead{padding-top:clamp(130px,14vw,190px);padding-bottom:clamp(40px,5vw,70px)}
@@ -116,9 +122,9 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;h
 .card .place{flex:none;font-size:13px;font-weight:500;color:var(--graphite);background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:3px 10px}
 .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(28px,3vw,44px) clamp(18px,2.2vw,32px)}
 .bento .card:nth-child(6n+1){grid-column:span 7}
-.bento .card:nth-child(6n+2){grid-column:span 5;margin-top:clamp(40px,8vw,120px)}
-.bento .card:nth-child(6n+3){grid-column:span 5}
-.bento .card:nth-child(6n+4){grid-column:span 7;margin-top:clamp(-80px,-5vw,-40px)}
+.bento .card:nth-child(6n+2){grid-column:span 5;margin-top:clamp(40px,6vw,90px)}
+.bento .card:nth-child(6n+3){grid-column:span 5;margin-top:clamp(-50px,-3vw,-20px)}
+.bento .card:nth-child(6n+4){grid-column:span 7}
 .bento .card:nth-child(6n+5),.bento .card:nth-child(6n+6){grid-column:span 6}
 .bento .card:nth-child(6n+1) .shot,.bento .card:nth-child(6n+4) .shot{aspect-ratio:16/10.5}
 .bento .card:nth-child(6n+2) .shot,.bento .card:nth-child(6n+3) .shot{aspect-ratio:4/3.6}
@@ -206,9 +212,27 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;h
 .big .t{display:flex;gap:.5em;width:max-content;font-weight:700;font-size:clamp(70px,12vw,200px);line-height:1.1;white-space:nowrap}
 .big .t span:nth-child(odd){background:linear-gradient(100deg,#6f83ff,#a77bff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .big .t span:nth-child(even){color:#262a37}
-.contact .wrap{padding-block:clamp(50px,6vw,90px) clamp(70px,9vw,120px);display:grid;grid-template-columns:5fr 7fr;gap:var(--gut);align-items:end}
+.contact .wrap{padding-block:clamp(50px,6vw,90px) clamp(70px,9vw,120px);display:grid;grid-template-columns:5fr 7fr;gap:var(--gut);align-items:start}
 .contact p{color:#a1a6b8;max-width:36ch;font-size:18px}
-.contact .rows{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.contact .rows{display:grid;grid-template-columns:1fr;gap:10px;margin-top:30px;max-width:420px}
+.contact h2{font-weight:600;font-size:clamp(30px,3.4vw,52px);line-height:1.2;text-wrap:balance}
+.contact .intro p{margin-top:14px}
+.lead-form{background:#171a25;border:1px solid #262a37;border-radius:20px;padding:clamp(22px,3vw,36px);display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.lead-form .full{grid-column:1/-1}
+.lead-form label{display:grid;gap:7px;font-size:14px;color:#a1a6b8}
+.lead-form input,.lead-form select,.lead-form textarea{font:inherit;font-size:16px;color:#f2f3f7;background:#10121a;border:1px solid #2c3040;border-radius:11px;padding:12px 14px;outline:none;transition:border-color .2s,box-shadow .2s;width:100%}
+.lead-form textarea{min-height:120px;resize:vertical}
+.lead-form input:focus,.lead-form select:focus,.lead-form textarea:focus{border-color:#7a6bff;box-shadow:0 0 0 3px rgba(122,107,255,.22)}
+.lead-form .types{display:flex;flex-wrap:wrap;gap:8px}
+.lead-form .types input{position:absolute;opacity:0;width:1px;height:1px}
+.lead-form .types span{display:inline-block;padding:8px 14px;border-radius:9px;border:1px solid #2c3040;color:#c9ccda;cursor:pointer;transition:all .2s}
+.lead-form .types input:checked+span{background:var(--brand);border-color:transparent;color:#fff}
+.lead-form .types input:focus-visible+span{outline:2px solid #7a6bff;outline-offset:2px}
+.lead-form{position:relative}.lead-form .hp{position:absolute;top:0;inset-inline-start:0;width:1px;height:1px;opacity:0;pointer-events:none;clip-path:inset(50%)}
+.lead-form button{grid-column:1/-1;justify-self:start}
+.lead-form .msg{grid-column:1/-1;font-size:15px;min-height:1.4em}
+.lead-form .msg.ok{color:#7ee2b8}.lead-form .msg.err{color:#ff9a9a}
+@media (max-width:640px){.lead-form{grid-template-columns:1fr}}
 .contact .rows a{display:block;padding:20px;border-radius:14px;background:#191c27;border:1px solid #262a37;transition:border-color .3s,transform .3s}
 .contact .rows a:hover{border-color:#7a6bff;transform:translateY(-3px)}
 .contact .rows small{display:block;font-size:13px;color:#8a8fa2}
