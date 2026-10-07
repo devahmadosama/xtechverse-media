@@ -347,16 +347,16 @@ function drawNet(){const d=devicePixelRatio;nx.setTransform(d,0,0,d,0,0);nx.clea
 addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});addEventListener('resize',sizeNet);sizeNet();drawNet();
 
 /* ---------- preloader: particles assemble the X ---------- */
-function loader(done){const c=document.getElementById('lc'),x=c.getContext('2d'),S=520;const im=new Image();im.src='assets/logo.png';
- im.onload=()=>{const o=document.createElement('canvas');o.width=o.height=130;const ox=o.getContext('2d');ox.drawImage(im,0,0,130,130);const d=ox.getImageData(0,0,130,130).data;const tg=[];
+function loader(done){const c=document.getElementById('lc'),x=c.getContext('2d'),S=520;let fin=false;const end=()=>{if(!fin){fin=true;done()}};setTimeout(end,4000);const im=new Image();im.crossOrigin='anonymous';im.src='assets/logo.png';
+ im.onload=()=>{try{const o=document.createElement('canvas');o.width=o.height=130;const ox=o.getContext('2d');ox.drawImage(im,0,0,130,130);const d=ox.getImageData(0,0,130,130).data;const tg=[];
   for(let y=0;y<130;y+=2)for(let xx=0;xx<130;xx+=2){const k=(y*130+xx)*4;if(d[k]+d[k+1]+d[k+2]>640)tg.push([xx*4,y*4])}
   const parts=tg.map(t=>({tx:t[0],ty:t[1],x:Math.random()*S,y:Math.random()*S,h:Math.random()}));
   const st=performance.now(),dur=reduce?200:1900;
   (function f(now){const k=Math.min(1,(now-st)/dur),e=1-Math.pow(1-k,4);x.clearRect(0,0,S,S);
    for(const p of parts){const px=p.x+(p.tx-p.x)*e,py=p.y+(p.ty-p.y)*e;x.fillStyle=`hsla(${248+p.h*20},100%,${78-e*8}%,${.4+e*.6})`;x.fillRect(px,py,4.2,4.2)}
    document.getElementById('lcount').textContent=Math.round(e*100);
-   if(k<1)requestAnimationFrame(f);else setTimeout(done,350)})(st)};
- im.onerror=done}
+   if(k<1)requestAnimationFrame(f);else setTimeout(end,350)})(st)}catch(err){end()}};
+ im.onerror=end}
 
 /* ---------- motion ---------- */
 gsap.registerPlugin(ScrollTrigger);
