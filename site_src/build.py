@@ -1,8 +1,9 @@
 """Static site generator for xtechverse.com.  python3 build.py  ->  writes ../site/"""
-import pathlib, html
+import pathlib, html, hashlib, time
 from data import PROJECTS, APPS, U
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "site"
+V = hashlib.md5(((OUT/"assets/site.js").read_bytes()+(OUT/"assets/site.css").read_bytes())).hexdigest()[:8]
 WA = "https://wa.me/201039253652"
 e = html.escape
 
@@ -131,14 +132,14 @@ def page(L, depth, title, desc, body, path, current=""):
 <link rel="alternate" hreflang="{t['other']}" href="{alt}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{assets}site.css">
+<link rel="stylesheet" href="{assets}site.css?v={V}">
 <link rel="icon" href="{assets}logo.png">
 </head>
 <body>
 {body.replace('{ASSETS}', assets)}
 {nav}
 {contact}
-<script src="{vendor}gsap.min.js"></script><script src="{vendor}ScrollTrigger.min.js"></script><script src="{assets}site.js"></script>
+<script src="{vendor}gsap.min.js"></script><script src="{vendor}ScrollTrigger.min.js"></script><script src="{assets}site.js?v={V}"></script>
 </body></html>"""
 
 def place(p, L): return T[L][p["country"]]
