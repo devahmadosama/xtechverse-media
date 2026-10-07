@@ -7,6 +7,22 @@ import json
 OUT = pathlib.Path(__file__).resolve().parent.parent / "site"
 V = hashlib.md5(((OUT/"assets/site.js").read_bytes()+(OUT/"assets/site.css").read_bytes())).hexdigest()[:8]
 WA = "https://wa.me/201039253652"
+# ---- tracking: paste the IDs here, rebuild, upload ----
+GA_ID = ""        # Google Analytics 4, e.g. "G-XXXXXXXXXX"
+GSC = ""          # Search Console HTML-tag verification content, e.g. "abc123..."
+PIXEL = ""        # Meta (Facebook) Pixel ID, e.g. "1234567890"
+CLARITY = ""      # Microsoft Clarity project ID (heatmaps + recordings), optional
+def tracking():
+    h = ""
+    if GSC: h += f'<meta name="google-site-verification" content="{GSC}">'
+    if GA_ID: h += (f'<script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>'
+                    f"<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{GA_ID}');</script>")
+    if PIXEL: h += ("<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};"
+                    "if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];"
+                    f"s.parentNode.insertBefore(t,s)}}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','{PIXEL}');fbq('track','PageView');</script>")
+    if CLARITY: h += (f'<script>(function(c,l,a,r,i,t,y){{c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};t=l.createElement(r);t.async=1;'
+                      f't.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);}})(window,document,"clarity","script","{CLARITY}");</script>')
+    return h
 BASE = "https://xtechverse.com/"
 e = html.escape
 
@@ -187,13 +203,13 @@ def page(L, depth, title, desc, body, path, current="", schema=()):
            f'<div class="langsw" role="group" aria-label="Language">{ICON["globe"]}{sw}</div></nav></div></header>')
     svc_links = "".join(f'<a href="{root}services/{s["slug"]}/index.html">{s[L]["name"]}</a>' for s in SERVICES)
     footer = (f'<footer class="foot" id="contact"><div class="big" aria-hidden="true"><div class="t" id="big">{("<span>"+e(t["big"])+"</span>")*8}</div></div>'
-              f'<div class="wrap fcols"><div class="fbrand"><a class="brand" href="{root}index.html"><img src="{assets}logo.png" alt="">X TechVerse</a><p>{t["f_tag"]}</p>'
+              f'<div class="wrap fcols"><div class="fbrand"><a class="brand" href="{root}index.html"><img src="{assets}logo.png" alt="">X TechVerse</a>'
               f'<a class="btn pri" href="{root}contact/index.html">{t["start"]}</a></div>'
               f'<nav><h4>{t["f_pages"]}</h4><a href="{root}index.html">{t["home"]}</a><a href="{root}work/index.html">{t["work"]}</a><a href="{root}services/index.html">{t["services"]}</a><a href="{root}contact/index.html">{t["contact"]}</a></nav>'
               f'<nav><h4>{t["f_svcs"]}</h4>{svc_links}</nav>'
-              f'<nav><h4>{t["f_contact"]}</h4><a href="{WA}" target="_blank" rel="noopener" dir="ltr">+20 10 3925 3652</a><a href="mailto:info@xtechverse.com">info@xtechverse.com</a>'
+              f'<nav><h4>{t["f_contact"]}</h4><a href="{WA}" target="_blank" rel="noopener" ><bdi dir="ltr">+20 10 3925 3652</bdi></a><a href="mailto:info@xtechverse.com">info@xtechverse.com</a>'
               f'<a href="https://www.facebook.com/xtechverse1" target="_blank" rel="noopener">Facebook</a><span>{t["foot_city"]}</span></nav></div>'
-              f'<div class="wrap fbot"><span>© 2026 X TechVerse</span><span dir="ltr">xtechverse.com</span></div></footer>')
+              f'<div class="wrap fbot"><span><bdi dir="ltr">© 2026 X TechVerse</bdi></span><span dir="ltr">xtechverse.com</span></div></footer>')
     loader = f'<div id="loader" data-logo="{assets}logo.png" aria-hidden="true"><canvas id="lc" width="520" height="520"></canvas><div class="count" id="lcount">0</div></div>'
     schemas = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in (org_schema(L),) + tuple(schema))
     return f"""<!doctype html>
@@ -203,12 +219,13 @@ def page(L, depth, title, desc, body, path, current="", schema=()):
 <title>{e(title)}</title><meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{canon}">
 <link rel="alternate" hreflang="ar" href="{ar_url}"><link rel="alternate" hreflang="en" href="{en_url}"><link rel="alternate" hreflang="x-default" href="{ar_url}">
-<meta property="og:type" content="website"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{canon}"><meta property="og:image" content="{BASE}assets/logo.png"><meta property="og:locale" content="{'ar_EG' if L=='ar' else 'en_US'}">
+<meta property="og:type" content="website"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{canon}"><meta property="og:image" content="{BASE}assets/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#2f45c9"><meta property="og:locale" content="{'ar_EG' if L=='ar' else 'en_US'}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{assets}site.css?v={V}">
 <link rel="icon" href="{assets}logo.png">
 {schemas}
+{tracking()}
 </head>
 <body>
 {loader}

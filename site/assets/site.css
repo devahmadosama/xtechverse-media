@@ -42,8 +42,8 @@ html.leaving body>*:not(#loader){transition:opacity .3s;opacity:.4}
 header.top{position:fixed;top:0;inset-inline:0;z-index:40;transition:background .3s,box-shadow .3s}
 header.top.solid{background:rgba(243,244,247,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--rule)}
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
-.brand{display:flex;align-items:center;gap:10px;direction:ltr;font-weight:600;font-size:16px}
-.brand img{width:32px;height:32px;border-radius:8px}
+.brand{display:flex;align-items:center;gap:12px;direction:ltr;font-weight:700;font-size:19px;letter-spacing:-.01em}
+.brand img{width:44px;height:44px;border-radius:11px}
 .menu{display:flex;align-items:center;gap:30px;font-size:15px;color:var(--graphite)}
 .menu a:hover{color:var(--b1)}
 .menu a[aria-current=page]{color:var(--ink);font-weight:500}
@@ -214,7 +214,9 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;h
 .big .t span:nth-child(odd){background:linear-gradient(100deg,#6f83ff,#a77bff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .big .t span:nth-child(even){color:#262a37}
 .fcols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:var(--gut);padding-block:clamp(50px,6vw,80px)}
-.fbrand .brand{color:#fff}
+.fbrand .brand{color:#fff;font-size:26px;gap:14px}.fbrand .brand img{width:64px;height:64px;border-radius:16px}
+.fbrand .btn{margin-top:26px}
+.foot nav a,.foot nav span{text-align:start}
 .fbrand p{margin-top:16px;color:#8d92a6;max-width:36ch;font-size:15px}
 .fbrand .btn{margin-top:22px}
 .foot nav{display:flex;flex-direction:column;gap:10px;font-size:15px}
@@ -387,3 +389,5 @@ a.appc:hover{border-color:var(--b1);transform:translateY(-4px)}
 .offline{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--graphite);background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:10px 14px}
 
 @media (prefers-reduced-motion:reduce){*{transition-duration:0s!important;scroll-behavior:auto!important}}
+.other,.other>*{min-width:0;overflow-wrap:anywhere}
+@media (max-width:480px){.other{padding:22px;grid-template-columns:1fr}.next .thumb{width:110px}.next{gap:14px}.next>*{min-width:0}.next h2,.next b{overflow-wrap:anywhere}}

@@ -77,15 +77,17 @@ function start(){hero();marquees();story();process();filters();project();counter
  setTimeout(()=>ScrollTrigger.refresh(),600)}
 
 /* lead form: posts to api/lead.php on the real server; falls back to WhatsApp where PHP is not available */
+function track(n,v){try{if(window.gtag)gtag('event',n==='lead'?'generate_lead':'contact_whatsapp',{project_type:v||''});if(window.fbq)fbq('track',n==='lead'?'Lead':'Contact')}catch(e){}}
+document.addEventListener('click',ev=>{const a=ev.target.closest&&ev.target.closest('a[href*="wa.me"]');if(a)track('wa')});
 function leadForm(){const f=$('#leadForm');if(!f)return;const msg=$('.msg',f);
  f.addEventListener('submit',async e=>{e.preventDefault();if(f.hp.value)return;
   const d=Object.fromEntries(new FormData(f));if(!d.name||!d.phone){msg.className='msg err';msg.textContent=f.dataset.need;return}
   const btn=$('button',f);btn.disabled=true;msg.className='msg';msg.textContent=f.dataset.sending;
   d.page=location.pathname;d.lang=document.documentElement.lang;
   try{const r=await fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const j=await r.json();if(!j.ok)throw 0;
-   msg.className='msg ok';msg.textContent=f.dataset.ok;f.reset()}
+   msg.className='msg ok';msg.textContent=f.dataset.ok;f.reset();track('lead',d.type)}
   catch(err){const t=`${f.dataset.wa}\n${d.name}\n${d.phone}${d.email?'\n'+d.email:''}\n${d.type||''}\n${d.details||''}`;
-   msg.className='msg ok';msg.textContent=f.dataset.walink;window.open('https://wa.me/201039253652?text='+encodeURIComponent(t),'_blank','noopener')}
+   msg.className='msg ok';msg.textContent=f.dataset.walink;track('lead',d.type);window.open('https://wa.me/201039253652?text='+encodeURIComponent(t),'_blank','noopener')}
   btn.disabled=false})}
 
 /* font preview: add ?font=readex|alexandria|tajawal|kufi|plex to any page */
