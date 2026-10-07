@@ -315,7 +315,6 @@ def work(L):
  <div class="tools"><div class="tabs" data-filter role="group"><button aria-pressed="true" data-f="all">{t['f_all']}</button><button aria-pressed="false" data-f="eg">{t['eg']}</button><button aria-pressed="false" data-f="sa">{t['sa']}</button><button aria-pressed="false" data-f="store">{t['f_store']}</button></div>
  <div class="tally" id="tally" data-tpl="{t['tally']}"></div></div>
  <div class="gridw">{cards}</div>
- <p class="note">{t['offline_note']}</p>
 </section></main>"""
     return page(L, 1, t["work_title"], t["work_lead"], body, "work/index.html", current="work")
 
@@ -328,8 +327,8 @@ def project(L, i):
     if p.get("partner"): meta.append((t["m_partner"], p["partner"]))
     dl = "".join(f"<dt>{a}</dt><dd>{e(b)}</dd>" for a, b in meta)
     acts = (f'<a class="btn pri" href="{p["url"]}" target="_blank" rel="noopener">{t["visit"]}{ICON["ext"]}</a>' if p["live"] and p["url"]
-            else f'<span class="offline">{t["offline"]}</span>')
-    acts += f'<a class="btn alt" href="{rel}contact/index.html">{t["start"]}</a>'
+            else "")
+    acts += f'<a class="btn {"alt" if acts else "pri"}" href="{rel}contact/index.html">{t["start"]}</a>'
     body_parts = []
     if p.get("about"):
         cols = ""

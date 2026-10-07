@@ -3,7 +3,7 @@
    Upload the whole site folder to Hostinger; this file works with PHP's mail() out of the box.
    Change $TO if leads should go to another inbox. */
 header('Content-Type: application/json; charset=utf-8');
-$TO   = 'info@xtechverse.com';
+$TO   = 'xtechverse1@gmail.com';
 $FROM = 'website@xtechverse.com';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); echo json_encode(['ok' => false]); exit; }
