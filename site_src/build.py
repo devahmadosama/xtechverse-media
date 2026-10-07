@@ -101,9 +101,9 @@ ICON = dict(
 
 def host(u): return u.replace("https://", "").rstrip("/") if u else ""
 
-def win(p, L, cls=""):
+def win(p, L, cls="", lazy=True):
     return (f'<div class="win {cls}"><div class="bar"><i></i><i></i><i></i><u>{e(host(p["url"]) or p["name"]["en"])}</u></div>'
-            f'<div class="vp"><img src="{U + p["img"]}" alt="{e(p["name"][L])}" loading="lazy"></div></div>')
+            f'<div class="vp"><img src="{U + p["img"]}" alt="{e(p["name"][L])}"{' loading="lazy"' if lazy else ''}></div></div>')
 
 def page(L, depth, title, desc, body, path, current=""):
     t = T[L]; r = "../" * depth
@@ -157,7 +157,7 @@ def home(L):
     bilingual = sum(1 for p in PROJECTS if p.get("langs") and ("و" in p["langs"]["ar"]))
     inds = sorted({p["sector"][L] for p in PROJECTS if p["sector"][L] not in ("موقع شركة", "Company website")})
     cross, ahram = PROJECTS[1], PROJECTS[0]
-    comp = (f'<div class="layer c-back" data-d="14">{win(cross, L)}</div><div class="layer c-mid" data-d="26">{win(ahram, L)}</div>'
+    comp = (f'<div class="layer c-back" data-d="14">{win(cross, L, lazy=False)}</div><div class="layer c-mid" data-d="26">{win(ahram, L, lazy=False)}</div>'
             f'<div class="layer c-phone" data-d="44"><div class="phone"><div class="scr"><img src="{{ASSETS}}aqary_map.png" alt=""></div></div></div>'
             f'<div class="layer c-chip1 chip" data-d="60"><span class="ic">{ICON["check"]}</span><span>{t["chip1"]}<small>{APPS[0]["name"][L]}</small></span></div>'
             f'<div class="layer c-chip2 chip" data-d="52"><span class="ic">{ICON["globe"]}</span><span>{t["chip2"]}<small>{t["chip2s"]}</small></span></div>')
@@ -261,7 +261,7 @@ def project(L, i):
  <div class="pj-head"><div><div class="crumb"><a href="{rel}index.html">{t['home']}</a><span>/</span><a href="../index.html">{t['work']}</a><span>/</span><span>{e(p['name'][L])}</span></div>
   <h1>{e(p['name'][L])}</h1><p class="lead">{e(p['summary'][L])}</p><div class="pj-acts">{acts}</div></div>
   <dl class="pj-meta">{dl}</dl></div>
- <div class="pj-hero">{win(p, L)}</div>
+ <div class="pj-hero">{win(p, L, lazy=False)}</div>
 </section>
 {''.join(body_parts)}
 <section class="wrap sec"><div class="pj-scroll"><div class="pin"><div><h2>{t['tour_h']}</h2><p>{t['tour_p']}</p><div class="meter"><i></i></div></div>{win(p, L)}</div></div></section>
