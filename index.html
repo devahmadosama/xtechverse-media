@@ -7,16 +7,20 @@
 <meta name="description" content="X TechVerse: استوديو برمجة من مصر. مواقع وتطبيقات وسيستمات لعملاء في مصر والسعودية.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Swiss-grid studio site: light paper, ink type, one brand blue used only for interaction. The work carries the page. */
+/* Light studio identity. Brand blue→violet (from the logo) lives on buttons, key words and numbers.
+   The work is the hero: layered real screens, phones and windows that move with the cursor and the scroll. */
 :root{
-  --paper:#f3f4f6;   /* page */
-  --white:#ffffff;   /* raised panels */
-  --ink:#111318;     /* text, dark blocks */
-  --graphite:#5b606c;/* secondary text */
-  --rule:#d9dce2;    /* hairlines */
-  --blue:#3f35d6;    /* brand, from the logo; links + hover only */
+  --paper:#f3f4f7;
+  --white:#ffffff;
+  --ink:#10121a;
+  --graphite:#5b6070;
+  --rule:#dcdfe6;
+  --b1:#2f45c9;           /* logo blue */
+  --b2:#7a33e6;           /* logo violet */
+  --brand:linear-gradient(100deg,var(--b1),var(--b2));
+  --tint:#ece9ff;
   --font:"IBM Plex Sans Arabic","IBM Plex Sans",system-ui,sans-serif;
   --gut:clamp(20px,4.5vw,64px);
   color-scheme:light;
@@ -28,140 +32,192 @@ body{background:var(--paper);color:var(--ink);font:400 17px/1.7 var(--font);-web
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+:focus-visible{outline:2px solid var(--b1);outline-offset:3px}
 .wrap{max-width:1360px;margin-inline:auto;padding-inline:var(--gut)}
+.grad{background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-/* ---------- preloader (kept dark on purpose) ---------- */
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:16px;padding:14px 26px;border-radius:12px;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.btn.pri{background:var(--brand);color:#fff;box-shadow:0 12px 30px rgba(74,58,214,.32)}
+.btn.pri:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(74,58,214,.42)}
+.btn.alt{background:var(--white);border:1px solid var(--rule)}
+.btn.alt:hover{border-color:var(--b1);color:var(--b1)}
+.btn svg{width:19px;height:19px}
+
+/* ---------- preloader ---------- */
 #loader{position:fixed;inset:0;z-index:100;background:#0b0d14;display:grid;place-items:center}
 #loader canvas{width:min(62vmin,460px);height:min(62vmin,460px)}
 #loader .count{position:absolute;bottom:6vh;font:300 14px "IBM Plex Sans",sans-serif;color:#8a8fa0;letter-spacing:.06em;direction:ltr;font-variant-numeric:tabular-nums}
 
 /* ---------- header ---------- */
-header{position:sticky;top:0;z-index:40;background:rgba(243,244,246,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
-header.ruled{border-bottom-color:var(--rule)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
-.brand{display:flex;align-items:center;gap:10px;direction:ltr;font-weight:600;font-size:16px;letter-spacing:-.01em}
-.brand img{width:30px;height:30px;border-radius:7px}
-.menu{display:flex;align-items:center;gap:32px;font-size:15px;color:var(--graphite)}
-.menu a:hover,.lang:hover{color:var(--ink)}
+header{position:fixed;top:0;inset-inline:0;z-index:40;transition:background .3s,box-shadow .3s}
+header.solid{background:rgba(243,244,247,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--rule)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:10px;direction:ltr;font-weight:600;font-size:16px}
+.brand img{width:32px;height:32px;border-radius:8px}
+.menu{display:flex;align-items:center;gap:30px;font-size:15px;color:var(--graphite)}
+.menu a:hover,.lang:hover{color:var(--b1)}
 .lang{font-size:15px;color:var(--graphite)}
-.talk{color:var(--ink);font-weight:500;border-bottom:1.5px solid var(--ink);padding-bottom:1px}
-@media (max-width:760px){.menu a:not(.talk){display:none}}
+.menu .btn{padding:10px 18px;font-size:15px;color:#fff}
+@media (max-width:860px){.menu>a:not(.btn){display:none}}
 
 /* ---------- hero ---------- */
-.hero{padding-top:clamp(56px,9vw,120px)}
-.hero .grid{display:grid;grid-template-columns:7fr 5fr;gap:var(--gut);align-items:end}
-.hero h1{font-weight:500;font-size:clamp(36px,4.6vw,66px);line-height:1.22;letter-spacing:-.015em;max-width:15ch;text-wrap:balance}
+.hero{position:relative;min-height:100svh;padding-top:112px;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:auto -10% -30% 30%;height:70%;background:radial-gradient(closest-side,rgba(122,51,230,.12),transparent);pointer-events:none}
+.hero .wrap{display:grid;grid-template-columns:5fr 6fr;gap:var(--gut);align-items:center;min-height:calc(100svh - 112px)}
+.hero h1{font-weight:600;font-size:clamp(38px,4.6vw,68px);line-height:1.2;letter-spacing:-.015em;text-wrap:balance}
 [lang=en] .hero h1{letter-spacing:-.03em;line-height:1.08}
-.hero .lead{font-size:clamp(16px,1.25vw,18px);color:var(--graphite);max-width:38ch}
-.hero .lead a{color:var(--ink);border-bottom:1.5px solid var(--ink)}
-.hero .lead a:hover{color:var(--blue);border-color:var(--blue)}
-@media (max-width:860px){.hero .grid{grid-template-columns:1fr;gap:28px}}
+.hero .lead{margin-top:22px;font-size:clamp(16px,1.25vw,19px);color:var(--graphite);max-width:40ch}
+.hero .acts{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px}
+.proof{margin-top:44px;display:flex;gap:36px;flex-wrap:wrap}
+.proof b{display:block;font-size:34px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.proof span{font-size:14px;color:var(--graphite)}
 
-/* filmstrip of real work */
-.strip{margin-top:clamp(48px,7vw,96px);overflow:hidden;display:grid;gap:14px;direction:ltr}
-.row{display:flex;gap:14px;width:max-content;will-change:transform}
-.shot{flex:none;width:clamp(240px,24vw,360px);aspect-ratio:16/10;border-radius:6px;overflow:hidden;background:#e4e6ea;border:1px solid var(--rule)}
-.shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+/* layered composition */
+.comp{position:relative;height:min(74vh,660px);perspective:2000px}
+.layer{position:absolute;will-change:transform}
+.win{border-radius:12px;background:#fff;overflow:hidden;box-shadow:0 30px 70px rgba(16,18,26,.16),0 0 0 1px rgba(16,18,26,.06)}
+.win .bar{display:flex;align-items:center;gap:6px;height:30px;padding-inline:12px;background:#f6f7fa;border-bottom:1px solid #eceef3;direction:ltr}
+.win .bar i{width:9px;height:9px;border-radius:50%;background:#dfe2ea}
+.win .bar u{margin-inline-start:10px;text-decoration:none;font-size:11.5px;color:#8a90a2;background:#eceef3;border-radius:5px;padding:1px 10px}
+.win .vp{position:relative;aspect-ratio:16/10;overflow:hidden}
+.win .vp img{width:100%;will-change:transform}
+.phone{width:220px;aspect-ratio:244/498;border-radius:36px;padding:8px;background:#14161f;box-shadow:0 40px 80px rgba(16,18,26,.3),inset 0 0 0 1.5px #3a3e4e}
+.phone .scr{width:100%;height:100%;border-radius:29px;overflow:hidden;background:#fff;position:relative}
+.phone .scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.chip{display:flex;align-items:center;gap:10px;padding:10px 16px 10px 12px;border-radius:14px;background:#fff;box-shadow:0 18px 40px rgba(16,18,26,.14);font-size:14px;font-weight:500;white-space:nowrap}
+.chip .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--brand);color:#fff}
+.chip .ic svg{width:18px;height:18px}
+.chip small{display:block;font-size:12px;color:var(--graphite);font-weight:400}
+.c-back{width:72%;top:4%;inset-inline-start:0}
+.c-mid{width:62%;top:30%;inset-inline-start:22%}
+.c-phone{top:16%;inset-inline-end:2%}
+.c-chip1{top:2%;inset-inline-end:30%}
+.c-chip2{bottom:6%;inset-inline-start:6%}
+@media (max-width:960px){.hero .wrap{grid-template-columns:1fr}.comp{height:520px}.phone{width:180px}}
+@media (max-width:560px){.comp{height:420px}.c-mid{inset-inline-start:12%;width:76%}.c-back{width:84%}.phone{width:140px;border-radius:28px}.phone .scr{border-radius:22px}.c-chip1{display:none}}
 
-/* ---------- section scaffolding ---------- */
-.sec{padding-block:clamp(80px,11vw,160px)}
-.sh{display:grid;grid-template-columns:5fr 7fr;gap:var(--gut);margin-bottom:clamp(36px,5vw,64px);align-items:end}
-.sh h2{font-weight:500;font-size:clamp(28px,2.8vw,42px);line-height:1.25;letter-spacing:-.01em;text-wrap:balance}
-.sh p{color:var(--graphite);max-width:46ch}
-@media (max-width:860px){.sh{grid-template-columns:1fr;gap:12px}}
+/* ---------- clients marquee ---------- */
+.mq{border-block:1px solid var(--rule);overflow:hidden;padding-block:22px;direction:ltr;background:var(--white)}
+.mq .t{display:flex;gap:64px;width:max-content;font-weight:600;font-size:clamp(18px,1.8vw,24px);color:#a4a9b8;white-space:nowrap}
 
-/* ---------- index of websites ---------- */
-.tools{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--ink);padding-bottom:14px}
-.tabs{display:flex;gap:26px;font-size:15px}
-.tabs button{color:var(--graphite);padding-bottom:3px;border-bottom:1.5px solid transparent}
-.tabs button[aria-pressed=true]{color:var(--ink);border-color:var(--ink)}
-.tally{font-size:14px;color:var(--graphite);font-variant-numeric:tabular-nums}
+/* ---------- section heads ---------- */
+.sec{padding-block:clamp(90px,11vw,160px)}
+.sh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:24px;margin-bottom:clamp(40px,5vw,72px)}
+.sh h2{font-weight:600;font-size:clamp(30px,3.2vw,50px);line-height:1.2;letter-spacing:-.01em;max-width:18ch;text-wrap:balance}
+.sh p{color:var(--graphite);max-width:44ch}
+
+/* ---------- featured projects ---------- */
+.feat{display:grid;gap:clamp(110px,14vw,200px)}
+.fp{display:grid;grid-template-columns:4fr 7fr;gap:var(--gut);align-items:center}
+.fp:nth-child(even){grid-template-columns:7fr 4fr}
+.fp:nth-child(even) .fp-txt{order:2}
+.fp-txt .num{font-size:15px;color:var(--b1);font-weight:600}
+.fp-txt h3{margin-top:10px;font-weight:600;font-size:clamp(28px,3vw,46px);line-height:1.2}
+.fp-txt p{margin-top:12px;color:var(--graphite);max-width:36ch}
+.fp-txt .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px}
+.fp-txt .meta span{font-size:14px;background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:4px 12px}
+.fp-txt .go{margin-top:26px}
+.fp-vis{position:relative;height:clamp(360px,42vw,580px)}
+.fp-vis .main{position:absolute;inset-inline-start:0;top:0;width:86%}
+.fp-vis .sub{position:absolute;inset-inline-end:0;bottom:0;width:44%}
+.fp-vis .sub .vp{aspect-ratio:4/5}
+.fp-vis .tag{position:absolute;top:58%;inset-inline-start:-4%}
+@media (max-width:900px){.fp,.fp:nth-child(even){grid-template-columns:1fr}.fp:nth-child(even) .fp-txt{order:0}.fp-vis{height:auto;aspect-ratio:1/0.85}}
+
+/* ---------- apps story (pinned) ---------- */
+.apps{background:var(--white);border-block:1px solid var(--rule)}
+.story{height:100svh;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:5vw}
+.story .name{font-weight:700;font-size:clamp(44px,5.4vw,88px);line-height:1}
+.story .kind{margin-top:12px;color:var(--graphite)}
+.story .bars{margin-top:28px;display:flex;gap:8px}
+.story .bars i{width:40px;height:4px;border-radius:4px;background:var(--rule);overflow:hidden;position:relative}
+.story .bars i b{position:absolute;inset:0;background:var(--brand);transform:scaleX(0);transform-origin:right}
+[dir=ltr] .story .bars i b{transform-origin:left}
+.stage{position:relative;width:min(300px,70vw)}
+.stage .phone{width:100%;border-radius:46px;padding:11px}
+.stage .phone .scr{border-radius:36px}
+.stage .float{position:absolute;opacity:0}
+.f1{top:20%;inset-inline-start:-46%}.f2{top:52%;inset-inline-end:-50%}.f3{bottom:12%;inset-inline-start:-40%}
+.steps{position:relative;min-height:230px}
+.step{position:absolute;inset:0;opacity:0}
+.step:first-child{opacity:1}
+.step small{font-size:15px;font-weight:600;color:var(--b1)}
+.step h3{margin-top:6px;font-weight:600;font-size:clamp(26px,2.6vw,40px);line-height:1.25;text-wrap:balance}
+.step p{margin-top:12px;color:var(--graphite);max-width:32ch}
+.others{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding-bottom:clamp(80px,10vw,140px)}
+.other{display:grid;grid-template-columns:1fr auto;gap:8px 24px;align-items:center;padding:30px;border-radius:18px;background:var(--paper);border:1px solid var(--rule);transition:border-color .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+.other:hover{border-color:var(--b1);transform:translateY(-4px)}
+.other h4{font-weight:600;font-size:22px}
+.other p{grid-column:1/-1;color:var(--graphite)}
+.other .st{font-size:13px;font-weight:600;color:var(--b1);background:var(--tint);padding:4px 12px;border-radius:8px}
+@media (max-width:900px){.story{grid-template-columns:1fr;height:auto;min-height:100svh;padding-block:100px 40px;gap:30px;text-align:center}.story .bars{justify-content:center}.steps{min-height:190px}.step p{margin-inline:auto}.stage{margin-inline:auto}.stage .float{display:none}.others{grid-template-columns:1fr}}
+
+/* ---------- index ---------- */
+.tools{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:1.5px solid var(--ink);padding-bottom:14px}
+.tabs{display:flex;gap:6px;font-size:15px;background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:4px}
+.tabs button{padding:7px 16px;border-radius:9px;color:var(--graphite);transition:background .25s,color .25s}
+.tabs button[aria-pressed=true]{background:var(--brand);color:#fff}
+.tally{font-size:14px;color:var(--graphite)}
 .list{list-style:none}
-.item a{display:grid;grid-template-columns:2.2fr 2fr 1fr auto;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--rule);transition:padding .35s cubic-bezier(.2,.8,.2,1),color .2s}
-.item a .n{font-size:clamp(19px,1.7vw,24px);font-weight:500;letter-spacing:-.005em}
-.item a .s,.item a .c{color:var(--graphite);font-size:15px}
-.item a .d{font-size:14px;color:var(--graphite);direction:ltr;text-align:end}
-.item a:hover{padding-inline-start:14px;color:var(--blue)}
-.item a:hover .s,.item a:hover .c,.item a:hover .d{color:var(--ink)}
+.item a{display:grid;grid-template-columns:2.2fr 2fr 1fr auto;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--rule);transition:padding .35s cubic-bezier(.2,.8,.2,1)}
+.item .n{font-size:clamp(19px,1.7vw,24px);font-weight:500;transition:color .2s}
+.item .s,.item .c{color:var(--graphite);font-size:15px}
+.item .d{font-size:14px;color:var(--graphite);direction:ltr;text-align:end}
+.item a:hover{padding-inline-start:16px}
+.item a:hover .n{color:var(--b1)}
 .item[hidden]{display:none}
 .item .thumb{display:none}
-@media (max-width:760px){
- .item a{grid-template-columns:96px 1fr;grid-template-rows:auto auto;gap:4px 16px;padding:16px 0}
- .item .thumb{display:block;grid-row:1/3;width:96px;aspect-ratio:16/10;border-radius:4px;overflow:hidden;border:1px solid var(--rule)}
- .item .thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
- .item a .c,.item a .d{display:none}
- .item a .n{font-size:18px}
-}
-/* cursor preview */
-#peek{position:fixed;top:0;left:0;z-index:30;width:380px;aspect-ratio:16/10;border-radius:6px;overflow:hidden;pointer-events:none;opacity:0;transform:scale(.85);
- box-shadow:0 30px 60px rgba(17,19,24,.18);border:1px solid var(--rule);background:#e4e6ea}
+@media (max-width:760px){.item a{grid-template-columns:96px 1fr;gap:4px 16px;padding:16px 0}.item .thumb{display:block;grid-row:1/3;width:96px;aspect-ratio:16/10;border-radius:6px;overflow:hidden;border:1px solid var(--rule)}.item .thumb img{width:100%;height:100%;object-fit:cover;object-position:top}.item .c,.item .d{display:none}}
+#peek{position:fixed;top:0;left:0;z-index:30;width:360px;aspect-ratio:16/10;border-radius:12px;overflow:hidden;pointer-events:none;opacity:0;transform:scale(.85);box-shadow:0 30px 60px rgba(16,18,26,.2);background:#e4e6ec}
 #peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
 @media (hover:none),(max-width:760px){#peek{display:none}}
 
-/* ---------- app case study ---------- */
-.case{background:var(--white);border-block:1px solid var(--rule)}
-.case .grid{display:grid;grid-template-columns:5fr 7fr;gap:var(--gut);align-items:start}
-.case .title{font-weight:500;font-size:clamp(28px,2.8vw,42px);line-height:1.25}
-.case .what{margin-top:8px;color:var(--graphite)}
-.facts{margin-top:36px;display:grid;grid-template-columns:auto 1fr;gap:10px 24px;font-size:15px;border-top:1px solid var(--rule);padding-top:20px}
-.facts dt{color:var(--graphite)}
-.chapters{margin-top:36px;display:grid;gap:4px}
-.chapter{text-align:start;padding:14px 0;border-top:1px solid var(--rule);color:var(--graphite);transition:color .2s}
-.chapter b{display:block;font-weight:500;font-size:18px;color:inherit}
-.chapter span{display:block;font-size:15px;max-height:0;overflow:hidden;transition:max-height .5s ease,margin .5s ease}
-.chapter[aria-current=true]{color:var(--ink)}
-.chapter[aria-current=true] span{max-height:120px;margin-top:6px;color:var(--graphite)}
-.screens{position:sticky;top:110px;display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,2vw,28px);padding:clamp(20px,3vw,44px);background:var(--paper);border-radius:8px}
-.screen{border-radius:22px;overflow:hidden;border:1px solid var(--rule);background:#fff;aspect-ratio:244/498;box-shadow:0 20px 40px rgba(17,19,24,.08);transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .5s}
-.screen img{width:100%;height:100%;object-fit:cover;object-position:top}
-.screens[data-step="0"] .screen:nth-child(2){opacity:.45;transform:translateY(24px)}
-.screens[data-step="1"] .screen:nth-child(1){opacity:.45;transform:translateY(24px)}
-.screens[data-step="2"] .screen:nth-child(1){opacity:.45}
-.screens .note{grid-column:1/-1;font-size:14px;color:var(--graphite)}
-.more{margin-top:clamp(56px,7vw,96px);display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gut)}
-.more div{border-top:1px solid var(--ink);padding-top:18px}
-.more h3{font-weight:500;font-size:22px}
-.more p{color:var(--graphite);margin-top:6px;max-width:44ch}
-.more small{display:block;margin-top:12px;font-size:14px;color:var(--blue)}
-@media (max-width:860px){.case .grid,.more{grid-template-columns:1fr}.screens{position:relative;top:0}}
+/* ---------- numbers ---------- */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gut);border-top:1.5px solid var(--ink);padding-top:36px}
+.nums b{display:block;font-weight:600;font-size:clamp(56px,7vw,110px);line-height:1;font-variant-numeric:tabular-nums}
+.nums span{display:block;margin-top:10px;color:var(--graphite)}
+@media (max-width:700px){.nums{grid-template-columns:1fr}}
 
 /* ---------- services ---------- */
-.svc{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink)}
-.svc div{padding:22px 22px 0 0;border-inline-start:1px solid var(--rule)}
-.svc div:first-child{border-inline-start:0}
-[dir=rtl] .svc div{padding:22px 0 0 22px}
-.svc h3{font-weight:500;font-size:19px}
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.svc div{background:var(--white);border:1px solid var(--rule);border-radius:18px;padding:28px 24px 30px;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s,border-color .3s}
+.svc div:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(16,18,26,.08);border-color:transparent}
+.svc .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--tint);color:var(--b1);margin-bottom:22px;transition:background .3s,color .3s}
+.svc div:hover .ic{background:var(--brand);color:#fff}
+.svc .ic svg{width:24px;height:24px}
+.svc h3{font-weight:600;font-size:19px}
 .svc p{margin-top:8px;color:var(--graphite);font-size:15px}
-@media (max-width:860px){.svc{grid-template-columns:1fr 1fr;row-gap:28px}.svc div{border:0!important}}
-@media (max-width:520px){.svc{grid-template-columns:1fr}}
+@media (max-width:960px){.svc{grid-template-columns:1fr 1fr}}@media (max-width:560px){.svc{grid-template-columns:1fr}}
 
-/* ---------- contact (the one dark block) ---------- */
-.contact{background:var(--ink);color:#f3f4f6}
-.contact .wrap{padding-block:clamp(80px,11vw,150px)}
-.contact h2{font-weight:500;font-size:clamp(34px,4.4vw,64px);line-height:1.2;max-width:18ch;letter-spacing:-.015em;text-wrap:balance}
-.contact .rows{margin-top:clamp(40px,5vw,72px);display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #2b2f3a}
-.contact .rows a{display:block;padding:22px 0;border-bottom:1px solid #2b2f3a;transition:color .2s}
-.contact .rows a small{display:block;font-size:14px;color:#8a8fa0}
-.contact .rows a span{font-size:clamp(18px,1.6vw,22px);direction:ltr;display:inline-block}
-.contact .rows a:hover{color:#a9a3ff}
-@media (max-width:860px){.contact .rows{grid-template-columns:1fr}}
-footer{background:var(--ink);color:#8a8fa0;font-size:14px}
-footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:24px;border-top:1px solid #2b2f3a}
+/* ---------- contact ---------- */
+.contact{background:var(--ink);color:#f2f3f7;overflow:hidden}
+.big{direction:ltr;overflow:hidden;padding-top:clamp(70px,9vw,130px)}
+.big .t{display:flex;gap:.5em;width:max-content;font-weight:700;font-size:clamp(70px,12vw,200px);line-height:1;white-space:nowrap}
+.big .t span:nth-child(odd){background:linear-gradient(100deg,#6f83ff,#a77bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.big .t span:nth-child(even){color:transparent;-webkit-text-stroke:1px #3a3f52}
+.contact .wrap{padding-block:clamp(50px,6vw,90px) clamp(70px,9vw,120px);display:grid;grid-template-columns:5fr 7fr;gap:var(--gut);align-items:end}
+.contact p{color:#a1a6b8;max-width:36ch;font-size:18px}
+.contact .rows{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.contact .rows a{display:block;padding:20px;border-radius:14px;background:#191c27;border:1px solid #262a37;transition:border-color .3s,transform .3s}
+.contact .rows a:hover{border-color:#7a6bff;transform:translateY(-3px)}
+.contact .rows small{display:block;font-size:13px;color:#8a8fa2}
+.contact .rows span{display:inline-block;margin-top:4px;font-size:16px;direction:ltr}
+@media (max-width:900px){.contact .wrap{grid-template-columns:1fr}.contact .rows{grid-template-columns:1fr}}
+footer{background:var(--ink);color:#7d8296;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:22px;border-top:1px solid #23262f}
 
 /* ---------- lightbox ---------- */
-#lb{position:fixed;inset:0;z-index:80;background:rgba(243,244,246,.94);backdrop-filter:blur(6px);display:grid;grid-template-rows:auto 1fr;opacity:0;pointer-events:none;transition:opacity .3s}
+#lb{position:fixed;inset:0;z-index:80;background:rgba(243,244,247,.95);backdrop-filter:blur(6px);display:grid;grid-template-rows:auto 1fr;opacity:0;pointer-events:none;transition:opacity .3s}
 #lb.open{opacity:1;pointer-events:auto}
-#lb .top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px var(--gut);border-bottom:1px solid var(--rule)}
-#lb h3{font-weight:500;font-size:20px}
-#lb .acts{display:flex;gap:24px;font-size:15px}
-#lb .acts a{border-bottom:1.5px solid var(--ink)}
-#lb .acts a:hover{color:var(--blue);border-color:var(--blue)}
-#lb .frame{overflow:hidden;margin:clamp(16px,3vw,40px) auto 0;width:min(1100px,92vw);border-radius:8px 8px 0 0;border:1px solid var(--rule);border-bottom:0;background:#fff;box-shadow:0 30px 80px rgba(17,19,24,.15);transform:translateY(40px);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+#lb .top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px var(--gut);border-bottom:1px solid var(--rule)}
+#lb h3{font-weight:600;font-size:20px}
+#lb .acts{display:flex;align-items:center;gap:10px}
+#lb .acts .btn{padding:10px 18px;font-size:15px}
+#lb .frame{overflow:hidden;margin:clamp(16px,3vw,36px) auto 0;width:min(1100px,92vw);height:calc(100vh - 120px);border-radius:12px 12px 0 0;background:#fff;box-shadow:0 30px 80px rgba(16,18,26,.18);transform:translateY(40px);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 #lb.open .frame{transform:none}
 #lb .frame img{width:100%}
-
-@media (prefers-reduced-motion:reduce){*{transition-duration:0s!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition-duration:0s!important}}
 </style>
 </head>
 <body>
@@ -170,23 +226,66 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <header id="hdr"><div class="wrap">
   <a class="brand" href="#top"><img src="assets/logo.png" alt="">X TechVerse</a>
   <nav class="menu" aria-label="Main">
-    <a href="#work" data-t="nav_work">الأعمال</a><a href="#apps" data-t="nav_apps">التطبيقات</a><a href="#services" data-t="nav_svc">الخدمات</a>
+    <a href="#featured" data-t="nav_work">الأعمال</a><a href="#apps" data-t="nav_apps">التطبيقات</a><a href="#services" data-t="nav_svc">الخدمات</a>
     <button class="lang" id="lang">English</button>
-    <a class="talk" href="#contact" data-t="nav_talk">ابدأ مشروع</a>
+    <a class="btn pri" href="#contact" data-t="nav_talk">ابدأ مشروعك</a>
   </nav>
 </div></header>
 
 <main id="top">
 <section class="hero">
-  <div class="wrap grid">
-    <h1 id="h1" data-t="h1">بنصمم ونبرمج مواقع وتطبيقات لشركات في مصر والسعودية.</h1>
-    <p class="lead"><span data-t="lead">استوديو صغير بيشتغل على المشروع من الفكرة لحد ما يبقى شغال. تحت 18 موقع منشورين لعملاء حقيقيين، وتطبيقات بتدير شغل كل يوم.</span> <a href="#work" data-t="lead_a">شوف الأعمال</a></p>
+  <div class="wrap">
+    <div>
+      <h1 id="h1"><span data-t="h1a">بنصمم ونبرمج</span> <span class="grad" data-t="h1b">مواقع وتطبيقات</span> <span data-t="h1c">لشركات في مصر والسعودية.</span></h1>
+      <p class="lead" data-t="lead">استوديو بيشتغل على مشروعك من الفكرة لحد ما يبقى شغال، وبيكمّل معاك بعد التسليم.</p>
+      <div class="acts">
+        <a class="btn pri" href="https://wa.me/201039253652" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span data-t="cta1">كلمنا على واتساب</span></a>
+        <a class="btn alt" href="#featured" data-t="cta2">شوف شغلنا</a>
+      </div>
+      <div class="proof">
+        <div><b class="grad" data-count="18">0</b><span data-t="pf1">موقع منشور</span></div>
+        <div><b class="grad" data-count="3">0</b><span data-t="pf2">تطبيقات وسيستمات</span></div>
+        <div><b class="grad" data-count="2">0</b><span data-t="pf3">بلد</span></div>
+      </div>
+    </div>
+    <div class="comp" id="comp" aria-hidden="true"></div>
   </div>
-  <div class="strip" aria-hidden="true"><div class="row" id="r1"></div><div class="row" id="r2"></div></div>
+</section>
+
+<div class="mq" aria-hidden="true"><div class="t" id="mq"></div></div>
+
+<section class="wrap sec" id="featured">
+  <div class="sh"><h2 data-t="feat_h">مشاريع مختارة</h2><p data-t="feat_p">مواقع منشورة لعملاء حقيقيين. الصور بتتحرك مع السكرول عشان تشوف الصفحة كلها.</p></div>
+  <div class="feat" id="feat"></div>
+</section>
+
+<section class="apps" id="apps">
+  <div class="wrap story" id="story">
+    <div>
+      <div class="name grad">عقاري EG</div>
+      <div class="kind" data-t="aq_kind">تطبيق عقارات للأندرويد، منشور على جوجل بلاي</div>
+      <div class="bars"><i><b></b></i><i><b></b></i><i><b></b></i></div>
+    </div>
+    <div class="stage">
+      <div class="phone"><div class="scr"><img id="s1" src="assets/aqary_map.png" alt="شاشة الخريطة في عقاري EG"><img id="s2" src="assets/aqary_detail.png" alt="صفحة وحدة في عقاري EG" style="opacity:0"></div></div>
+      <div class="float f1 chip"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span data-t="fl1">كفر الشيخ<small data-t="fl1s">2 عقارات في المنطقة</small></span></div>
+      <div class="float f2 chip"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></span><span data-t="fl2">شقة 140م² للإيجار<small data-t="fl2s">3 أوض، حمامين</small></span></div>
+      <div class="float f3 chip"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></span><span data-t="fl3">تواصل على واتساب<small data-t="fl3s">بضغطة من صفحة الوحدة</small></span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><small data-t="k1">الخطوة 1</small><h3 data-t="st1h">العميل يدوّر على الخريطة</h3><p data-t="st1p">فلاتر للشقق والفلل والشاليهات، بيع أو إيجار، وكل وحدة ظاهرة مكانها.</p></div>
+      <div class="step"><small data-t="k2">الخطوة 2</small><h3 data-t="st2h">يفتح صفحة الوحدة</h3><p data-t="st2p">صور، سعر، مساحة، عدد الأوض والحمامات، والمرافق.</p></div>
+      <div class="step"><small data-t="k3">الخطوة 3</small><h3 data-t="st3h">ويكلّم المعلن بضغطة</h3><p data-t="st3p">اتصال، واتساب، أو دردشة جوه التطبيق.</p></div>
+    </div>
+  </div>
+  <div class="wrap others">
+    <div class="other"><h4 data-t="o1h">سيستم سوبر ماركت</h4><span class="st" data-t="o1s">اتسلّم</span><p data-t="o1p">تطبيق للعميل، تطبيق للمندوب، ولوحة تحكم للمحل فيها المنتجات والأوردرات والتقارير.</p></div>
+    <div class="other"><h4 data-t="o2h">كلينيكاوي</h4><span class="st" data-t="o2s">تحت التطوير</span><p data-t="o2p">نظام إدارة عيادات: مواعيد، ملفات مرضى، روشتات، وفواتير.</p></div>
+  </div>
 </section>
 
 <section class="wrap sec" id="work">
-  <div class="sh"><h2 data-t="work_h">مواقع شغالة لعملاء حقيقيين</h2><p data-t="work_p">عدّي بالماوس على أي اسم عشان تشوف الموقع، واضغط عليه عشان تتصفحه كامل.</p></div>
+  <div class="sh"><h2 data-t="work_h">كل المواقع</h2><p data-t="work_p">عدّي بالماوس على أي اسم عشان تشوف الموقع، واضغط عليه عشان تتصفحه كامل.</p></div>
   <div class="tools">
     <div class="tabs" role="group" aria-label="Filter"><button aria-pressed="true" data-f="all" data-t="f_all">الكل</button><button aria-pressed="false" data-f="eg" data-t="f_eg">مصر</button><button aria-pressed="false" data-f="sa" data-t="f_sa">السعودية</button></div>
     <div class="tally" id="tally"></div>
@@ -195,53 +294,32 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 </section>
 <div id="peek" aria-hidden="true"><img id="peekA" alt=""><img id="peekB" alt=""></div>
 
-<section class="case" id="apps"><div class="wrap sec">
-  <div class="grid">
-    <div>
-      <h2 class="title">عقاري EG</h2>
-      <p class="what" data-t="aq_what">تطبيق عقارات للأندرويد بيجمع الوحدات المعروضة للبيع والإيجار في مكان واحد.</p>
-      <dl class="facts"><dt data-t="aq_k1">المنصة</dt><dd data-t="aq_v1">أندرويد، منشور على جوجل بلاي</dd><dt data-t="aq_k2">الشغل</dt><dd data-t="aq_v2">تصميم الواجهة، برمجة التطبيق، والربط بالخريطة</dd></dl>
-      <div class="chapters" id="chapters">
-        <button class="chapter" aria-current="true" data-i="0"><b data-t="c1h">البحث على الخريطة</b><span data-t="c1p">فلاتر للشقق والفلل والشاليهات، بيع أو إيجار، وكل وحدة ظاهرة مكانها.</span></button>
-        <button class="chapter" aria-current="false" data-i="1"><b data-t="c2h">صفحة الوحدة</b><span data-t="c2p">صور، سعر، مساحة، عدد الأوض والحمامات، والمرافق.</span></button>
-        <button class="chapter" aria-current="false" data-i="2"><b data-t="c3h">التواصل</b><span data-t="c3p">اتصال وواتساب ودردشة جوه التطبيق من نفس الشاشة.</span></button>
-      </div>
-    </div>
-    <div class="screens" id="screens" data-step="0">
-      <div class="screen"><img src="assets/aqary_map.png" alt="شاشة الخريطة في عقاري EG"></div>
-      <div class="screen"><img src="assets/aqary_detail.png" alt="صفحة وحدة في عقاري EG"></div>
-      <p class="note" data-t="aq_note">لقطات من النسخة المنشورة على جوجل بلاي.</p>
-    </div>
-  </div>
-  <div class="more">
-    <div><h3 data-t="o1h">سيستم سوبر ماركت</h3><p data-t="o1p">تطبيق للعميل، تطبيق للمندوب، ولوحة تحكم للمحل فيها المنتجات والأوردرات والتقارير.</p><small data-t="o1s">اتسلّم للعميل</small></div>
-    <div><h3 data-t="o2h">كلينيكاوي</h3><p data-t="o2p">نظام إدارة عيادات: مواعيد، ملفات مرضى، روشتات، وفواتير.</p><small data-t="o2s">تحت التطوير</small></div>
-  </div>
-</div></section>
-
-<section class="wrap sec" id="services">
+<section class="wrap sec" id="services" style="padding-top:0">
   <div class="sh"><h2 data-t="svc_h">بنشتغل في إيه</h2><p data-t="svc_p">نفس الفريق بيصمم وبيبرمج وبيكمّل معاك بعد التسليم.</p></div>
   <div class="svc">
-    <div><h3 data-t="s1h">مواقع الشركات</h3><p data-t="s1p">مواقع تعريفية ومتاجر، عربي وإنجليزي، سريعة وسهلة التعديل.</p></div>
-    <div><h3 data-t="s2h">تطبيقات موبايل</h3><p data-t="s2p">أندرويد وiOS بكود واحد، من التصميم لحد النشر على المتاجر.</p></div>
-    <div><h3 data-t="s3h">سيستمات مخصصة</h3><p data-t="s3p">لوحات تحكم وأنظمة إدارة معمولة على مقاس شغلك.</p></div>
-    <div><h3 data-t="s4h">صيانة وتطوير</h3><p data-t="s4p">تحديثات، حماية، نسخ احتياطي، وتسريع للمواقع القائمة.</p></div>
+    <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg></span><h3 data-t="s1h">مواقع الشركات</h3><p data-t="s1p">مواقع تعريفية ومتاجر، عربي وإنجليزي، سريعة وسهلة التعديل.</p></div>
+    <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></span><h3 data-t="s2h">تطبيقات موبايل</h3><p data-t="s2p">أندرويد وiOS، من التصميم لحد النشر على المتاجر.</p></div>
+    <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3 data-t="s3h">سيستمات مخصصة</h3><p data-t="s3p">لوحات تحكم وأنظمة إدارة معمولة على مقاس شغلك.</p></div>
+    <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3 data-t="s4h">صيانة وتطوير</h3><p data-t="s4p">تحديثات، حماية، نسخ احتياطي، وتسريع للمواقع القائمة.</p></div>
   </div>
 </section>
 </main>
 
-<section class="contact" id="contact"><div class="wrap">
-  <h2 data-t="ct_h">احكيلنا عن مشروعك، ونرد عليك بخطة وتكلفة واضحة.</h2>
-  <div class="rows">
-    <a href="https://wa.me/201039253652" target="_blank" rel="noopener"><small data-t="ct_wa">واتساب</small><span>+20 10 3925 3652</span></a>
-    <a href="mailto:info@xtechverse.com"><small data-t="ct_mail">إيميل</small><span>info@xtechverse.com</span></a>
-    <a href="https://www.facebook.com/xtechverse1" target="_blank" rel="noopener"><small data-t="ct_fb">فيسبوك</small><span>xtechverse1</span></a>
+<section class="contact" id="contact">
+  <div class="big" aria-hidden="true"><div class="t" id="big"></div></div>
+  <div class="wrap">
+    <p data-t="ct_p">احكيلنا عن مشروعك في رسالة، ونرد عليك بخطة وتكلفة واضحة.</p>
+    <div class="rows">
+      <a href="https://wa.me/201039253652" target="_blank" rel="noopener"><small data-t="ct_wa">واتساب</small><span>+20 10 3925 3652</span></a>
+      <a href="mailto:info@xtechverse.com"><small data-t="ct_mail">إيميل</small><span>info@xtechverse.com</span></a>
+      <a href="https://www.facebook.com/xtechverse1" target="_blank" rel="noopener"><small data-t="ct_fb">فيسبوك</small><span>xtechverse1</span></a>
+    </div>
   </div>
-</div></section>
+</section>
 <footer><div class="wrap"><span>© 2026 X TechVerse</span><span data-t="foot">القاهرة، مصر</span></div></footer>
 
 <div id="lb" role="dialog" aria-modal="true" aria-labelledby="lbt">
-  <div class="top"><h3 id="lbt"></h3><div class="acts"><a id="lbgo" target="_blank" rel="noopener" data-t="visit">افتح الموقع</a><button id="lbx" data-t="close">إغلاق</button></div></div>
+  <div class="top"><h3 id="lbt"></h3><div class="acts"><a class="btn pri" id="lbgo" target="_blank" rel="noopener" data-t="visit">افتح الموقع</a><button class="btn alt" id="lbx" data-t="close">إغلاق</button></div></div>
   <div class="frame" id="lbf"><img id="lbimg" alt=""></div>
 </div>
 
@@ -270,35 +348,52 @@ const P=[
  {ar:'تفوق الحدث',en:'Excellence Event',sAr:'تنظيم فعاليات',sEn:'Event management',c:'sa',url:'https://excellence-event.com/',img:'%D8%B4%D8%B1%D9%83%D8%A9-%D8%AA%D9%81%D9%88%D9%82-%D8%A7%D9%84%D8%AD%D8%AF%D8%AB-10-18-2025_01_36_PM-scaled.webp'},
  {ar:'Soft Light',en:'Soft Light KSA',sAr:'تنظيم حفلات ومعارض',sEn:'Events and exhibitions',c:'sa',url:'https://softlightksa.com/',img:'Soft-Light-KSA-%D8%B3%D9%88%D9%81%D8%AA-%D9%84%D8%A7%D9%8A%D8%AA-%D9%84%D8%AA%D9%86%D8%B8%D9%8A%D9%85-%D8%A7%D9%84%D8%AD%D9%81%D9%84%D8%A7%D8%AA-%D9%88-%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B1%D8%B6-%D9%88-%D8%A7%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%A7%D8%AA-10-18-2025_01_31_PM-scaled.webp'},
 ];
-const T={en:{nav_work:'Work',nav_apps:'Apps',nav_svc:'Services',nav_talk:'Start a project',
- h1:'We design and build websites and apps for companies in Egypt and Saudi Arabia.',
- lead:'A small studio that takes a project from idea to launch. Below are 18 live websites for real clients, and apps that run businesses every day.',lead_a:'See the work',
- work_h:'Live websites for real clients',work_p:'Hover a name to preview the site, click to browse the whole page.',f_all:'All',f_eg:'Egypt',f_sa:'Saudi Arabia',
- aq_what:'An Android real-estate app that gathers units for sale and rent in one place.',aq_k1:'Platform',aq_v1:'Android, published on Google Play',aq_k2:'Our part',aq_v2:'Interface design, app development and map integration',
- c1h:'Search on the map',c1p:'Filters for apartments, villas and chalets, for sale or rent, with every unit pinned in place.',
- c2h:'Unit page',c2p:'Photos, price, area, rooms, bathrooms and amenities.',c3h:'Contact',c3p:'Call, WhatsApp and in-app chat from the same screen.',
- aq_note:'Screens from the version published on Google Play.',
- o1h:'Supermarket system',o1p:'A customer app, a driver app, and a store dashboard for products, orders and reports.',o1s:'Delivered to the client',
- o2h:'Clinicawy',o2p:'Clinic management: appointments, patient files, prescriptions and invoices.',o2s:'In development',
+const FEAT=[0,8,11,1]; /* Ahram Scan, Cross Road, Jeto, Beauty Secret */
+const T={en:{nav_work:'Work',nav_apps:'Apps',nav_svc:'Services',nav_talk:'Start your project',
+ h1a:'We design and build',h1b:'websites and apps',h1c:'for companies in Egypt and Saudi Arabia.',
+ lead:'A studio that takes your project from idea to launch, and stays with you after.',cta1:'Message us on WhatsApp',cta2:'See our work',
+ pf1:'live websites',pf2:'apps and systems',pf3:'countries',
+ feat_h:'Selected projects',feat_p:'Live websites for real clients. The screens scroll as you do, so you see the whole page.',visit_site:'Visit the website',
+ aq_kind:'Real-estate app for Android, on Google Play',fl1:'Kafr El Sheikh',fl1s:'2 properties in the area',fl2:'140 m² apartment for rent',fl2s:'3 rooms, 2 bathrooms',fl3:'Contact on WhatsApp',fl3s:'One tap from the unit page',
+ k1:'Step 1',k2:'Step 2',k3:'Step 3',st1h:'Customers search on the map',st1p:'Filters for apartments, villas and chalets, for sale or rent, with every unit pinned in place.',
+ st2h:'They open the unit page',st2p:'Photos, price, area, rooms, bathrooms and amenities.',st3h:'And reach the agent in one tap',st3p:'Call, WhatsApp or in-app chat.',
+ o1h:'Supermarket system',o1s:'Delivered',o1p:'A customer app, a driver app, and a store dashboard for products, orders and reports.',
+ o2h:'Clinicawy',o2s:'In development',o2p:'Clinic management: appointments, patient files, prescriptions and invoices.',
+ work_h:'All websites',work_p:'Hover a name to preview the site, click to browse the whole page.',f_all:'All',f_eg:'Egypt',f_sa:'Saudi Arabia',
  svc_h:'What we do',svc_p:'The same team designs, builds, and stays with you after launch.',
- s1h:'Company websites',s1p:'Corporate sites and online stores in Arabic and English, fast and easy to update.',
- s2h:'Mobile apps',s2p:'Android and iOS from one codebase, from design to store release.',
- s3h:'Custom systems',s3p:'Dashboards and management systems shaped around how you work.',
- s4h:'Care and growth',s4p:'Updates, security, backups and speed work for existing sites.',
- ct_h:'Tell us about your project, and we reply with a clear plan and cost.',ct_wa:'WhatsApp',ct_mail:'Email',ct_fb:'Facebook',foot:'Cairo, Egypt',visit:'Open website',close:'Close',
- eg:'Egypt',sa:'Saudi Arabia',sites:'websites'},
- ar:{eg:'مصر',sa:'السعودية',sites:'موقع'}};
+ s1h:'Company websites',s1p:'Corporate sites and online stores in Arabic and English, fast and easy to update.',s2h:'Mobile apps',s2p:'Android and iOS, from design to store release.',
+ s3h:'Custom systems',s3p:'Dashboards and management systems shaped around how you work.',s4h:'Care and growth',s4p:'Updates, security, backups and speed work for existing sites.',
+ ct_p:'Tell us about your project in one message, and we reply with a clear plan and cost.',ct_wa:'WhatsApp',ct_mail:'Email',ct_fb:'Facebook',foot:'Cairo, Egypt',visit:'Open website',close:'Close',
+ eg:'Egypt',sa:'Saudi Arabia',sites:'websites',big:"Let's build it",hc1:'Live on Google Play'},
+ ar:{eg:'مصر',sa:'السعودية',sites:'موقع',visit_site:'زور الموقع',big:'يلا نبدأ'}};
 document.querySelectorAll('[data-t]').forEach(e=>T.ar[e.dataset.t]=T.ar[e.dataset.t]||e.textContent);
 let L='ar',F='all';const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+gsap.registerPlugin(ScrollTrigger);
+const host=u=>u.replace(/^https:\/\/|\/$/g,'');
+const win=(p,cls='',sub=false)=>`<div class="win ${cls}"><div class="bar"><i></i><i></i><i></i><u>${host(p.url)}</u></div><div class="vp"><img src="${U+p.img}" alt="${p[L]}"${sub?' data-sub="1"':''}></div></div>`;
 
-/* filmstrip */
-const half=P.slice(0,9),rest=P.slice(9);
-const shots=a=>a.map(p=>`<div class="shot"><img src="${U+p.img}" alt="" loading="eager"></div>`).join('');
-const r1=document.getElementById('r1'),r2=document.getElementById('r2');r1.innerHTML=shots(half)+shots(half);r2.innerHTML=shots(rest)+shots(rest);
+/* hero composition */
+const comp=document.getElementById('comp');
+comp.innerHTML=`<div class="layer c-back" data-d="14">${win(P[8])}</div>
+<div class="layer c-mid" data-d="26">${win(P[0])}</div>
+<div class="layer c-phone" data-d="44"><div class="phone"><div class="scr"><img src="assets/aqary_map.png" alt=""></div></div></div>
+<div class="layer c-chip1 chip" data-d="60"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span data-t="hc1">${L==='ar'?'اتنشر على جوجل بلاي':'Live on Google Play'}<small>عقاري EG</small></span></div>
+<div class="layer c-chip2 chip" data-d="52"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span>${L==='ar'?'مصر والسعودية':'Egypt and Saudi Arabia'}<small>${L==='ar'?'18 موقع منشور':'18 live websites'}</small></span></div>`;
 
-/* index list */
+/* marquee + big text */
+const mqt=document.getElementById('mq');mqt.innerHTML=(P.map(p=>`<span>${p.en}</span>`).join('')).repeat(2);
+function bigText(){document.getElementById('big').innerHTML=Array(8).fill(`<span>${T[L].big}</span>`).join('')}
+
+/* featured */
+function featured(){document.getElementById('feat').innerHTML=FEAT.map((i,k)=>{const p=P[i];return `<article class="fp">
+ <div class="fp-txt"><h3>${p[L]}</h3><p>${L==='ar'?p.sAr:p.sEn}</p>
+ <div class="meta"><span>${T[L][p.c]}</span><span dir="ltr">${host(p.url)}</span></div>
+ <a class="btn alt go" href="${p.url}" target="_blank" rel="noopener">${T[L].visit_site}</a></div>
+ <div class="fp-vis">${win(p,'main')}${win(p,'sub',true)}</div></article>`}).join('');}
+
+/* index */
 const list=document.getElementById('list');
-function renderList(){list.innerHTML=P.map((p,i)=>`<li class="item" data-c="${p.c}"><a href="${p.url}" data-i="${i}"><span class="thumb"><img loading="lazy" src="${U+p.img}" alt=""></span><span class="n">${p[L]}</span><span class="s">${L==='ar'?p.sAr:p.sEn}</span><span class="c">${T[L][p.c]}</span><span class="d">${p.url.replace(/^https:\/\/|\/$/g,'')}</span></a></li>`).join('');filter()}
+function renderList(){list.innerHTML=P.map((p,i)=>`<li class="item" data-c="${p.c}"><a href="${p.url}" data-i="${i}"><span class="thumb"><img loading="lazy" src="${U+p.img}" alt=""></span><span class="n">${p[L]}</span><span class="s">${L==='ar'?p.sAr:p.sEn}</span><span class="c">${T[L][p.c]}</span><span class="d">${host(p.url)}</span></a></li>`).join('');filter()}
 function filter(){let n=0;list.querySelectorAll('.item').forEach(li=>{const v=F==='all'||li.dataset.c===F;li.hidden=!v;if(v)n++});document.getElementById('tally').textContent=`${n} ${T[L].sites}`;ScrollTrigger.refresh()}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{F=b.dataset.f;document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));filter();
  gsap.fromTo([...list.querySelectorAll('.item:not([hidden])')],{opacity:0,y:12},{opacity:1,y:0,duration:.45,stagger:.025,ease:'power2.out'})});
@@ -306,12 +401,10 @@ document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{F=b.dataset.
 /* cursor preview */
 const peek=document.getElementById('peek'),pa=document.getElementById('peekA'),pb=document.getElementById('peekB');let front=pa,cur=-1;
 const qx=gsap.quickTo(peek,'x',{duration:.55,ease:'power3'}),qy=gsap.quickTo(peek,'y',{duration:.55,ease:'power3'});
-const pw=()=>peek.offsetWidth,ph=()=>peek.offsetHeight;
-addEventListener('mousemove',e=>{const right=e.clientX>innerWidth/2;qx(right?e.clientX-pw()-32:e.clientX+32);qy(e.clientY-ph()/2)});
+addEventListener('mousemove',e=>{const r=e.clientX>innerWidth/2;qx(r?e.clientX-peek.offsetWidth-32:e.clientX+32);qy(e.clientY-peek.offsetHeight/2)});
 list.addEventListener('mouseover',e=>{const a=e.target.closest('a');if(!a)return;const i=+a.dataset.i;if(i===cur)return;cur=i;
  const back=front===pa?pb:pa;back.src=U+P[i].img;gsap.set(back,{zIndex:2,clipPath:'inset(100% 0 0 0)'});gsap.set(front,{zIndex:1});
- gsap.to(back,{clipPath:'inset(0% 0 0 0)',duration:.5,ease:'power3.out'});front=back;
- gsap.to(peek,{opacity:1,scale:1,duration:.35,ease:'power3.out'})});
+ gsap.to(back,{clipPath:'inset(0% 0 0 0)',duration:.5,ease:'power3.out'});front=back;gsap.to(peek,{opacity:1,scale:1,duration:.35,ease:'power3.out'})});
 list.addEventListener('mouseleave',()=>{cur=-1;gsap.to(peek,{opacity:0,scale:.85,duration:.3})});
 
 /* lightbox */
@@ -322,26 +415,76 @@ list.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;e.p
  const run=()=>{const d=lbimg.getBoundingClientRect().height-lbf.getBoundingClientRect().height;lt?.kill();if(d>0&&!reduce)lt=gsap.to(lbimg,{y:-d,duration:d/220,ease:'none',delay:.7,repeat:-1,yoyo:true,repeatDelay:1.2})};
  lbimg.complete?run():lbimg.onload=run});
 lbf.addEventListener('wheel',e=>{if(!lt)return;lt.pause();const d=lbimg.getBoundingClientRect().height-lbf.getBoundingClientRect().height;gsap.to(lbimg,{y:`-=${e.deltaY}`,duration:.3,modifiers:{y:v=>Math.max(-d,Math.min(0,parseFloat(v)))+'px'}})},{passive:true});
-lbf.style.height='calc(100vh - 110px)';
 const closeLb=()=>{lb.classList.remove('open');document.body.style.overflow='';lt?.kill();lt=null};
 document.getElementById('lbx').onclick=closeLb;addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
 
-/* app chapters */
-const chs=[...document.querySelectorAll('.chapter')],scr=document.getElementById('screens');
-const setStep=i=>{chs.forEach((c,k)=>c.setAttribute('aria-current',k===i));scr.dataset.step=i};
-chs.forEach(c=>c.onclick=()=>setStep(+c.dataset.i));
-
 /* language */
+let triggers=[];
 function setLang(l){L=l;document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';
- document.querySelectorAll('[data-t]').forEach(e=>{if(T[l][e.dataset.t])e.textContent=T[l][e.dataset.t]});
- document.getElementById('lang').textContent=l==='ar'?'English':'العربية';renderList();try{localStorage.setItem('xtv-lang',l)}catch(e){}}
+ document.querySelectorAll('[data-t]').forEach(e=>{if(T[l][e.dataset.t])e.childNodes[0].nodeType===3&&e.children.length?e.childNodes[0].textContent=T[l][e.dataset.t]:e.textContent=T[l][e.dataset.t]});
+ document.getElementById('lang').textContent=l==='ar'?'English':'العربية';renderList();featured();bigText();
+ try{localStorage.setItem('xtv-lang',l)}catch(e){}
+ if(started){motionFeatured();ScrollTrigger.refresh()}}
 document.getElementById('lang').onclick=()=>setLang(L==='ar'?'en':'ar');
 
-/* header rule */
-const hdr=document.getElementById('hdr');addEventListener('scroll',()=>hdr.classList.toggle('ruled',scrollY>20),{passive:true});
+/* header */
+const hdr=document.getElementById('hdr');addEventListener('scroll',()=>hdr.classList.toggle('solid',scrollY>30),{passive:true});
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:reduce?'auto':'smooth'})}}));
 
-/* preloader: particles assemble the X */
+/* ---------- motion ---------- */
+let started=false;
+function heroMotion(){
+ const layers=[...comp.querySelectorAll('.layer')];
+ /* cursor parallax */
+ const qs=layers.map(l=>({x:gsap.quickTo(l,'x',{duration:1,ease:'power3'}),y:gsap.quickTo(l,'y',{duration:1,ease:'power3'}),d:+l.dataset.d}));
+ if(!reduce)addEventListener('mousemove',e=>{const nx=e.clientX/innerWidth-.5,ny=e.clientY/innerHeight-.5;qs.forEach(q=>{q.x(-nx*q.d);q.y(-ny*q.d)})});
+ /* windows scroll themselves */
+ comp.querySelectorAll('.win').forEach((w,k)=>{const im=w.querySelector('img'),vp=w.querySelector('.vp');const go=()=>{const d=im.offsetHeight-vp.offsetHeight;if(d>0&&!reduce)gsap.to(im,{y:-d*.55,duration:20+k*6,ease:'sine.inOut',repeat:-1,yoyo:true,delay:1+k})};im.complete?go():im.onload=go});
+ /* layers drift apart on scroll */
+ gsap.utils.toArray('#comp .layer').forEach(l=>gsap.to(l,{yPercent:-(+l.dataset.d)*.9,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}}));
+ gsap.to('.hero .wrap>div:first-child',{y:-80,opacity:.2,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+}
+function motionFeatured(){triggers.forEach(t=>t.kill());triggers=[];
+ document.querySelectorAll('.fp').forEach((fp,k)=>{
+  const main=fp.querySelector('.main'),sub=fp.querySelector('.sub');
+  const tl=gsap.timeline({scrollTrigger:{trigger:fp,start:'top 90%',end:'bottom 10%',scrub:true}});
+  tl.fromTo(main,{y:60,rotate:k%2?1.5:-1.5},{y:-40,rotate:0,ease:'none'},0).fromTo(sub,{y:140},{y:-80,ease:'none'},0);
+  triggers.push(tl.scrollTrigger);
+  [main,sub].forEach((w,j)=>{const im=w.querySelector('img'),vp=w.querySelector('.vp');
+   const t=gsap.to(im,{y:()=>-(im.offsetHeight-vp.offsetHeight)*(j?0.9:0.6),ease:'none',scrollTrigger:{trigger:fp,start:'top 85%',end:'bottom 15%',scrub:.6,invalidateOnRefresh:true}});
+   if(j)gsap.set(im,{y:()=>-(im.offsetHeight*.25)});triggers.push(t.scrollTrigger);
+   im.addEventListener('load',()=>ScrollTrigger.refresh(),{once:true})});
+  const txt=fp.querySelectorAll('.fp-txt>*');const t2=gsap.from(txt,{y:30,opacity:0,stagger:.08,duration:.8,ease:'power3.out',scrollTrigger:{trigger:fp,start:'top 75%'}});triggers.push(t2.scrollTrigger)})}
+function storyMotion(){
+ const steps=[...document.querySelectorAll('.step')],bars=[...document.querySelectorAll('.story .bars b')],fl=[...document.querySelectorAll('.stage .float')];
+ if(innerWidth<=900){gsap.set('#s2',{opacity:0});return}
+ const tl=gsap.timeline({scrollTrigger:{trigger:'#story',start:'top top',end:'+=2400',pin:true,scrub:.6}});
+ tl.from('.stage .phone',{scale:.82,rotate:-8,y:80,duration:1,ease:'power2.out'},0)
+   .to(bars[0],{scaleX:1,duration:1},0).to(fl[0],{opacity:1,x:0,duration:.6},0.3).fromTo(fl[0],{x:-30},{x:0,duration:.6},0.3)
+   .to(steps[0],{opacity:0,y:-20,duration:.4},1.2).fromTo(steps[1],{opacity:0,y:30},{opacity:1,y:0,duration:.5},1.4)
+   .to('#s2',{opacity:1,duration:.5},1.3).to('.stage .phone',{rotate:3,duration:.8},1.3).to(fl[0],{opacity:0,duration:.4},1.3)
+   .to(bars[1],{scaleX:1,duration:1},1.3).fromTo(fl[1],{opacity:0,x:30},{opacity:1,x:0,duration:.6},1.6)
+   .to(steps[1],{opacity:0,y:-20,duration:.4},2.5).fromTo(steps[2],{opacity:0,y:30},{opacity:1,y:0,duration:.5},2.7)
+   .to('.stage .phone',{rotate:-2,scale:1.04,duration:.8},2.6).to(fl[1],{opacity:0,duration:.4},2.6)
+   .to(bars[2],{scaleX:1,duration:1},2.6).fromTo(fl[2],{opacity:0,y:30},{opacity:1,y:0,duration:.6},2.9).to({},{duration:.4})}
+function counters(){document.querySelectorAll('[data-count]').forEach(b=>{const n=+b.dataset.count,o={v:0};gsap.to(o,{v:n,duration:1.8,ease:'power2.out',delay:.4,onUpdate:()=>b.textContent=Math.round(o.v)})})}
+function marquees(){if(reduce)return;gsap.to('#mq',{xPercent:-50,duration:60,ease:'none',repeat:-1});
+ const bg=gsap.to('#big',{xPercent:-50,duration:30,ease:'none',repeat:-1});
+ ScrollTrigger.create({trigger:'.contact',start:'top bottom',end:'bottom top',onUpdate:s=>{gsap.to(bg,{timeScale:1+Math.min(4,Math.abs(s.getVelocity()/400)),duration:.2,overwrite:true});gsap.to(bg,{timeScale:1,duration:1,delay:.2})}})}
+function reveals(){gsap.utils.toArray('.sh').forEach(s=>gsap.from(s.children,{y:40,opacity:0,stagger:.1,duration:.9,ease:'power3.out',scrollTrigger:{trigger:s,start:'top 82%'}}));
+ gsap.from('.svc>div',{y:50,opacity:0,stagger:.08,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'.svc',start:'top 82%'}});
+ gsap.from('.others>.other',{y:40,opacity:0,stagger:.1,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.others',start:'top 85%'}})}
+
+function intro(){const lo=document.getElementById('loader');started=true;
+ gsap.timeline()
+  .to(lo,{clipPath:'inset(0 0 100% 0)',duration:reduce?.01:1,ease:'expo.inOut',onComplete:()=>lo.remove()})
+  .from('#h1>span',{y:50,opacity:0,duration:1,stagger:.12,ease:'power4.out'},'-=.4')
+  .from('.hero .lead,.hero .acts,.proof',{y:20,opacity:0,duration:.8,stagger:.1,ease:'power3.out'},'-=.7')
+  .add(counters,'-=.6')
+  .from('#comp .layer',{y:160,opacity:0,rotate:(i)=>[-6,4,8,-4,4][i],duration:1.3,stagger:.1,ease:'expo.out'},'-=1.2')
+  .add(()=>{heroMotion();marquees();motionFeatured();storyMotion();reveals();ScrollTrigger.refresh()},'-=.8')}
+
+/* preloader */
 function loader(done){const c=document.getElementById('lc'),x=c.getContext('2d'),S=520;let fin=false;const end=()=>{if(!fin){fin=true;done()}};setTimeout(end,4000);
  const im=new Image();im.crossOrigin='anonymous';im.src='assets/logo.png';
  im.onload=()=>{try{const o=document.createElement('canvas');o.width=o.height=130;const ox=o.getContext('2d');ox.drawImage(im,0,0,130,130);const d=ox.getImageData(0,0,130,130).data;const tg=[];
@@ -350,22 +493,6 @@ function loader(done){const c=document.getElementById('lc'),x=c.getContext('2d')
   (function f(now){const k=Math.min(1,(now-st)/dur),e=1-Math.pow(1-k,4);x.clearRect(0,0,S,S);
    for(const p of parts){const px=p.x+(p.tx-p.x)*e,py=p.y+(p.ty-p.y)*e;x.fillStyle=`hsla(${248+p.h*20},100%,${78-e*8}%,${.4+e*.6})`;x.fillRect(px,py,4.2,4.2)}
    document.getElementById('lcount').textContent=Math.round(e*100);if(k<1)requestAnimationFrame(f);else setTimeout(end,350)})(st)}catch(err){end()}};im.onerror=end}
-
-/* motion */
-gsap.registerPlugin(ScrollTrigger);
-function intro(){const lo=document.getElementById('loader');
- const h=document.getElementById('h1');h.innerHTML=h.textContent.split(' ').map(w=>`<span style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em"><span style="display:inline-block">${w}</span></span>`).join(' ');
- gsap.timeline()
-  .to(lo,{clipPath:'inset(0 0 100% 0)',duration:reduce?.01:1,ease:'expo.inOut',onComplete:()=>lo.remove()})
-  .from('#h1 span span',{yPercent:105,duration:.9,stagger:.035,ease:'power4.out'},'-=.4')
-  .from('.hero .lead',{opacity:0,duration:.8},'-=.5')
-  .from('.strip .row',{opacity:0,y:40,duration:1,stagger:.1,ease:'power3.out'},'-=.7')
-  .add(strip,'-=.6')}
-function strip(){if(reduce)return;
- const a=gsap.to(r1,{xPercent:-50,duration:70,ease:'none',repeat:-1});
- const b=gsap.fromTo(r2,{xPercent:-50},{xPercent:0,duration:80,ease:'none',repeat:-1});
- ScrollTrigger.create({trigger:'.strip',start:'top bottom',end:'bottom top',onUpdate:s=>{const v=gsap.utils.clamp(-4,4,s.getVelocity()/300);gsap.to([a,b],{timeScale:1+Math.abs(v),duration:.3,overwrite:true});gsap.to([a,b],{timeScale:1,duration:1.2,delay:.3})}})}
-if(innerWidth>860)ScrollTrigger.create({trigger:'#apps .grid',start:'top 30%',end:'bottom 70%',onUpdate:s=>setStep(Math.min(2,Math.floor(s.progress*3)))});
 
 let saved='ar';try{saved=localStorage.getItem('xtv-lang')||'ar'}catch(e){}
 setLang(saved);
