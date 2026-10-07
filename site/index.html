@@ -254,6 +254,7 @@ footer{border-top:1px solid var(--line);padding-block:28px;display:flex;justify-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
+(function boot(){if(!(window.gsap&&window.ScrollTrigger&&window.Lenis))return setTimeout(boot,40);
 const U='https://portfolio.xtechverse.com/wp-content/uploads/2025/10/';
 const P=[
  {ar:'مركز الأهرام للأشعة',en:'Ahram Scan',sAr:'مركز أشعة وتحاليل',sEn:'Radiology & lab center',c:'eg',url:'https://ahramscan.com/',img:'%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9-AHRAM-SCAN-%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D8%A3%D9%87%D8%B1%D8%A7%D9%85-%D9%84%D9%84%D8%A3%D8%B4%D8%B9%D8%A9-%D9%88%D8%A7%D9%84%D8%AA%D8%AD%D8%A7%D9%84%D9%8A%D9%84-10-18-2025_02_29_PM-scaled.webp'},
@@ -391,6 +392,8 @@ setLang(saved);
 counters();contactReveal();
 if(innerWidth>900||true)appStory();
 loader(intro);
+
+})();
 </script>
 </body>
 </html>
