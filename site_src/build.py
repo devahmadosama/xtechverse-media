@@ -200,7 +200,11 @@ def page(L, depth, title, desc, body, path, current="", schema=()):
            f'<a href="{root}services/index.html"{cur("services")}>{t["services"]}</a>'
            f'<a href="{root}contact/index.html"{cur("contact")}>{t["contact"]}</a>'
            f'<a class="btn pri" href="{root}contact/index.html">{t["start"]}</a>'
-           f'<div class="langsw" role="group" aria-label="Language">{ICON["globe"]}{sw}</div></nav></div></header>')
+           f'<div class="langsw" role="group" aria-label="Language">{ICON["globe"]}{sw}</div>'
+           f'<button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><i></i><i></i></button></nav></div>'
+           f'<div class="mnav" id="mnav"><div class="wrap"><a href="{root}index.html"{cur("home")}>{t["home"]}</a><a href="{root}work/index.html"{cur("work")}>{t["work"]}</a>'
+           f'<a href="{root}services/index.html"{cur("services")}>{t["services"]}</a><a href="{root}contact/index.html"{cur("contact")}>{t["contact"]}</a>'
+           f'<div class="acts"><a class="btn pri" href="{root}contact/index.html">{t["start"]}</a><a class="btn alt" href="{WA}" target="_blank" rel="noopener">{ICON["wa"]}<span>{"واتساب" if L=="ar" else "WhatsApp"}</span></a></div></div></div></header>')
     svc_links = "".join(f'<a href="{root}services/{s["slug"]}/index.html">{s[L]["name"]}</a>' for s in SERVICES)
     footer = (f'<footer class="foot" id="contact"><div class="big" aria-hidden="true"><div class="t" id="big">{("<span>"+e(t["big"])+"</span>")*8}</div></div>'
               f'<div class="wrap fcols"><div class="fbrand"><a class="brand" href="{root}index.html"><img src="{assets}logo.png" alt="">X TechVerse</a>'

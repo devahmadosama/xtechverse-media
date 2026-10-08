@@ -7,6 +7,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const desk=matchMedia('(min-width: 901px)').matches;
 
 /* header */
+const bg=$('.burger');if(bg){bg.addEventListener('click',()=>{const o=document.documentElement.classList.toggle('navopen');bg.setAttribute('aria-expanded',o)});document.addEventListener('keydown',ev=>{if(ev.key==='Escape'){document.documentElement.classList.remove('navopen');bg.setAttribute('aria-expanded','false')}})}
 const hdr=$('header.top');const onS=()=>hdr&&hdr.classList.toggle('solid',scrollY>30);addEventListener('scroll',onS,{passive:true});onS();
 
 /* in-page anchors */
