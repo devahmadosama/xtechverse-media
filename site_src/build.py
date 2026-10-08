@@ -8,7 +8,7 @@ OUT = pathlib.Path(__file__).resolve().parent.parent / "site"
 V = hashlib.md5(((OUT/"assets/site.js").read_bytes()+(OUT/"assets/site.css").read_bytes())).hexdigest()[:8]
 WA = "https://wa.me/201039253652"
 # ---- tracking: paste the IDs here, rebuild, upload ----
-GA_ID = ""        # Google Analytics 4, e.g. "G-XXXXXXXXXX"
+GA_ID = "G-2KWMS1GKSV"        # Google Analytics 4, e.g. "G-XXXXXXXXXX"
 GSC = ""          # Search Console HTML-tag verification content, e.g. "abc123..."
 PIXEL = ""        # Meta (Facebook) Pixel ID, e.g. "1234567890"
 CLARITY = ""      # Microsoft Clarity project ID (heatmaps + recordings), optional
